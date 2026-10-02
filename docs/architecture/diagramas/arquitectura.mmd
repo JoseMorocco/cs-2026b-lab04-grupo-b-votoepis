@@ -1,0 +1,52 @@
+flowchart TB
+    EST([Estudiante votante])
+    COM([Comité electoral])
+    AUD([Auditor])
+
+    subgraph PRES["Capa de presentación (aplicación web)"]
+        UI_VOTO["Interfaz de votación"]
+        UI_ADMIN["Panel del comité electoral"]
+        UI_PUB["Portal público de resultados y acta"]
+    end
+
+    subgraph LOG["Capa de lógica de negocio (un solo despliegue)"]
+        AUTH["Módulo de acceso y habilitación<br/>RF-02"]
+        PADRON["Módulo de padrón electoral<br/>RF-01"]
+        VOTO["Módulo de votación<br/>RF-03"]
+        CONTEO["Módulo de conteo automático<br/>RF-04"]
+        RESUL["Módulo de resultados<br/>RF-05"]
+        ACTA["Módulo de acta electoral<br/>RF-06"]
+    end
+
+    subgraph DATOS["Capa de datos"]
+        DB[("PostgreSQL<br/>padrón, participación, votos,<br/>resultados y actas")]
+    end
+
+    SMTP[["Servicio de correo institucional<br/>(servicio externo)"]]
+
+    EST -->|vota| UI_VOTO
+    COM -->|administra| UI_ADMIN
+    AUD -->|verifica| UI_PUB
+    EST -->|consulta resultados| UI_PUB
+
+    UI_VOTO --> AUTH
+    UI_VOTO --> VOTO
+    UI_ADMIN --> PADRON
+    UI_ADMIN --> CONTEO
+    UI_ADMIN --> ACTA
+    UI_PUB --> RESUL
+    UI_PUB --> ACTA
+
+    VOTO -->|verifica habilitación| AUTH
+    CONTEO -->|lee votos válidos| VOTO
+    RESUL -->|usa totales| CONTEO
+    ACTA -->|usa resultados| RESUL
+
+    AUTH --> DB
+    PADRON --> DB
+    VOTO --> DB
+    CONTEO --> DB
+    RESUL --> DB
+    ACTA --> DB
+
+    AUTH -.->|envía código de acceso| SMTP
