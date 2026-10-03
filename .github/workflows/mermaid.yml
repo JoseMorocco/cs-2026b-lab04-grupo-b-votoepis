@@ -30,6 +30,8 @@ jobs:
         shell: bash
         run: |
           set -e
+          
+          echo '{"args": ["--no-sandbox"]}' > puppeteer-config.json
 
           find . -type f -name "*.mmd" \
             -not -path "./node_modules/*" \
@@ -40,6 +42,7 @@ jobs:
             echo "Generando: $output"
 
             mmdc \
+              -p puppeteer-config.json \
               -i "$file" \
               -o "$output" \
               -b transparent
