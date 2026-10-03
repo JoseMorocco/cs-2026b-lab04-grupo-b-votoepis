@@ -33,7 +33,9 @@ Los puntajes (escala 1 a 5) fueron asignados por el equipo tras la evaluación c
 **Alternativa seleccionada: Alternativa A (Monolito en capas)**
 
 **Justificación:**
-Aunque la arquitectura hexagonal (Alternativa B) ofrece ventajas teóricas en mantenibilidad y auditoría profunda, el **Monolito en capas** es la opción técnica más viable. Es la única que garantiza el cumplimiento estricto del plazo de un mes para el MVP (R-01) y minimiza la complejidad operativa para el equipo de tres personas (R-02), logrando un balance sólido y suficiente para cumplir con la seguridad del proceso electoral (QA-01).
+Aunque la arquitectura hexagonal (Alternativa B) ofrece ventajas teóricas en mantenibilidad y auditoría profunda, el Monolito en capas es la opción técnica más viable. Es la única que garantiza el cumplimiento estricto del plazo de un mes para el MVP (R-01) y minimiza la complejidad operativa para el equipo de tres personas (R-02), logrando un balance sólido y suficiente para cumplir con la seguridad del proceso electoral (QA-01).
+
+Ver [ADR-001: Estilo arquitectónico](adr/001-estilo-arquitectonico.md).
 
 
 

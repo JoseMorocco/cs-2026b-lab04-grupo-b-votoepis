@@ -74,4 +74,8 @@ flowchart TB
 * [ADR-003: Auditoría y seguridad](docs/architecture/adr/003-auditoria-seguridad.md)
 
 ## Reflexión sobre el uso de la IA
-El uso de asistentes de inteligencia artificial fue fundamental para generar rápidamente el código de los diagramas (PlantUML, Python y Mermaid) y esbozar alternativas iniciales. Sin embargo, notamos un claro límite: la IA suele estar sesgada hacia la sobreingeniería (como microservicios o Serverless), ignorando inicialmente nuestras restricciones de presupuesto y el plazo máximo de 1 mes. Aplicar la "crítica adversarial" fue clave para no aceptar sus propuestas a ciegas y adaptar la arquitectura (Monolito en capas) a la realidad y capacidad de nuestro equipo de tres personas.
+El uso de herramientas de IA demostró ser un recurso sumamente valioso para la fase de exploración.
+Sin embargo, su uso exige un alto nivel de pensamiento crítico por parte del equipo para evitar sesgos.
+La IA tiende a sugerir patrones de diseño avanzados que pueden introducir sobreingeniería en el MVP.
+Si estas sugerencias se aceptan sin verificación, ponen en riesgo las restricciones reales del proyecto.
+Por ello, la decisión final siempre debe recaer en el juicio humano apoyado en la matriz de decisión.
