@@ -1,0 +1,132 @@
+@startuml clases-votoepis
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classBackgroundColor #EEF2F8
+skinparam classBorderColor #1A3A5C
+skinparam linetype ortho
+title VotoEPIS - Módulo de Votación
+
+enum EstadoEleccion {
+  CONFIGURADA
+  ABIERTA
+  CERRADA
+  ESCRUTADA
+  PUBLICADA
+}
+
+class Estudiante {
+  - id: UUID
+  - codigo: String
+  - correoInstitucional: String
+  + obtenerCorreoInstitucional(): String
+}
+
+class Eleccion {
+  - id: UUID
+  - titulo: String
+  - estado: EstadoEleccion
+  + verificarEstado(): EstadoEleccion
+  + abrir(): void
+  + cerrar(): void
+  + iniciarEscrutinio(): void
+  + publicarResultados(): void
+}
+
+class Candidato {
+  - id: UUID
+  - nombre: String
+  - agrupacion: String
+}
+
+class Participacion {
+  - id: UUID
+  - fechaHora: DateTime
+  + crear(estudianteId: UUID, eleccionId: UUID): Participacion
+}
+
+class Voto {
+  - id: UUID
+  - fechaHora: DateTime
+  + crear(candidatoId: UUID, eleccionId: UUID): Voto
+}
+
+class EventoSeguridad {
+  - id: UUID
+  - fechaHora: DateTime
+  - tipo: String
+  - detalle: String
+  + crearIntentoDuplicado(estudianteId: UUID, eleccionId: UUID): EventoSeguridad
+}
+
+class VotacionController <<controlador>> {
+  + registrarVoto(estudianteId: UUID, eleccionId: UUID, candidatoId: UUID): bool
+}
+
+class ServicioVotacion <<servicio>> {
+  + emitirVoto(estudianteId: UUID, eleccionId: UUID, candidatoId: UUID): bool
+}
+
+interface EleccionRepositorio <<puerto>> {
+  + buscarPorId(eleccionId: UUID): Eleccion
+}
+
+interface PadronPort <<puerto>> {
+  + estaHabilitado(estudianteId: UUID, eleccionId: UUID): bool
+}
+
+interface EstudianteRepositorio <<puerto>> {
+  + buscarPorId(estudianteId: UUID): Estudiante
+}
+
+interface CandidatoRepositorio <<puerto>> {
+  + perteneceAEleccion(candidatoId: UUID, eleccionId: UUID): bool
+}
+
+interface ParticipacionRepositorio <<puerto>> {
+  + existe(estudianteId: UUID, eleccionId: UUID): bool
+  + guardar(participacion: Participacion): void
+}
+
+interface VotoRepositorio <<puerto>> {
+  + guardar(voto: Voto): void
+}
+
+interface EventoSeguridadRepositorio <<puerto>> {
+  + guardar(evento: EventoSeguridad): void
+}
+
+interface CorreoPort <<puerto>> {
+  + enviarConfirmacion(correoInstitucional: String): void
+}
+
+class CorreoInstitucionalAdapter <<adaptador>> {
+  + enviarConfirmacion(correoInstitucional: String): void
+}
+
+Eleccion "1" o-- "1..*" Candidato : agrupa
+Eleccion "1" -- "0..*" Participacion : registra
+Estudiante "1" -- "0..*" Participacion : genera
+Eleccion "1" -- "0..*" Voto : recibe
+Candidato "1" -- "0..*" Voto : es elegido en
+Eleccion --> EstadoEleccion
+
+VotacionController ..> ServicioVotacion : delega
+ServicioVotacion ..> EleccionRepositorio : consulta
+ServicioVotacion ..> PadronPort : valida habilitación
+ServicioVotacion ..> EstudianteRepositorio : consulta correo
+ServicioVotacion ..> CandidatoRepositorio : valida candidato
+ServicioVotacion ..> ParticipacionRepositorio : consulta y guarda
+ServicioVotacion ..> VotoRepositorio : guarda
+ServicioVotacion ..> EventoSeguridad : crea evento
+ServicioVotacion ..> EventoSeguridadRepositorio : registra
+ServicioVotacion ..> CorreoPort : notifica
+CorreoPort <|.. CorreoInstitucionalAdapter
+
+note right of Voto
+  ADR-002: el voto no almacena
+  la identidad del estudiante ni
+  se relaciona con Participacion.
+end note
+
+@enduml
