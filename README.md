@@ -79,3 +79,25 @@ Sin embargo, su uso exige un alto nivel de pensamiento crítico por parte del eq
 La IA tiende a sugerir patrones de diseño avanzados que pueden introducir sobreingeniería en el MVP.
 Si estas sugerencias se aceptan sin verificación, ponen en riesgo las restricciones reales del proyecto.
 Por ello, la decisión final siempre debe recaer en el juicio humano apoyado en la matriz de decisión.
+
+## Diseño UML (Lab 05)
+
+### Diagrama de Máquina de Estados (Elección)
+```mermaid
+stateDiagram-v2
+    [*] --> CONFIGURADA: crear()
+    CONFIGURADA --> ABIERTA: abrir()
+    ABIERTA --> CERRADA: cerrar()
+    CERRADA --> ESCRUTADA: iniciarEscrutinio()
+    ESCRUTADA --> PUBLICADA: publicarResultados()
+    PUBLICADA --> [*]
+```
+
+### Enlaces a diagramas y documentación
+*   [Diagrama de Clases (PlantUML)](docs/design/clases.puml)
+*   [Diagrama de Secuencia - Emitir Voto (PlantUML)](docs/design/secuencia-emitir-voto.puml)
+*   [Diagrama de Actividades - Escrutinio (PlantUML)](docs/design/actividades-escrutinio.puml)
+*   [Diagrama de Paquetes (PlantUML)](docs/design/paquetes.puml)
+*   [Ingeniería Round-Trip: Diagrama vs. Código](docs/design/round-trip.md)
+*   [Auditoría de Consistencia (Reglas C1-C5)](docs/design/consistencia.md)
+*   [Bitácora de IA (Lab 05)](docs/design/bitacora-ia.md)
