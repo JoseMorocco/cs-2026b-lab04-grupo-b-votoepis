@@ -1,0 +1,42 @@
+@startuml
+title VotoEPIS - Escrutinio y firma del acta
+
+|Comité electoral|
+start
+:Solicitar inicio de escrutinio;
+
+|Sistema VotoEPIS|
+:Verificar estado de la elección;
+if (¿Elección en estado CERRADA?) then (no)
+  :Rechazar solicitud;
+  |Comité electoral|
+  :Recibir aviso de que la elección no está cerrada;
+  stop
+endif
+
+|Sistema VotoEPIS|
+:iniciarEscrutinio();
+fork
+  :Contar votos por candidato;
+fork again
+  :Contar participaciones registradas;
+end fork
+:Comparar total de votos con total de participaciones;
+
+if (¿Los totales coinciden?) then (sí)
+  :Generar acta con los resultados;
+  |Comité electoral|
+  :Revisar y firmar el acta;
+  |Auditor|
+  :Verificar acta y resultados;
+  |Sistema VotoEPIS|
+  :publicarResultados();
+  :Publicar acta firmada;
+  stop
+else (no)
+  :Registrar EventoSeguridad por inconsistencia;
+  |Auditor|
+  :Investigar la discrepancia;
+  stop
+endif
+@enduml
