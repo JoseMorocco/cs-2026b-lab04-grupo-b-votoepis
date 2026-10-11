@@ -1,0 +1,27 @@
+@startuml paquetes
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageStyle rectangle
+title VotoEPIS — Paquetes del monolito modular (vista de desarrollo)
+
+package "votoepis" {
+    package "acceso" as ACC
+    package "padron" as PAD
+    package "votacion" as VOT
+    package "auditoria" as AUD
+    package "compartido" as COM
+}
+
+VOT ..> PAD : verifica habilitación\n(usa PadronPort)
+VOT ..> AUD : registra intentos duplicados
+VOT ..> COM : usa
+PAD ..> COM
+AUD ..> COM
+ACC ..> COM
+
+note bottom of VOT
+  Regla C4 (ADR-001): sin dependencias cíclicas.
+  El paquete de auditoria NO depende de votacion,
+  evitando ciclos en el monolito.
+end note
+@enduml
