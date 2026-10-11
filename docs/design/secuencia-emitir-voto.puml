@@ -1,0 +1,80 @@
+@startuml secuencia-emitir-voto
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+title VotoEPIS - Secuencia para emitir un voto secreto
+
+actor Estudiante as U
+participant InterfazWeb as UI
+participant "VotacionController" as C
+participant "ServicioVotacion" as S
+participant "EleccionRepositorio" as ER
+participant "Eleccion" as E
+participant "PadronPort" as PP
+participant "EstudianteRepositorio" as ERS
+participant "CandidatoRepositorio" as CR
+participant "ParticipacionRepositorio" as PR
+participant "VotoRepositorio" as VR
+participant "EventoSeguridad" as ES
+participant "EventoSeguridadRepositorio" as ESR
+participant "Estudiante" as EST
+participant "CorreoPort" as CP
+
+U -> UI: Selecciona candidato y confirma
+UI -> C: registrarVoto(estudianteId, eleccionId, candidatoId)
+C -> S: emitirVoto(estudianteId, eleccionId, candidatoId)
+S -> ER: buscarPorId(eleccionId)
+ER --> S: eleccion
+S -> E: verificarEstado()
+E --> S: estado
+S -> PP: estaHabilitado(estudianteId, eleccionId)
+PP --> S: habilitado
+S -> CR: perteneceAEleccion(candidatoId, eleccionId)
+CR --> S: candidatoValido
+
+alt Elección abierta, estudiante habilitado y candidato válido
+  S -> PR: existe(estudianteId, eleccionId)
+  PR --> S: existeParticipacion
+
+  alt No existe participación previa
+    note over S,VR
+      El guardado de Participacion y Voto se ejecuta
+      dentro de una única transacción de base de datos.
+      Si falla una operación, se revierte la transacción.
+    end note
+    create participant "Participacion" as P
+    S -> P: crear(estudianteId, eleccionId)
+    P --> S: participacion
+    S -> PR: guardar(participacion)
+
+    create participant "Voto" as V
+    S -> V: crear(candidatoId, eleccionId)
+    V --> S: voto
+    S -> VR: guardar(voto)
+
+    S -> ERS: buscarPorId(estudianteId)
+    ERS --> S: estudiante
+    S -> EST: obtenerCorreoInstitucional()
+    EST --> S: correoInstitucional
+    opt Correo institucional disponible
+      S ->> CP: enviarConfirmacion(correoInstitucional)
+    end
+    S --> C: true
+    C --> UI: 200 OK
+  else Ya existe participación
+    create participant "EventoSeguridad" as EV
+    S -> EV: crearIntentoDuplicado(estudianteId, eleccionId)
+    EV --> S: evento
+    S -> ESR: guardar(evento)
+    ESR --> S: registrado
+    S --> C: false
+    C --> UI: 409 Conflict
+  end
+else Elección cerrada, estudiante no habilitado o candidato inválido
+  S --> C: false
+  C --> UI: 400 Solicitud rechazada
+end
+
+UI --> U: Muestra el resultado
+@enduml
