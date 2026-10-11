@@ -1,38 +1,103 @@
-# Bitácora de uso de IA — VotoEPIS (Lab 05)
+# VotoEPIS - Laboratorio 04: Fundamentos de arquitectura de software
+Construcción de Software EPIS-UNSA
 
-| # | Fecha | Herramienta | Prompt (resumen) | Propuesta obtenida | Verificación o corrección | Decisión |
-|---|---|---|---|---|---|---|
-| 1 | 11/10/2026 | Claude | Prompt IA 1: Proponer diagrama de clases PlantUML para el flujo de voto secreto respetando el ADR-002. | Generó el esqueleto de clases con atributos, multiplicidades y el enum de EstadoEleccion. | Se verificó que Voto no almacenara la identidad del estudiante y que se incluyeran correctamente las interfaces de los puertos. | Aceptada |
-| 2 | 11/10/2026 | Claude | Prompt IA 2: Generar diagrama de secuencia UML para 'Emitir voto' garantizando la regla C1. | Diagrama de secuencia con líneas de vida para el controlador, servicio y repositorios. | Se validó que las interacciones del flujo correspondieran con las operaciones definidas en las interfaces de los puertos. | Aceptada |
-| 3 | 11/10/2026 | Claude | Prompt IA 3: Auditar el diagrama de secuencia contra el de clases verificando estrictamente la regla C1. | Presentó una tabla validando que cada mensaje correspondía a una operación declarada en la clase receptora. | Se confirmó mediante auditoría cruzada que no se inventaron responsabilidades nuevas durante el flujo dinámico. | Corregida |
-| 4 | 11/10/2026 | Gemini | Prompt IA 4: Generar máquina de estados en Mermaid para la entidad Eleccion (E3). | Estados genéricos ignorando la enumeración del diagrama de clases. | Se corrigió el código para usar estrictamente la enumeración EstadoEleccion (CONFIGURADA, ABIERTA, CERRADA...). | Corregida |
-| 5 | 11/10/2026 | Gemini | Prompt IA 5: Generar diagrama de actividades PlantUML para el Escrutinio y firma del acta con particiones (E4). | Flujo de actividades correcto pero con las particiones (swimlanes) desordenadas. | Se ajustaron las particiones para separar claramente las acciones del Comité Electoral y el Sistema. | Corregida |
-| 6 | 11/10/2026 | Gemini | Prompt IA 6: Generar el diagrama de paquetes PlantUML respetando los módulos del ADR-001 (E5). | Propuso un diagrama con dependencias cíclicas (bidireccionales) entre el paquete de auditoría y votación. | Se rechazó por violar la Regla C4 del ADR-001. Se corrigió manualmente forzando flechas unidireccionales y agregando la nota de validación. | Corregida |
-| 7 | 11/10/2026 | Gemini | Prompt IA 7: Generar el esqueleto de código Python (dataclasses) para VotoEPIS basado en clases.puml (E6). | Generó el código pero omitió el módulo ABC para las interfaces e intentó usar variables globales sin tipado estricto. | Se le exigió corregir el código para heredar de la clase abstracta `ABC` y usar anotaciones de tipo estrictas (Type Hints). | Corregida |
-| 8 | 11/10/2026 | Claude | Prompt IA 8: Evaluar las reglas C1–C5 sobre los cinco diagramas del diseño. | Identificó posibles errores de consistencia en nombres y supuestos ciclos en las dependencias de paquetes. | Se evaluó cada hallazgo de la IA. Se documentó un falso positivo detectado en el diagrama de paquetes, ya que la herramienta interpretó incorrectamente una flecha. | Aceptada |
+## Integrantes
+2026-B Grupo B
+| Nombre | Rol en el laboratorio |
+|---|---|
+| Morocco Saico Jose Manuel | Analista de Drivers (E1) y Matriz (E2) |
+| Luque Guevara Fernando Gerson | Redactor de ADRs (E4) y Diagramador Mermaid (E3) |
+| Hilacondo Begazo Emanuel David | Diagramador PlantUML/Python (E5, E6) |
 
-## Anexo: prompts para ejecutar
+## Caso
+VotoEPIS es un sistema para la elección digital de delegados estudiantiles de la EPIS. Permite gestionar el padrón, emitir votos y publicar resultados auditables. El atributo de calidad crítico es la **Seguridad e integridad (QA-01)**, el cual asegura que el sistema protege el voto, evita alteraciones y rechaza intentos duplicados.
 
-### Prompt IA 1 — Diagrama de clases
-Actúa como diseñador de software orientado a objetos. Contexto: VotoEPIS, monolito en capas definido en el Laboratorio 04. Revisa `docs/design/historia.md` y los ADR existentes. Propón un diagrama de clases PlantUML para el flujo «Emitir un voto secreto». Debe incluir al menos seis clases, atributos tipados con visibilidad, operaciones, multiplicidades en ambos extremos de las asociaciones, una enumeración para el estado de Eleccion y una interfaz para el servicio externo de correo institucional, siempre que este comportamiento esté justificado por la historia. Mantén separadas Participacion y Voto; Voto no debe almacenar la identidad del estudiante ni relacionarse con Participacion. No agregues clases sin justificación. Devuelve solo el código PlantUML y una lista breve de supuestos.
+## Arquitectura elegida
+```mermaid
+flowchart TB
+    EST([Estudiante votante])
+    COM([Comité electoral])
+    AUD([Auditor])
 
-### Prompt IA 2 — Generación de Secuencia
-A partir de la historia de usuario HU-01 y del diseño de clases de VotoEPIS provisto, genera un diagrama de secuencia PlantUML para el flujo 'Emitir voto'. Debe incluir participantes para el controlador, el servicio y los puertos/repositorios (ej. PadronPort, ParticipacionRepositorio). Incluye mensajes de retorno, un bloque 'alt' para el manejo de la transacción exitosa vs. rechazo por duplicidad, un bloque 'opt' para el envío del correo, y un mensaje asíncrono ->> para la notificación. Es imperativo cumplir la regla C1: cada mensaje dirigido a un participante debe existir como operación en su respectiva clase.
+    subgraph PRES["Capa de presentación (aplicación web)"]
+        UI_VOTO["Interfaz de votación"]
+        UI_ADMIN["Panel del comité electoral"]
+        UI_PUB["Portal público de resultados y acta"]
+    end
 
-### Prompt IA 3 — Auditoría Secuencia y C1
-Actúa como revisor UML. Compara `docs/design/secuencia-emitir-voto.puml` con `docs/design/clases.puml`. Verifica C1: cada mensaje dirigido a un objeto debe corresponder a una operación declarada en la clase receptora. Revisa también `alt`, `loop` u `opt`, los mensajes de retorno y el mensaje asíncrono. No inventes operaciones sin justificarlas. Devuelve una tabla con mensaje, clase receptora, operación existente y corrección sugerida.
+    subgraph LOG["Capa de lógica de negocio (un solo despliegue)"]
+        AUTH["Módulo de acceso y habilitación<br/>RF-02"]
+        PADRON["Módulo de padrón electoral<br/>RF-01"]
+        VOTO["Módulo de votación<br/>RF-03"]
+        CONTEO["Módulo de conteo automático<br/>RF-04"]
+        RESUL["Módulo de resultados<br/>RF-05"]
+        ACTA["Módulo de acta electoral<br/>RF-06"]
+    end
 
-### Prompt IA 4 — Máquina de estados
-Actúa como diseñador de software orientado a objetos. Contexto: VotoEPIS, monolito en capas definido en el Laboratorio 04. Entidad: Eleccion, con la enumeración EstadoEleccion (CONFIGURADA, ABIERTA, CERRADA, ESCRUTADA, PUBLICADA) y las operaciones declaradas en `docs/design/clases.puml`: verificarEstado(), abrir(), cerrar(), iniciarEscrutinio() y publicarResultados(). Propón una máquina de estados en Mermaid (stateDiagram-v2) con cinco o más estados, el estado inicial [*], al menos un estado final y dos o más guardas entre corchetes. Nombra cada transición con la operación de la clase que la provoca (C2). No agregues estados que no estén en la enumeración. Devuelve solo el código Mermaid y una lista breve de supuestos.
+    subgraph DATOS["Capa de datos"]
+        DB[("PostgreSQL<br/>padrón, participación, votos,<br/>resultados y actas")]
+    end
 
-### Prompt IA 5 — Diagrama de actividades
-Actúa como analista de procesos de software. Contexto: VotoEPIS, historia HU-01 y ADR-001, ADR-002 y ADR-003 del proyecto. Modela en PlantUML con particiones (|Partición|) el proceso «Escrutinio y firma del acta». Debe incluir tres o más particiones (Comité electoral, Sistema VotoEPIS, Auditor), dos o más decisiones (if / else) y una ejecución paralela (fork / end fork). El flujo debe ser coherente con la máquina de estados de Eleccion: la publicación de resultados solo ocurre con el acta firmada. El conteo no debe relacionar Participacion con Voto. No agregues pasos fuera del alcance del MVP. Devuelve solo el código PlantUML y una lista breve de supuestos.
+    SMTP[["Servicio de correo institucional<br/>(servicio externo)"]]
 
-### Prompt IA 6 — Diagrama de Paquetes
-Actúa como arquitecto de software y genera el código PlantUML para el diagrama de paquetes de VotoEPIS. Debes incluir los paquetes: acceso, padron, votacion, auditoria y compartido, según nuestro ADR-001 (Monolito modular). Etiqueta las dependencias con el puerto que se usa y asegúrate absolutamente de cumplir la Regla C4: no pueden existir dependencias cíclicas. El paquete de auditoría NO debe depender del de votación. Incluye una nota explicativa en el diagrama confirmando esta regla.
+    EST -->|vota| UI_VOTO
+    COM -->|administra| UI_ADMIN
+    AUD -->|verifica| UI_PUB
+    EST -->|consulta resultados| UI_PUB
 
-### Prompt IA 7 — Ingeniería Directa (Python)
-Actúa como desarrollador Python senior. Genera el esqueleto en Python 3.10 usando `dataclasses` y `type hints` basándote en el diagrama `clases.puml` de VotoEPIS. Respeta exactamente los nombres de las clases, atributos y métodos, convirtiéndolos a `snake_case` según PEP 8. Las interfaces (como los puertos de los repositorios y CorreoPort) deben implementarse estrictamente heredando de la clase abstracta `ABC`.
+    UI_VOTO --> AUTH
+    UI_VOTO --> VOTO
+    UI_ADMIN --> PADRON
+    UI_ADMIN --> CONTEO
+    UI_ADMIN --> ACTA
+    UI_PUB --> RESUL
+    UI_PUB --> ACTA
 
-### Prompt IA 8 — Auditoría general C1–C5
-Actúa como revisor de diseño. Revisa los cinco diagramas de `docs/design/`: clases, secuencia, estados, actividades y paquetes. Evalúa C1–C5: operaciones de los mensajes, operaciones/eventos de las transiciones, multiplicidades, dependencias sin ciclos coherentes con ADR-001 y nombres consistentes. Para cada hallazgo indica archivo y elemento, problema, regla, corrección sugerida y nivel de certeza. No reescribas los diagramas. El equipo verificará cada hallazgo y registrará explícitamente cualquier falso positivo confirmado.
+    VOTO -->|verifica habilitación| AUTH
+    CONTEO -->|lee votos válidos| VOTO
+    RESUL -->|usa totales| CONTEO
+    ACTA -->|usa resultados| RESUL
+
+    AUTH --> DB
+    PADRON --> DB
+    VOTO --> DB
+    CONTEO --> DB
+    RESUL --> DB
+    ACTA --> DB
+
+    AUTH -.->|envía código de acceso| SMTP
+```
+
+## Decisiones arquitectónicas
+* [ADR-001: Estilo arquitectónico](docs/architecture/adr/001-estilo-arquitectonico.md)
+* [ADR-002: Base de datos](docs/architecture/adr/002-base-de-datos.md)
+* [ADR-003: Auditoría y seguridad](docs/architecture/adr/003-auditoria-seguridad.md)
+
+## Reflexión sobre el uso de la IA
+El uso de herramientas de IA demostró ser un recurso sumamente valioso para la fase de exploración.
+Sin embargo, su uso exige un alto nivel de pensamiento crítico por parte del equipo para evitar sesgos.
+La IA tiende a sugerir patrones de diseño avanzados que pueden introducir sobreingeniería en el MVP.
+Si estas sugerencias se aceptan sin verificación, ponen en riesgo las restricciones reales del proyecto.
+Por ello, la decisión final siempre debe recaer en el juicio humano apoyado en la matriz de decisión.
+
+## Diseño UML (Lab 05)
+
+### Diagrama de Máquina de Estados (Elección)
+```mermaid
+stateDiagram-v2
+    [*] --> CONFIGURADA: crear()
+    CONFIGURADA --> ABIERTA: abrir()
+    ABIERTA --> CERRADA: cerrar()
+    CERRADA --> ESCRUTADA: iniciarEscrutinio()
+    ESCRUTADA --> PUBLICADA: publicarResultados()
+    PUBLICADA --> [*]
+```
+
+### Enlaces a diagramas y documentación
+*   [Diagrama de Clases (PlantUML)](docs/design/clases.puml)
+*   [Diagrama de Secuencia - Emitir Voto (PlantUML)](docs/design/secuencia-emitir-voto.puml)
+*   [Diagrama de Actividades - Escrutinio (PlantUML)](docs/design/actividades-escrutinio.puml)
+*   [Diagrama de Paquetes (PlantUML)](docs/design/paquetes.puml)
+*   [Ingeniería Round-Trip: Diagrama vs. Código](docs/design/round-trip.md)
+*   [Auditoría de Consistencia (Reglas C1-C5)](docs/design/consistencia.md)
+*   [Bitácora de IA (Lab 05)](docs/design/bitacora-ia.md)
