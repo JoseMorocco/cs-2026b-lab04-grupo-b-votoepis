@@ -1,0 +1,8 @@
+stateDiagram-v2
+    direction LR
+    [*] --> CONFIGURADA
+    CONFIGURADA --> ABIERTA : abrir() [padrón cargado y candidatos registrados]
+    ABIERTA --> CERRADA : cerrar() [fecha de cierre alcanzada o cierre manual del comité]
+    CERRADA --> ESCRUTADA : iniciarEscrutinio() [elección cerrada y comité autorizado]
+    ESCRUTADA --> PUBLICADA : publicarResultados() [acta firmada y totales verificados]
+    PUBLICADA --> [*]
