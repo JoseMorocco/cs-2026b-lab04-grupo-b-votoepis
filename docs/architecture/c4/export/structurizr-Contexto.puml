@@ -1,0 +1,32 @@
+@startuml
+title <size:24>System Context View: VotoEPIS</size>\n<size:24>Nivel 1: VotoEPIS, sus usuarios y sistemas externos.</size>
+
+set separator none
+left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+
+Person(Estudiantevotante, "Estudiante votante", $descr="Consulta su habilitación, emite su voto y revisa los resultados.", $tags="", $link="")
+Person(Comitéelectoral, "Comité electoral", $descr="Gestiona el padrón, administra las elecciones y publica resultados y actas.", $tags="", $link="")
+Person(Auditor, "Auditor", $descr="Revisa los resultados y verifica el acta electoral.", $tags="", $link="")
+System(VotoEPIS, "VotoEPIS", $descr="Plataforma para realizar elecciones estudiantiles y publicar resultados verificables.", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.", $tags="", $link="")
+
+Rel(VotoEPIS, Serviciodecorreoinstitucional, "Envía confirmaciones y avisos por correo institucional", $techn="", $tags="", $link="")
+Rel(VotoEPIS, SistemaacadémicoUNSA, "Consulta datos de habilitación (integración propuesta)", $techn="", $tags="", $link="")
+Rel(Estudiantevotante, VotoEPIS, "Consulta su habilitación, emite su voto y revisa resultados", $techn="", $tags="", $link="")
+Rel(Comitéelectoral, VotoEPIS, "Gestiona el padrón y las elecciones; publica resultados y actas", $techn="", $tags="", $link="")
+Rel(Auditor, VotoEPIS, "Consulta el acta y verifica los resultados", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml
