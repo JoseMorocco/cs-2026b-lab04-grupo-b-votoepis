@@ -1,0 +1,48 @@
+@startuml
+title <size:24>Component View: VotoEPIS - Aplicación VotoEPIS</size>\n<size:24>Nivel 3: componentes internos de la Aplicación VotoEPIS y sus dependencias.</size>
+
+set separator none
+left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
+  Container_Boundary("VotoEPIS.AplicaciónVotoEPIS_boundary", "Aplicación VotoEPIS", $tags="") {
+    Component(VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Auditoría", $techn="Módulo interno", $descr="Registra eventos de seguridad y operaciones relevantes del proceso electoral.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Compartido, "Compartido", $techn="Módulo interno", $descr="Proporciona elementos comunes utilizados por los otros módulos.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Acceso, "Acceso", $techn="Módulo interno", $descr="Gestiona el acceso de los usuarios al sistema electoral.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Padrón, "Padrón", $techn="Módulo interno", $descr="Consulta el padrón y verifica la habilitación de los estudiantes.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno", $descr="Valida las condiciones de emisión y registra los votos.", $tags="", $link="")
+  }
+
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
+  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
+}
+
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Acceso, "Solicita operaciones de acceso", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Votación, "Solicita la emisión de votos", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Padrón, "Solicita consultas y gestión del padrón", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Solicita consultas de auditoría", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Padrón, "Verifica la habilitación electoral", $techn="PadronPort", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Registra intentos duplicados", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Auditoría, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Acceso, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "Registra votos y participaciones", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.Basededatos, "Consulta información del padrón", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Auditoría, VotoEPIS.Basededatos, "Registra eventos de seguridad", $techn="SQL", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml
