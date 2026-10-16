@@ -21,11 +21,11 @@ System(VotoEPIS, "VotoEPIS", $descr="Plataforma para realizar elecciones estudia
 System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
 System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.", $tags="", $link="")
 
-Rel(VotoEPIS, Serviciodecorreoinstitucional, "Envía confirmaciones y avisos por correo institucional", $techn="", $tags="", $link="")
-Rel(VotoEPIS, SistemaacadémicoUNSA, "Consulta datos de habilitación (integración propuesta)", $techn="", $tags="", $link="")
 Rel(Estudiantevotante, VotoEPIS, "Consulta su habilitación, emite su voto y revisa resultados", $techn="", $tags="", $link="")
 Rel(Comitéelectoral, VotoEPIS, "Gestiona el padrón y las elecciones; publica resultados y actas", $techn="", $tags="", $link="")
 Rel(Auditor, VotoEPIS, "Consulta el acta y verifica los resultados", $techn="", $tags="", $link="")
+Rel(VotoEPIS, Serviciodecorreoinstitucional, "Envía confirmaciones y avisos por correo institucional", $techn="", $tags="", $link="")
+Rel(VotoEPIS, SistemaacadémicoUNSA, "Consulta datos de habilitación (integración propuesta)", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes
