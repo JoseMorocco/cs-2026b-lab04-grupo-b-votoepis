@@ -1,7 +1,7 @@
 # Comparación de Vistas y Herramientas — VotoEPIS (Lab 06)
 
 ## 1. Vista Dinámica C4 vs. Diagrama de Secuencia UML (E4)
-El diagrama de secuencia UML (Lab 05) detalla interacciones a nivel de código: incluye métodos exactos con parámetros (`emitirVoto(estudianteId, eleccionId, candidatoId)`), fragmentos de control (`alt`, `opt`), creación de instancias (`Participacion`, `Voto`, `EventoSeguridad`), mensajes de retorno y límites transaccionales. En cambio, la vista dinámica C4 omite la lógica interna de clases y resume la colaboración a nivel de componentes y contenedores en pasos numerados de alto nivel. Por ello, la secuencia UML sirve a los desarrolladores que implementan el código, mientras que la vista dinámica C4 está dirigida a arquitectos y líderes técnicos para validar rápidamente el flujo arquitectónico sin saturarse de detalles de implementación.
+La secuencia UML muestra métodos con parámetros (emitirVoto(estudianteId, eleccionId, candidatoId)), fragmentos alt/opt, creación de objetos (Participacion, Voto, EventoSeguridad), retornos y el límite transaccional. La vista dinámica C4 omite todo eso y resume la colaboración en cinco pasos entre contenedores y componentes. La secuencia sirve a los desarrolladores que implementan el código. La vista dinámica sirve a arquitectos y líderes técnicos que validan el flujo sin detalles de implementación.
 
 ## 2. Modelado (Structurizr DSL) vs. Diagramación Manual (C4-PlantUML) (E6)
 
