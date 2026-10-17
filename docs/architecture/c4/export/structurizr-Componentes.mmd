@@ -1,0 +1,49 @@
+graph LR
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Component View: VotoEPIS - Aplicación VotoEPIS"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    13["<div style='font-weight: bold'>Servicio de correo institucional</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Servicio externo de envío de<br />correos y confirmaciones.</div>"]
+    style 13 fill:#999999,stroke:#6b6b6b,color:#ffffff
+
+    subgraph 4 ["VotoEPIS"]
+      style 4 fill:#ffffff,stroke:#0b4884,color:#0b4884
+
+      subgraph 6 ["Aplicación VotoEPIS"]
+        style 6 fill:#ffffff,stroke:#2e6295,color:#2e6295
+
+        10["<div style='font-weight: bold'>Auditoría</div><div style='font-size: 70%; margin-top: 0px'>[Component: Módulo interno]</div><div style='font-size: 80%; margin-top:10px'>Registra eventos de seguridad<br />y operaciones relevantes del<br />proceso electoral.</div>"]
+        style 10 fill:#85bbf0,stroke:#5d82a8,color:#000000
+        11["<div style='font-weight: bold'>Compartido</div><div style='font-size: 70%; margin-top: 0px'>[Component: Módulo interno]</div><div style='font-size: 80%; margin-top:10px'>Proporciona elementos comunes<br />utilizados por los otros<br />módulos.</div>"]
+        style 11 fill:#85bbf0,stroke:#5d82a8,color:#000000
+        7["<div style='font-weight: bold'>Acceso</div><div style='font-size: 70%; margin-top: 0px'>[Component: Módulo interno]</div><div style='font-size: 80%; margin-top:10px'>Gestiona el acceso de los<br />usuarios al sistema<br />electoral.</div>"]
+        style 7 fill:#85bbf0,stroke:#5d82a8,color:#000000
+        8["<div style='font-weight: bold'>Padrón</div><div style='font-size: 70%; margin-top: 0px'>[Component: Módulo interno]</div><div style='font-size: 80%; margin-top:10px'>Consulta el padrón y verifica<br />la habilitación de los<br />estudiantes.</div>"]
+        style 8 fill:#85bbf0,stroke:#5d82a8,color:#000000
+        9["<div style='font-weight: bold'>Votación</div><div style='font-size: 70%; margin-top: 0px'>[Component: Módulo interno]</div><div style='font-size: 80%; margin-top:10px'>Valida las condiciones de<br />emisión y registra los votos.</div>"]
+        style 9 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      end
+
+      12[("<div style='font-weight: bold'>Base de datos</div><div style='font-size: 70%; margin-top: 0px'>[Container: PostgreSQL 16]</div><div style='font-size: 80%; margin-top:10px'>Almacena padrón,<br />participaciones, votos,<br />resultados, actas y registros<br />de auditoría.</div>")]
+      style 12 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      5["<div style='font-weight: bold'>Aplicación web</div><div style='font-size: 70%; margin-top: 0px'>[Container: Web]</div><div style='font-size: 80%; margin-top:10px'>Presenta la interfaz de<br />votación, el panel electoral<br />y la consulta pública de<br />resultados.</div>"]
+      style 5 fill:#438dd5,stroke:#2e6295,color:#ffffff
+    end
+
+    5-. "<div>Solicita operaciones de<br />acceso</div><div style='font-size: 70%'>[HTTPS]</div>" .->7
+    5-. "<div>Solicita la emisión de votos</div><div style='font-size: 70%'>[HTTPS]</div>" .->9
+    5-. "<div>Solicita consultas y gestión<br />del padrón</div><div style='font-size: 70%'>[HTTPS]</div>" .->8
+    5-. "<div>Solicita consultas de<br />auditoría</div><div style='font-size: 70%'>[HTTPS]</div>" .->10
+    9-. "<div>Verifica la habilitación<br />electoral</div><div style='font-size: 70%'>[PadronPort]</div>" .->8
+    9-. "<div>Registra intentos duplicados</div><div style='font-size: 70%'></div>" .->10
+    9-. "<div>Utiliza elementos comunes</div><div style='font-size: 70%'></div>" .->11
+    8-. "<div>Utiliza elementos comunes</div><div style='font-size: 70%'></div>" .->11
+    10-. "<div>Utiliza elementos comunes</div><div style='font-size: 70%'></div>" .->11
+    7-. "<div>Utiliza elementos comunes</div><div style='font-size: 70%'></div>" .->11
+    9-. "<div>Registra votos y<br />participaciones</div><div style='font-size: 70%'>[SQL]</div>" .->12
+    8-. "<div>Consulta información del<br />padrón</div><div style='font-size: 70%'>[SQL]</div>" .->12
+    10-. "<div>Registra eventos de seguridad</div><div style='font-size: 70%'>[SQL]</div>" .->12
+    9-. "<div>Envía confirmación de voto</div><div style='font-size: 70%'>[SMTP]</div>" .->13
+
+  end

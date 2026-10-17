@@ -1,0 +1,23 @@
+@startuml contexto-manual
+!include <C4/C4_Context>
+skinparam dpi 180
+LAYOUT_LEFT_RIGHT()
+title Contexto de VotoEPIS (C4-PlantUML escrito a mano)
+
+Person(estudiante, "Estudiante votante", "Consulta su habilitación, emite su voto y revisa los resultados.")
+Person(comite, "Comité electoral", "Gestiona el padrón, administra las elecciones y publica resultados y actas.")
+Person(auditor, "Auditor", "Revisa los resultados y verifica el acta electoral.")
+
+System(votoepis, "VotoEPIS", "Plataforma para realizar elecciones estudiantiles y publicar resultados verificables.")
+
+System_Ext(correo, "Servicio de correo institucional", "Servicio externo de envío de correos y confirmaciones.")
+System_Ext(academico, "Sistema académico UNSA", "Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.")
+
+Rel(estudiante, votoepis, "Consulta su habilitación, emite su voto y revisa resultados")
+Rel(comite, votoepis, "Gestiona el padrón y las elecciones; publica resultados y actas")
+Rel(auditor, votoepis, "Consulta el acta y verifica los resultados")
+Rel(votoepis, correo, "Envía confirmaciones y avisos por correo institucional", "SMTP")
+Rel(votoepis, academico, "Consulta datos de habilitación (integración propuesta)")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,31 @@
+graph LR
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Deployment View: VotoEPIS - Producción"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 41 ["Dispositivo del usuario"]
+      style 41 fill:#ffffff,stroke:#444444,color:#444444
+
+      42["<div style='font-weight: bold'>Aplicación web</div><div style='font-size: 70%; margin-top: 0px'>[Container: Web]</div><div style='font-size: 80%; margin-top:10px'>Presenta la interfaz de<br />votación, el panel electoral<br />y la consulta pública de<br />resultados.</div>"]
+      style 42 fill:#438dd5,stroke:#2e6295,color:#ffffff
+    end
+
+    subgraph 43 ["VPS Económico (R-04)"]
+      style 43 fill:#ffffff,stroke:#444444,color:#444444
+
+      subgraph 44 ["Docker Compose"]
+        style 44 fill:#ffffff,stroke:#444444,color:#444444
+
+        45["<div style='font-weight: bold'>Aplicación VotoEPIS</div><div style='font-size: 70%; margin-top: 0px'>[Container: Monolito en capas]</div><div style='font-size: 80%; margin-top:10px'>Implementa las reglas de<br />acceso, padrón, votación,<br />conteo, resultados y actas.</div>"]
+        style 45 fill:#438dd5,stroke:#2e6295,color:#ffffff
+        47[("<div style='font-weight: bold'>Base de datos</div><div style='font-size: 70%; margin-top: 0px'>[Container: PostgreSQL 16]</div><div style='font-size: 80%; margin-top:10px'>Almacena padrón,<br />participaciones, votos,<br />resultados, actas y registros<br />de auditoría.</div>")]
+        style 47 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      end
+
+    end
+
+    42-. "<div>Solicita operaciones<br />electorales</div><div style='font-size: 70%'>[HTTPS]</div>" .->45
+    45-. "<div>Consulta y registra<br />información electoral</div><div style='font-size: 70%'>[SQL]</div>" .->47
+
+  end

@@ -101,3 +101,41 @@ stateDiagram-v2
 *   [Ingeniería Round-Trip: Diagrama vs. Código](docs/design/round-trip.md)
 *   [Auditoría de Consistencia (Reglas C1-C5)](docs/design/consistencia.md)
 *   [Bitácora de IA (Lab 05)](docs/design/bitacora-ia.md)
+
+## Arquitectura C4 (Lab 06)
+
+### Diagrama de Contexto (Mermaid C4)
+```mermaid
+C4Context
+    title System Context View: VotoEPIS
+
+    Person(estudiante, "Estudiante votante", "Consulta su habilitación, emite su voto y revisa los resultados.")
+    Person(comite, "Comité electoral", "Gestiona el padrón, administra las elecciones y publica resultados y actas.")
+    Person(auditor, "Auditor", "Revisa los resultados y verifica el acta electoral.")
+
+    System(votoepis, "VotoEPIS", "Plataforma para realizar elecciones estudiantiles y publicar resultados verificables.")
+
+    System_Ext(correo, "Servicio de correo institucional", "Servicio externo de envío de correos y confirmaciones.")
+    System_Ext(academico, "Sistema académico UNSA", "Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.")
+
+    Rel(estudiante, votoepis, "Consulta su habilitación, emite su voto y revisa resultados")
+    Rel(comite, votoepis, "Gestiona el padrón y las elecciones; publica resultados y actas")
+    Rel(auditor, votoepis, "Consulta el acta y verifica los resultados")
+    Rel(votoepis, correo, "Envía confirmaciones y avisos por correo institucional")
+    Rel(votoepis, academico, "Consulta datos de habilitación (integración propuesta)")
+```
+
+### Vistas Exportadas y Documentación C4
+* [Inventario de Elementos C4](docs/architecture/c4/inventario.md)
+* [Modelo Único en Structurizr DSL](docs/architecture/c4/workspace.dsl)
+* **Imágenes de las 5 vistas C4:**
+  * [Nivel 1: Diagrama de Contexto (PNG)](docs/architecture/c4/img/structurizr-Contexto.png)
+  * [Nivel 2: Diagrama de Contenedores (PNG)](docs/architecture/c4/img/structurizr-Contenedores.png)
+  * [Nivel 3: Diagrama de Componentes (PNG)](docs/architecture/c4/img/structurizr-Componentes.png)
+  * [Vista Dinámica: Emitir Voto (PNG)](docs/architecture/c4/img/structurizr-EmitirVoto.png)
+  * [Vista de Despliegue: Producción (PNG)](docs/architecture/c4/img/structurizr-Despliegue.png)
+  * [Diagrama de Contexto Manual C4-PlantUML (PNG)](docs/architecture/c4/img/contexto-manual.png)
+* [Comparación de Vistas y Herramientas (E4 y E6)](docs/architecture/c4/comparacion.md)
+* [Revisión Oficial C4 y Auditoría IA (E7)](docs/architecture/c4/revision-c4.md)
+* [Explicación para Público No Técnico (E7)](docs/architecture/c4/explicacion.md)
+* [Bitácora de Uso de IA (Lab 06)](docs/architecture/c4/bitacora-ia.md)
