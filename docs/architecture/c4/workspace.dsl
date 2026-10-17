@@ -94,7 +94,23 @@ workspace "VotoEPIS" "Modelo C4 de la plataforma de elecciones digitales de dele
         votoepis.app.padron -> votoepis.db "Consulta información del padrón" "SQL"
 
         votoepis.app.auditoria -> votoepis.db "Registra eventos de seguridad" "SQL"
-    }
+        
+        votoepis.app.votacion -> correo "Envía confirmación de voto" "SMTP"
+        
+        // Entorno  de despliegue (E5)
+        
+        produccion = deploymentEnvironment "Producción" {
+                deploymentNode "Dispositivo del usuario" "Cliente de votación y consulta" "PC o Móvil (Navegador Web)" {
+                    containerInstance votoepis.web
+                }
+                deploymentNode "VPS Económico (R-04)" "Servidor único de bajo presupuesto para el MVP" "Ubuntu 24.04 LTS (2 vCPU, 4 GB RAM)" {
+                    deploymentNode "Docker Compose" "Orquestación local de contenedores" "Docker Engine 27 + Nginx" {
+                        containerInstance votoepis.app
+                        containerInstance votoepis.db
+                    }
+                }
+            }
+        }
 
     views {
         systemContext votoepis "Contexto" "Nivel 1: VotoEPIS, sus usuarios y sistemas externos." {
