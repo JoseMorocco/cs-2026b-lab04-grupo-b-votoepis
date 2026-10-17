@@ -16,6 +16,8 @@ left to right direction
 !include <C4/C4_Container>
 !include <C4/C4_Component>
 
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+
 System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
   Container_Boundary("VotoEPIS.AplicaciónVotoEPIS_boundary", "Aplicación VotoEPIS", $tags="") {
     Component(VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Auditoría", $techn="Módulo interno", $descr="Registra eventos de seguridad y operaciones relevantes del proceso electoral.", $tags="", $link="")
@@ -25,7 +27,7 @@ System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
     Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno", $descr="Valida las condiciones de emisión y registra los votos.", $tags="", $link="")
   }
 
-  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
   Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
 }
 
@@ -42,6 +44,7 @@ Rel(VotoEPIS.AplicaciónVotoEPIS.Acceso, VotoEPIS.AplicaciónVotoEPIS.Compartido
 Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "Registra votos y participaciones", $techn="SQL", $tags="", $link="")
 Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.Basededatos, "Consulta información del padrón", $techn="SQL", $tags="", $link="")
 Rel(VotoEPIS.AplicaciónVotoEPIS.Auditoría, VotoEPIS.Basededatos, "Registra eventos de seguridad", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, Serviciodecorreoinstitucional, "Envía confirmación de voto", $techn="SMTP", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

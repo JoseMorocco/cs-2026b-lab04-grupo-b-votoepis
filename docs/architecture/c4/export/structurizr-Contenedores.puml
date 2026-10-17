@@ -22,7 +22,7 @@ System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr
 System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.", $tags="", $link="")
 
 System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
-  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
   Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
   Container(VotoEPIS.AplicaciónVotoEPIS, "Aplicación VotoEPIS", $techn="Monolito en capas", $descr="Implementa las reglas de acceso, padrón, votación, conteo, resultados y actas.", $tags="", $link="")
 }

@@ -1,0 +1,12 @@
+# Comparación de Vistas y Herramientas — VotoEPIS (Lab 06)
+
+## 1. Vista Dinámica C4 vs. Diagrama de Secuencia UML (E4)
+El diagrama de secuencia UML (Lab 05) detalla interacciones a nivel de código: incluye métodos exactos con parámetros (`emitirVoto(estudianteId, eleccionId, candidatoId)`), fragmentos de control (`alt`, `opt`), creación de instancias (`Participacion`, `Voto`, `EventoSeguridad`), mensajes de retorno y límites transaccionales. En cambio, la vista dinámica C4 omite la lógica interna de clases y resume la colaboración a nivel de componentes y contenedores en pasos numerados de alto nivel. Por ello, la secuencia UML sirve a los desarrolladores que implementan el código, mientras que la vista dinámica C4 está dirigida a arquitectos y líderes técnicos para validar rápidamente el flujo arquitectónico sin saturarse de detalles de implementación.
+
+## 2. Modelado (Structurizr DSL) vs. Diagramación Manual (C4-PlantUML) (E6)
+
+| Criterio | Escritura a mano (`contexto-manual.puml`) | Modelo único exportado (`workspace.dsl`) |
+|---|---|---|
+| **Tiempo invertido** | Rápido para un único diagrama aislado, pero lento y repetitivo al construir las 5 vistas porque obliga a redeclarar elementos manualmente en cada archivo. | Requiere mayor inversión inicial para estructurar el DSL, pero genera las 5 vistas en segundos de forma automatizada mediante `structurizr export`. |
+| **Errores encontrados** | Propenso a errores de tipeo en las macros (`Person`, `System_Ext`, `Rel`), omisión de leyendas (`SHOW_LEGEND()`) e inconsistencias en los nombres o descripciones entre distintos archivos `.puml`. | El validador (`structurizr validate`) detecta inmediatamente referencias inexistentes, relaciones hacia identificadores no declarados y errores sintácticos antes de exportar. |
+| **Impacto si mañana cambia el nombre de un contenedor** | **Alto riesgo de desincronización:** Habría que buscar y editar manualmente el nombre en los archivos de Contenedores, Componentes, Vista Dinámica y Despliegue, aumentando el riesgo de dejar vistas desactualizadas. | **Mantenimiento centralizado:** Solo se modifica el nombre una única vez en la definición del contenedor dentro de `workspace.dsl` y, al reexportar, todas las vistas se actualizan automáticamente manteniendo coherencia total. |

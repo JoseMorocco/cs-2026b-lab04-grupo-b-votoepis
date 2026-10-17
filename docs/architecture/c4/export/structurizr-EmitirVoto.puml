@@ -1,0 +1,43 @@
+@startuml
+title <size:24>Dynamic View: VotoEPIS - Aplicación VotoEPIS</size>\n<size:24>Vista dinámica: Flujo crítico para emitir un voto secreto.</size>
+
+set separator none
+left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+
+System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
+  Container_Boundary("VotoEPIS.AplicaciónVotoEPIS_boundary", "Aplicación VotoEPIS", $tags="") {
+    Component(VotoEPIS.AplicaciónVotoEPIS.Padrón, "Padrón", $techn="Módulo interno", $descr="Consulta el padrón y verifica la habilitación de los estudiantes.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno", $descr="Valida las condiciones de emisión y registra los votos.", $tags="", $link="")
+  }
+
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
+  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
+}
+
+Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
+ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Votación, "1: Solicita la emisión de votos", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Padrón, "2: Verifica la habilitación electoral", $techn="PadronPort", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.Basededatos, "3: Consulta información del padrón", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "4: Registra votos y participaciones", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, Serviciodecorreoinstitucional, "5: Envía confirmación de voto", $techn="SMTP", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml
