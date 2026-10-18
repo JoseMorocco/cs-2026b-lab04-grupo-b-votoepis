@@ -24,25 +24,28 @@ jobs:
             structurizr/structurizr \
             validate -workspace docs/architecture/c4/workspace.dsl
 
+      - name: Preparar directorio de salida
+        run: |
+          mkdir -p "$RUNNER_TEMP/c4/export"
+          mkdir -p "$RUNNER_TEMP/c4/img"
+          chmod -R 777 "$RUNNER_TEMP/c4"
+
       - name: Exportar vistas C4 a PlantUML
         run: |
-          mkdir -p docs/architecture/c4/export
-
           docker run --rm \
-            -v "$PWD:/usr/local/structurizr" \
+            -v "$PWD:/usr/local/structurizr:ro" \
+            -v "$RUNNER_TEMP/c4/export:/salida" \
             structurizr/structurizr \
             export \
             -workspace docs/architecture/c4/workspace.dsl \
             -format plantuml/c4plantuml \
-            -output docs/architecture/c4/export
+            -output /salida
 
       - name: Regenerar diagramas PNG
         run: |
-          mkdir -p docs/architecture/c4/img
-
           docker run --rm \
-            -v "$PWD:/workspace" \
-            -w /workspace/docs/architecture/c4/export \
+            -v "$RUNNER_TEMP/c4:/c4" \
+            -w /c4/export \
             plantuml/plantuml \
             -tpng -o ../img \
             structurizr-Contexto.puml \
@@ -54,7 +57,7 @@ jobs:
       - name: Verificar imagenes generadas
         run: |
           for vista in Contexto Contenedores Componentes EmitirVoto Despliegue; do
-            test -s "docs/architecture/c4/img/structurizr-${vista}.png"
+            test -s "$RUNNER_TEMP/c4/img/structurizr-${vista}.png"
           done
 
           echo "Las cinco vistas C4 se generaron correctamente."
@@ -64,7 +67,7 @@ jobs:
         with:
           name: diagramas-c4
           path: |
-            docs/architecture/c4/img/structurizr-*.png
-            docs/architecture/c4/export/structurizr-*.puml
+            ${{ runner.temp }}/c4/img/*.png
+            ${{ runner.temp }}/c4/export/*.puml
           if-no-files-found: error
           retention-days: 7
