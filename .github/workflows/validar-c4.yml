@@ -1,0 +1,70 @@
+name: Validar y generar diagramas C4
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar-c4:
+    name: Validar modelo y generar diagramas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Validar modelo Structurizr DSL
+        run: |
+          docker run --rm \
+            -v "$PWD:/usr/local/structurizr" \
+            structurizr/structurizr \
+            validate -workspace docs/architecture/c4/workspace.dsl
+
+      - name: Exportar vistas C4 a PlantUML
+        run: |
+          mkdir -p docs/architecture/c4/export
+
+          docker run --rm \
+            -v "$PWD:/usr/local/structurizr" \
+            structurizr/structurizr \
+            export \
+            -workspace docs/architecture/c4/workspace.dsl \
+            -format plantuml/c4plantuml \
+            -output docs/architecture/c4/export
+
+      - name: Regenerar diagramas PNG
+        run: |
+          mkdir -p docs/architecture/c4/img
+
+          docker run --rm \
+            -v "$PWD:/workspace" \
+            -w /workspace/docs/architecture/c4/export \
+            plantuml/plantuml \
+            -tpng -o ../img \
+            structurizr-Contexto.puml \
+            structurizr-Contenedores.puml \
+            structurizr-Componentes.puml \
+            structurizr-EmitirVoto.puml \
+            structurizr-Despliegue.puml
+
+      - name: Verificar imagenes generadas
+        run: |
+          for vista in Contexto Contenedores Componentes EmitirVoto Despliegue; do
+            test -s "docs/architecture/c4/img/structurizr-${vista}.png"
+          done
+
+          echo "Las cinco vistas C4 se generaron correctamente."
+
+      - name: Publicar diagramas como artefactos
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagramas-c4
+          path: |
+            docs/architecture/c4/img/structurizr-*.png
+            docs/architecture/c4/export/structurizr-*.puml
+          if-no-files-found: error
+          retention-days: 7
