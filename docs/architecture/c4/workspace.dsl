@@ -1,4 +1,4 @@
-workspace_invalido "VotoEPIS" "Modelo C4 de la plataforma de elecciones digitales de delegados estudiantiles de EPIS." {
+workspace "VotoEPIS" "Modelo C4 de la plataforma de elecciones digitales de delegados estudiantiles de EPIS." {
 
     !identifiers hierarchical
 
