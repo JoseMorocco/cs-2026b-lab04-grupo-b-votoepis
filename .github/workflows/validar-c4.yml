@@ -1,0 +1,73 @@
+name: Validar y generar diagramas C4
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar-c4:
+    name: Validar modelo y generar diagramas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Validar modelo Structurizr DSL
+        run: |
+          docker run --rm \
+            -v "$PWD:/usr/local/structurizr" \
+            structurizr/structurizr \
+            validate -workspace docs/architecture/c4/workspace.dsl
+
+      - name: Preparar directorio de salida
+        run: |
+          mkdir -p "$RUNNER_TEMP/c4/export"
+          mkdir -p "$RUNNER_TEMP/c4/img"
+          chmod -R 777 "$RUNNER_TEMP/c4"
+
+      - name: Exportar vistas C4 a PlantUML
+        run: |
+          docker run --rm \
+            -v "$PWD:/usr/local/structurizr:ro" \
+            -v "$RUNNER_TEMP/c4/export:/salida" \
+            structurizr/structurizr \
+            export \
+            -workspace docs/architecture/c4/workspace.dsl \
+            -format plantuml/c4plantuml \
+            -output /salida
+
+      - name: Regenerar diagramas PNG
+        run: |
+          docker run --rm \
+            -v "$RUNNER_TEMP/c4:/c4" \
+            -w /c4/export \
+            plantuml/plantuml \
+            -tpng -o ../img \
+            structurizr-Contexto.puml \
+            structurizr-Contenedores.puml \
+            structurizr-Componentes.puml \
+            structurizr-EmitirVoto.puml \
+            structurizr-Despliegue.puml
+
+      - name: Verificar imagenes generadas
+        run: |
+          for vista in Contexto Contenedores Componentes EmitirVoto Despliegue; do
+            test -s "$RUNNER_TEMP/c4/img/structurizr-${vista}.png"
+          done
+
+          echo "Las cinco vistas C4 se generaron correctamente."
+
+      - name: Publicar diagramas como artefactos
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagramas-c4
+          path: |
+            ${{ runner.temp }}/c4/img/*.png
+            ${{ runner.temp }}/c4/export/*.puml
+          if-no-files-found: error
+          retention-days: 7
