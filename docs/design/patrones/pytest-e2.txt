@@ -1,0 +1,38 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\Usuario\Desktop\SEMESTRE-2026-B\Labs\ConstruccionDeSoftware\cs-2026b-lab04-grupo-b-votoepis\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Usuario\Desktop\SEMESTRE-2026-B\Labs\ConstruccionDeSoftware\cs-2026b-lab04-grupo-b-votoepis
+plugins: platformdirs-4.13.5
+collecting ... collected 29 items
+
+tests/test_comportamiento.py::test_voto_valido_persiste_participacion_y_voto[src.votacion.antes.servicio] PASSED [  3%]
+tests/test_comportamiento.py::test_voto_valido_persiste_participacion_y_voto[src.votacion.servicio] PASSED [  6%]
+tests/test_comportamiento.py::test_fuente_academica_simulada_habilita[src.votacion.antes.servicio] PASSED [ 10%]
+tests/test_comportamiento.py::test_fuente_academica_simulada_habilita[src.votacion.servicio] PASSED [ 13%]
+tests/test_comportamiento.py::test_eleccion_cerrada_rechaza_sin_registros[src.votacion.antes.servicio] PASSED [ 17%]
+tests/test_comportamiento.py::test_eleccion_cerrada_rechaza_sin_registros[src.votacion.servicio] PASSED [ 20%]
+tests/test_comportamiento.py::test_estudiante_no_habilitado_rechazado[src.votacion.antes.servicio] PASSED [ 24%]
+tests/test_comportamiento.py::test_estudiante_no_habilitado_rechazado[src.votacion.servicio] PASSED [ 27%]
+tests/test_comportamiento.py::test_candidato_ajeno_rechazado[src.votacion.antes.servicio] PASSED [ 31%]
+tests/test_comportamiento.py::test_candidato_ajeno_rechazado[src.votacion.servicio] PASSED [ 34%]
+tests/test_comportamiento.py::test_voto_duplicado_se_rechaza_y_audita[src.votacion.antes.servicio] PASSED [ 37%]
+tests/test_comportamiento.py::test_voto_duplicado_se_rechaza_y_audita[src.votacion.servicio] PASSED [ 41%]
+tests/test_comportamiento.py::test_voto_no_contiene_identidad_del_estudiante[src.votacion.antes.servicio] PASSED [ 44%]
+tests/test_comportamiento.py::test_voto_no_contiene_identidad_del_estudiante[src.votacion.servicio] PASSED [ 48%]
+tests/test_comportamiento.py::test_correo_confirma_sin_revelar_candidato[src.votacion.antes.servicio] PASSED [ 51%]
+tests/test_comportamiento.py::test_correo_confirma_sin_revelar_candidato[src.votacion.servicio] PASSED [ 55%]
+tests/test_comportamiento.py::test_sin_correo_institucional_registra_el_voto[src.votacion.antes.servicio] PASSED [ 58%]
+tests/test_comportamiento.py::test_sin_correo_institucional_registra_el_voto[src.votacion.servicio] PASSED [ 62%]
+tests/test_comportamiento.py::test_reintento_ante_dos_timeouts_locales[src.votacion.antes.servicio] PASSED [ 65%]
+tests/test_comportamiento.py::test_reintento_ante_dos_timeouts_locales[src.votacion.servicio] PASSED [ 68%]
+tests/test_comportamiento.py::test_tres_timeouts_rechazan_sin_persistir[src.votacion.antes.servicio] PASSED [ 72%]
+tests/test_comportamiento.py::test_tres_timeouts_rechazan_sin_persistir[src.votacion.servicio] PASSED [ 75%]
+tests/test_comportamiento.py::test_falla_al_guardar_voto_revierte_participacion[src.votacion.antes.servicio] PASSED [ 79%]
+tests/test_comportamiento.py::test_falla_al_guardar_voto_revierte_participacion[src.votacion.servicio] PASSED [ 82%]
+tests/test_comportamiento.py::test_fuente_desconocida_no_modifica_registros[src.votacion.antes.servicio] PASSED [ 86%]
+tests/test_comportamiento.py::test_fuente_desconocida_no_modifica_registros[src.votacion.servicio] PASSED [ 89%]
+tests/test_comportamiento.py::test_eleccion_inexistente_no_modifica_registros[src.votacion.antes.servicio] PASSED [ 93%]
+tests/test_comportamiento.py::test_eleccion_inexistente_no_modifica_registros[src.votacion.servicio] PASSED [ 96%]
+tests/test_patrones.py::test_open_closed_nueva_fuente_sin_modificar_servicio PASSED [100%]
+
+============================= 29 passed in 0.08s ==============================

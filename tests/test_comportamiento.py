@@ -17,7 +17,10 @@ from src.votacion.externos import (
 )
 
 
-@pytest.fixture(params=["src.votacion.antes.servicio"])
+@pytest.fixture(params=[
+    "src.votacion.antes.servicio",
+    "src.votacion.servicio",
+])
 def modulo(request):
     return importlib.import_module(request.param)
 
