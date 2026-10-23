@@ -1,0 +1,7 @@
+# Bitácora de IA — Laboratorio 07: VotoEPIS
+
+## Registro de interacciones
+
+| N.º | Fecha | Herramienta | Prompt o solicitud | Propuesta de la IA | Verificación del equipo | Decisión |
+|---|---|---|---|---|---|---|
+| 1 | 23/10/2026 | ChatGPT | Analizar los olores de código de la versión inicial de emisión de voto de VotoEPIS, utilizando los resultados de pytest y Radon. Identificar patrones GoF, principios SOLID y alternativas que no conviene aplicar. | Se identificaron condicionales por proveedor, interfaces externas diferentes, reintentos duplicados, un método con múltiples responsabilidades y notificaciones acopladas. Se propusieron Strategy, Adapter y Factory para el primer refactor, y Decorator y Observer para etapas posteriores. También se evaluó Abstract Factory como alternativa. | Se revisó el código de `antes/servicio.py` y se ejecutaron 14 pruebas de caracterización, todas exitosas. Radon reportó complejidad 18 (C) en `emitir_voto()`, promedio 10.0 (B) y 73 SLOC. Se contrastaron las propuestas con los olores identificados. | Aceptada con ajustes: se priorizan Strategy, Adapter y Factory para E2, se reservan Decorator y Observer para los siguientes ejercicios y se descarta Abstract Factory por sobreingeniería. |

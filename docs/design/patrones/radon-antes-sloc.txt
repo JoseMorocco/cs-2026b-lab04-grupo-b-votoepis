@@ -1,0 +1,36 @@
+﻿src\votacion\antes\servicio.py
+    LOC: 94
+    LLOC: 53
+    SLOC: 73
+    Comments: 0
+    Single comments: 1
+    Multi: 0
+    Blank: 20
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+src\votacion\antes\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+** Total **
+    LOC: 94
+    LLOC: 53
+    SLOC: 73
+    Comments: 0
+    Single comments: 1
+    Multi: 0
+    Blank: 20
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
