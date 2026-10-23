@@ -1,0 +1,36 @@
+﻿src/votacion/servicio.py
+    LOC: 104
+    LLOC: 48
+    SLOC: 83
+    Comments: 0
+    Single comments: 1
+    Multi: 0
+    Blank: 20
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+src/votacion/elegibilidad.py
+    LOC: 50
+    LLOC: 29
+    SLOC: 30
+    Comments: 0
+    Single comments: 4
+    Multi: 0
+    Blank: 16
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+** Total **
+    LOC: 154
+    LLOC: 77
+    SLOC: 113
+    Comments: 0
+    Single comments: 5
+    Multi: 0
+    Blank: 36
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%

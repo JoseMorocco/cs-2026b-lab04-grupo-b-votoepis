@@ -1,0 +1,18 @@
+﻿src/votacion/servicio.py
+    M 39:4 ServicioVotacion.emitir_voto - C (13)
+    C 11:0 ServicioVotacion - B (9)
+    M 12:4 ServicioVotacion.__init__ - A (2)
+src/votacion/elegibilidad.py
+    C 8:0 PadronLocalAdapter - A (2)
+    C 20:0 SistemaAcademicoAdapter - A (2)
+    C 35:0 FabricaFuentes - A (2)
+    M 44:4 FabricaFuentes.crear - A (2)
+    M 11:4 PadronLocalAdapter.__init__ - A (1)
+    M 14:4 PadronLocalAdapter.esta_habilitado - A (1)
+    M 23:4 SistemaAcademicoAdapter.__init__ - A (1)
+    M 27:4 SistemaAcademicoAdapter.esta_habilitado - A (1)
+    M 38:4 FabricaFuentes.__init__ - A (1)
+    M 41:4 FabricaFuentes.registrar - A (1)
+
+13 blocks (classes, functions, methods) analyzed.
+Average complexity: A (2.923076923076923)

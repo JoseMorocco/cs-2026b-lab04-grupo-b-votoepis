@@ -1,0 +1,7 @@
+﻿src\votacion\antes\servicio.py
+    M 13:4 ServicioVotacion.emitir_voto - C (18)
+    C 6:0 ServicioVotacion - C (11)
+    M 7:4 ServicioVotacion.__init__ - A (1)
+
+3 blocks (classes, functions, methods) analyzed.
+Average complexity: B (10.0)
