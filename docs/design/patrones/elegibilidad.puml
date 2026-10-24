@@ -1,0 +1,64 @@
+@startuml elegibilidad
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+title Habilitación Electoral: Strategy + Adapter + Decorator + Factory
+
+class ServicioVotacion <<Client>> {
+    +emitir_voto(estudiante_id, eleccion_id, candidato_id, fuente): bool
+}
+
+class FabricaFuentes <<Factory>> {
+    -_creadores: dict[str, Callable]
+    +registrar(nombre: str, creador: Callable): void
+    +crear(nombre: str): PadronPort
+}
+
+interface PadronPort <<Strategy>> {
+    +{abstract} esta_habilitado(estudiante_id: UUID, eleccion_id: UUID): bool
+}
+
+class PadronLocalAdapter <<Adapter>> {
+    -_proveedor: PadronLocalSimulado
+    +esta_habilitado(estudiante_id: UUID, eleccion_id: UUID): bool
+}
+
+class SistemaAcademicoAdapter <<Adapter>> {
+    -_proveedor: SistemaAcademicoSimulado
+    -_estudiantes: dict[UUID, Estudiante]
+    +esta_habilitado(estudiante_id: UUID, eleccion_id: UUID): bool
+}
+
+class ConReintentos <<Decorator>> {
+    +interno: PadronPort
+    +intentos: int = 3
+    +esta_habilitado(estudiante_id: UUID, eleccion_id: UUID): bool
+}
+
+class PadronLocalSimulado <<External>> {
+    +esta_habilitado(estudiante_id, eleccion_id): bool
+}
+
+class SistemaAcademicoSimulado <<External>> {
+    +consultar_condicion(codigo: str, eleccion_id: UUID): dict
+}
+
+ServicioVotacion --> FabricaFuentes : pide estrategia
+ServicioVotacion ..> PadronPort : usa
+FabricaFuentes ..> PadronPort : crea
+PadronPort <|.. PadronLocalAdapter
+PadronPort <|.. SistemaAcademicoAdapter
+PadronPort <|.. ConReintentos
+ConReintentos o--> PadronPort : envuelve
+PadronLocalAdapter --> PadronLocalSimulado : traduce
+SistemaAcademicoAdapter --> SistemaAcademicoSimulado : traduce
+
+note right of FabricaFuentes
+  Nueva fuente de padrón = registrar
+  un creador sin modificar ServicioVotacion (OCP).
+end note
+
+note bottom of ConReintentos
+  Reintenta hasta 3 veces únicamente
+  ante TimeoutError.
+end note
+@enduml

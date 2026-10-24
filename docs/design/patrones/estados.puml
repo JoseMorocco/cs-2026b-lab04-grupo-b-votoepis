@@ -1,0 +1,56 @@
+@startuml estados
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+title Ciclo de Vida de la Elección: Patrón State
+
+class Eleccion <<Context>> {
+    +id: UUID
+    +titulo: str
+    +estado: EstadoEleccion
+    +candidatos: list[Candidato]
+    +abrir(padron_cargado: bool): void
+    +cerrar(): void
+    +iniciar_escrutinio(autorizado: bool): void
+    +publicar_resultados(acta_firmada: bool, totales_verificados: bool): void
+    -_estado_actual(): EstadoBase
+}
+
+abstract class EstadoBase <<State>> {
+    +nombre: EstadoEleccion
+    +abrir(eleccion, padron_cargado): void
+    +cerrar(eleccion): void
+    +iniciar_escrutinio(eleccion, autorizado): void
+    +publicar_resultados(eleccion, acta_firmada, totales_verificados): void
+}
+
+class Configurada <<ConcreteState>> {
+    +abrir(eleccion, padron_cargado): void
+}
+
+class Abierta <<ConcreteState>> {
+    +cerrar(eleccion): void
+}
+
+class Cerrada <<ConcreteState>> {
+    +iniciar_escrutinio(eleccion, autorizado): void
+}
+
+class Escrutada <<ConcreteState>> {
+    +publicar_resultados(eleccion, acta_firmada, totales_verificados): void
+}
+
+class Publicada <<ConcreteState>>
+
+Eleccion --> EstadoBase : delega transición
+EstadoBase <|-- Configurada
+EstadoBase <|-- Abierta
+EstadoBase <|-- Cerrada
+EstadoBase <|-- Escrutada
+EstadoBase <|-- Publicada
+
+note right of EstadoBase
+  Por defecto, todos los métodos lanzan ValueError.
+  Cada subclase redefine únicamente la transición
+  válida según la máquina de estados del Lab 05.
+end note
+@enduml
