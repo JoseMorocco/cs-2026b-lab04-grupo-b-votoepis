@@ -1,0 +1,62 @@
+@startuml ia
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+title Asistente del Reglamento (IA Aislada): Strategy + Adapter + Decorator + Chain of Responsibility
+
+class AsistenteReglamento <<Client>> {
+    +proveedor: ProveedorLLM
+    +guardrails: Guardrail
+    +contexto: str
+    +responder(pregunta: str): str
+}
+
+interface ProveedorLLM <<Strategy>> {
+    +{abstract} completar(prompt: str): str
+}
+
+class AdaptadorLLMSimulado <<Adapter>> {
+    +cliente: ClienteLLMFalso
+    +completar(prompt: str): str
+}
+
+class ConCache <<Decorator>> {
+    +interno: ProveedorLLM
+    +cache: dict[str, str]
+    +completar(prompt: str): str
+}
+
+class ClienteLLMFalso <<External>> {
+    +respuesta: str
+    +llamadas: int
+    +responder(prompt: str): str
+}
+
+abstract class Guardrail <<Handler>> {
+    +siguiente: Guardrail
+    +validar(respuesta: str): str
+    #{abstract} _validar(respuesta: str): str
+}
+
+class SinIndicacionesDeVoto <<ConcreteHandler>> {
+    #_validar(respuesta: str): str
+}
+
+class SinResultadosInventados <<ConcreteHandler>> {
+    #_validar(respuesta: str): str
+}
+
+AsistenteReglamento --> ProveedorLLM : consulta
+AsistenteReglamento --> Guardrail : valida salida (1er eslabón)
+ProveedorLLM <|.. AdaptadorLLMSimulado
+ProveedorLLM <|.. ConCache
+ConCache o--> ProveedorLLM : envuelve
+AdaptadorLLMSimulado --> ClienteLLMFalso : adapta
+Guardrail o--> "0..1" Guardrail : siguiente
+Guardrail <|-- SinIndicacionesDeVoto
+Guardrail <|-- SinResultadosInventados
+
+note right of Guardrail
+  Bloquea recomendaciones de voto ("vota por...")
+  y afirmaciones de ganadores o resultados oficiales.
+end note
+@enduml

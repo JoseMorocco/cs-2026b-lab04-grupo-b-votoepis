@@ -1,132 +1,148 @@
-@startuml clases-votoepis
+@startuml clases
+
+top to bottom direction
+
 skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam defaultFontName Arial
-skinparam classBackgroundColor #EEF2F8
-skinparam classBorderColor #1A3A5C
+skinparam packageStyle rectangle
 skinparam linetype ortho
-title VotoEPIS - Módulo de Votación
+skinparam nodesep 35
+skinparam ranksep 45
 
-enum EstadoEleccion {
-  CONFIGURADA
-  ABIERTA
-  CERRADA
-  ESCRUTADA
-  PUBLICADA
+title Diagrama de Clases Actualizado — VotoEPIS (Lab 07)
+
+package "dominio" {
+    enum EstadoEleccion {
+        CONFIGURADA
+        ABIERTA
+        CERRADA
+        ESCRUTADA
+        PUBLICADA
+    }
+
+    class Estudiante {
+        +id: UUID
+        +codigo: str
+        +correo_institucional: str
+    }
+
+    class Candidato {
+        +id: UUID
+        +nombre: str
+        +agrupacion: str
+    }
+
+    class Eleccion <<Context>> {
+        +id: UUID
+        +titulo: str
+        +estado: EstadoEleccion
+        +candidatos: list[Candidato]
+        +abrir(padron_cargado: bool): void
+        +cerrar(): void
+        +iniciar_escrutinio(autorizado: bool): void
+        +publicar_resultados(acta_firmada: bool, totales_verificados: bool): void
+    }
+
+    interface PadronPort <<Strategy>> {
+        +{abstract} esta_habilitado(estudiante_id: UUID, eleccion_id: UUID): bool
+    }
 }
 
-class Estudiante {
-  - id: UUID
-  - codigo: String
-  - correoInstitucional: String
-  + obtenerCorreoInstitucional(): String
+package "estados (State)" {
+    abstract class EstadoBase <<State>> {
+        +abrir(eleccion, padron_cargado): void
+        +cerrar(eleccion): void
+        +iniciar_escrutinio(eleccion, autorizado): void
+        +publicar_resultados(eleccion, acta_firmada, totales_verificados): void
+    }
+
+    class Configurada
+    class Abierta
+    class Cerrada
+    class Escrutada
+    class Publicada
 }
 
-class Eleccion {
-  - id: UUID
-  - titulo: String
-  - estado: EstadoEleccion
-  + verificarEstado(): EstadoEleccion
-  + abrir(): void
-  + cerrar(): void
-  + iniciarEscrutinio(): void
-  + publicarResultados(): void
+package "elegibilidad y decoradores" {
+    class FabricaFuentes <<Factory>> {
+        +registrar(nombre: str, creador: Callable): void
+        +crear(nombre: str): PadronPort
+    }
+
+    class PadronLocalAdapter <<Adapter>>
+    class SistemaAcademicoAdapter <<Adapter>>
+
+    class ConReintentos <<Decorator>> {
+        +intentos: int
+        +esta_habilitado(estudiante_id: UUID, eleccion_id: UUID): bool
+    }
 }
 
-class Candidato {
-  - id: UUID
-  - nombre: String
-  - agrupacion: String
+package "eventos (Observer)" {
+    class PublicadorEventos <<Subject>> {
+        +suscribir(nombre_evento: str, suscriptor): void
+        +publicar(nombre_evento: str, datos: dict): void
+    }
+
+    class ConfirmacionCorreo <<Observer>>
+    class AuditoriaSeguridad <<Observer>>
 }
 
-class Participacion {
-  - id: UUID
-  - fechaHora: DateTime
-  + crear(estudianteId: UUID, eleccionId: UUID): Participacion
+package "servicio" {
+    class ServicioVotacion <<Client>> {
+        +emitir_voto(estudiante_id, eleccion_id, candidato_id, fuente): bool
+    }
 }
 
-class Voto {
-  - id: UUID
-  - fechaHora: DateTime
-  + crear(candidatoId: UUID, eleccionId: UUID): Voto
+package "IA (Strategy + Adapter + Decorator + Chain)" {
+    class AsistenteReglamento
+
+    interface ProveedorLLM <<Strategy>>
+
+    class AdaptadorLLMSimulado <<Adapter>>
+
+    class ConCache <<Decorator>>
+
+    abstract class Guardrail <<Handler>>
+
+    class SinIndicacionesDeVoto <<Handler>>
+
+    class SinResultadosInventados <<Handler>>
 }
 
-class EventoSeguridad {
-  - id: UUID
-  - fechaHora: DateTime
-  - tipo: String
-  - detalle: String
-  + crearIntentoDuplicado(estudianteId: UUID, eleccionId: UUID): EventoSeguridad
-}
+Eleccion "1" *-- "1..*" Candidato
+Eleccion --> EstadoBase
 
-class VotacionController <<controlador>> {
-  + registrarVoto(estudianteId: UUID, eleccionId: UUID, candidatoId: UUID): bool
-}
+EstadoBase <|-- Configurada
+EstadoBase <|-- Abierta
+EstadoBase <|-- Cerrada
+EstadoBase <|-- Escrutada
+EstadoBase <|-- Publicada
 
-class ServicioVotacion <<servicio>> {
-  + emitirVoto(estudianteId: UUID, eleccionId: UUID, candidatoId: UUID): bool
-}
+ServicioVotacion --> FabricaFuentes
+ServicioVotacion --> PublicadorEventos
 
-interface EleccionRepositorio <<puerto>> {
-  + buscarPorId(eleccionId: UUID): Eleccion
-}
+FabricaFuentes ..> PadronPort
+PadronPort <|.. PadronLocalAdapter
+PadronPort <|.. SistemaAcademicoAdapter
+PadronPort <|.. ConReintentos
 
-interface PadronPort <<puerto>> {
-  + estaHabilitado(estudianteId: UUID, eleccionId: UUID): bool
-}
+ConReintentos o--> PadronPort
 
-interface EstudianteRepositorio <<puerto>> {
-  + buscarPorId(estudianteId: UUID): Estudiante
-}
+PublicadorEventos --> ConfirmacionCorreo
+PublicadorEventos --> AuditoriaSeguridad
 
-interface CandidatoRepositorio <<puerto>> {
-  + perteneceAEleccion(candidatoId: UUID, eleccionId: UUID): bool
-}
+AsistenteReglamento --> ProveedorLLM
+AsistenteReglamento --> Guardrail
 
-interface ParticipacionRepositorio <<puerto>> {
-  + existe(estudianteId: UUID, eleccionId: UUID): bool
-  + guardar(participacion: Participacion): void
-}
+ProveedorLLM <|.. AdaptadorLLMSimulado
+ProveedorLLM <|.. ConCache
 
-interface VotoRepositorio <<puerto>> {
-  + guardar(voto: Voto): void
-}
+Guardrail <|-- SinIndicacionesDeVoto
+Guardrail <|-- SinResultadosInventados
 
-interface EventoSeguridadRepositorio <<puerto>> {
-  + guardar(evento: EventoSeguridad): void
-}
-
-interface CorreoPort <<puerto>> {
-  + enviarConfirmacion(correoInstitucional: String): void
-}
-
-class CorreoInstitucionalAdapter <<adaptador>> {
-  + enviarConfirmacion(correoInstitucional: String): void
-}
-
-Eleccion "1" o-- "1..*" Candidato : agrupa
-Eleccion "1" -- "0..*" Participacion : registra
-Estudiante "1" -- "0..*" Participacion : genera
-Eleccion "1" -- "0..*" Voto : recibe
-Candidato "1" -- "0..*" Voto : es elegido en
-Eleccion --> EstadoEleccion
-
-VotacionController ..> ServicioVotacion : delega
-ServicioVotacion ..> EleccionRepositorio : consulta
-ServicioVotacion ..> PadronPort : valida habilitación
-ServicioVotacion ..> EstudianteRepositorio : consulta correo
-ServicioVotacion ..> CandidatoRepositorio : valida candidato
-ServicioVotacion ..> ParticipacionRepositorio : consulta y guarda
-ServicioVotacion ..> VotoRepositorio : guarda
-ServicioVotacion ..> EventoSeguridad : crea evento
-ServicioVotacion ..> EventoSeguridadRepositorio : registra
-ServicioVotacion ..> CorreoPort : notifica
-CorreoPort <|.. CorreoInstitucionalAdapter
-
-note right of Voto
-  ADR-002: el voto no almacena
-  la identidad del estudiante ni
-  se relaciona con Participacion.
-end note
+ConReintentos -[hidden]down-> AsistenteReglamento
+PublicadorEventos -[hidden]down-> AsistenteReglamento
+FabricaFuentes -[hidden]down-> AsistenteReglamento
 
 @enduml
