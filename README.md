@@ -139,3 +139,40 @@ C4Context
 * [Revisión Oficial C4 y Auditoría IA (E7)](docs/architecture/c4/revision-c4.md)
 * [Explicación para Público No Técnico (E7)](docs/architecture/c4/explicacion.md)
 * [Bitácora de Uso de IA (Lab 06)](docs/architecture/c4/bitacora-ia.md)
+
+## Patrones de diseño (Lab 07)
+
+En el Laboratorio 07 se refactorizó el módulo `src/votacion` a partir de la versión inicial (`src/votacion/antes/servicio.py`), protegiendo el comportamiento observable mediante 14 pruebas de caracterización parametrizadas y aislando el asistente de consultas del reglamento electoral basado en IA.
+
+### 1. Tabla de Trazabilidad: Olor → Patrón GoF → Principio SOLID → Prueba
+
+| Olor de código detectado | Patrón GoF aplicado | Módulo / Clases | Principio SOLID | Prueba automatizada que lo verifica |
+|---|---|---|---|---|
+| Condicionales `if/elif` por fuente de habilitación (`LOCAL`, `ACADEMICO`) | **Strategy + Factory (registro)** | `elegibilidad.py` (`PadronPort`, `FabricaFuentes`) | OCP, DIP | `tests/test_patrones.py::test_open_closed_nueva_fuente_sin_modificar_servicio` |
+| Acoplamiento a firmas y respuestas dispares de servicios externos | **Adapter** | `elegibilidad.py` (`PadronLocalAdapter`, `SistemaAcademicoAdapter`) | DIP, ISP | `tests/test_comportamiento.py::test_fuente_academica_simulada_habilita` |
+| Bucles `for intento in range(3)` duplicados para manejar `TimeoutError` | **Decorator** | `decoradores.py` (`ConReintentos`) | SRP, OCP | `tests/test_patrones.py::test_e4_decorator_reintenta_solo_timeouts` y `test_e4_decorator_no_reintenta_rechazo` |
+| Validaciones manuales de estado de la elección y riesgo de transiciones inválidas | **State** | `estados.py` (`EstadoBase`, `Configurada`, `Abierta`, `Cerrada`, `Escrutada`, `Publicada`) | SRP, OCP, LSP | `tests/test_patrones.py::test_state_transiciones_validas` y `test_state_impide_transicion_invalida` |
+| Notificación por correo y auditoría de intentos duplicados acopladas al servicio | **Observer** | `eventos.py` (`PublicadorEventos`, `ConfirmacionCorreo`, `AuditoriaSeguridad`) | SRP, OCP | `tests/test_patrones.py::test_e4_observer_permite_suscriptores_sin_modificar_publicador` |
+| Acoplamiento al proveedor LLM, llamadas repetidas y riesgo de respuestas sesgadas o inventadas | **Strategy + Adapter + Decorator + Chain of Responsibility** | `ia.py` (`ProveedorLLM`, `AdaptadorLLMSimulado`, `ConCache`, `SinIndicacionesDeVoto`, `SinResultadosInventados`) | SRP, OCP, DIP | `tests/test_patrones.py::test_e5_respuesta_valida_y_cache` y `test_e5_guardrails_bloquean_salida_invalida` |
+
+### 2. Resumen de Métricas (`radon` Antes vs. Después)
+
+| Métrica | Antes (`antes/servicio.py`) | Corte E2 (`servicio.py` + `elegibilidad.py`) | Después Completo (E2–E5) |
+|---|---|---|---|
+| **Complejidad de `emitir_voto()`** | 18 (C) | 13 (C) | **4 (A)** |
+| **Complejidad ciclomática promedio** | 10.00 (B) | 2.92 (A) | **1.68 (A)** |
+| **Líneas de código (SLOC)** | 73 SLOC | 113 SLOC | **259 SLOC** |
+| **Archivos de producción** | 1 | 2 | **6** |
+| **Pruebas en verde (`pytest`)** | 14 passed | 29 passed | **36 passed** |
+
+### 3. Documentación y Artefactos del Laboratorio 07
+* [Análisis de Olores de Código (E1)](docs/design/patrones/olores.md)
+* [Métricas Radon y Análisis de Trade-off (E6)](docs/design/patrones/metricas.md)
+* [Bitácora de Uso de IA (E7)](docs/design/patrones/bitacora-ia.md)
+* [ADR-005: Patrones de Diseño en VotoEPIS (E8)](docs/architecture/adr/005-patrones-de-diseno.md)
+* **Diagramas de Clases de los Patrones Aplicados (E7):**
+  * [Habilitación: Strategy + Adapter + Decorator + Factory](docs/design/patrones/elegibilidad.puml)
+  * [Ciclo de Vida: State](docs/design/patrones/estados.puml)
+  * [Eventos y Auditoría: Observer](docs/design/patrones/eventos.puml)
+  * [Asistente de IA Aislado: Strategy + Decorator + Chain of Responsibility](docs/design/patrones/ia.puml)
+  * [Diagrama de Clases General Actualizado](docs/design/clases.puml)
