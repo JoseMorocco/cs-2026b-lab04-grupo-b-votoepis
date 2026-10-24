@@ -35,10 +35,28 @@ class Eleccion:
     
     def verificar_estado(self) -> EstadoEleccion:
         return self.estado
-    def abrir(self) -> None: pass
-    def cerrar(self) -> None: pass
-    def iniciar_escrutinio(self) -> None: pass
-    def publicar_resultados(self) -> None: pass
+
+    def _estado_actual(self):
+        from src.votacion.estados import ESTADOS
+        return ESTADOS[self.estado]
+
+    def abrir(self, padron_cargado=False) -> None:
+        self._estado_actual().abrir(self, padron_cargado)
+
+    def cerrar(self) -> None:
+        self._estado_actual().cerrar(self)
+
+    def iniciar_escrutinio(self, autorizado=False) -> None:
+        self._estado_actual().iniciar_escrutinio(
+            self, autorizado
+        )
+
+    def publicar_resultados(
+        self, acta_firmada=False, totales_verificados=False
+    ) -> None:
+        self._estado_actual().publicar_resultados(
+            self, acta_firmada, totales_verificados
+        )
 
 @dataclass
 class Participacion:

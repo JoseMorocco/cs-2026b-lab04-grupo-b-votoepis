@@ -84,3 +84,57 @@ def test_open_closed_nueva_fuente_sin_modificar_servicio():
     # Se utilizó la nueva estrategia sin consultar las anteriores.
     assert local.llamadas == 0
     assert academico.llamadas == 0
+
+
+import pytest
+
+
+def test_state_transiciones_validas():
+    eleccion = Eleccion(
+        uuid4(),
+        "Elección EPIS",
+        EstadoEleccion.CONFIGURADA,
+        [Candidato(uuid4(), "Lista A", "Agrupación A")]
+    )
+
+    eleccion.abrir(padron_cargado=True)
+    assert eleccion.estado == EstadoEleccion.ABIERTA
+
+    eleccion.cerrar()
+    assert eleccion.estado == EstadoEleccion.CERRADA
+
+    eleccion.iniciar_escrutinio(autorizado=True)
+    assert eleccion.estado == EstadoEleccion.ESCRUTADA
+
+    eleccion.publicar_resultados(
+        acta_firmada=True,
+        totales_verificados=True
+    )
+    assert eleccion.estado == EstadoEleccion.PUBLICADA
+
+
+def test_state_impide_transicion_invalida():
+    eleccion = Eleccion(
+        uuid4(),
+        "Elección EPIS",
+        EstadoEleccion.CONFIGURADA
+    )
+
+    with pytest.raises(ValueError):
+        eleccion.cerrar()
+
+    assert eleccion.estado == EstadoEleccion.CONFIGURADA
+
+
+def test_state_exige_condiciones_para_abrir():
+    eleccion = Eleccion(
+        uuid4(),
+        "Elección EPIS",
+        EstadoEleccion.CONFIGURADA,
+        [Candidato(uuid4(), "Lista A", "Agrupación A")]
+    )
+
+    with pytest.raises(ValueError, match="padrón"):
+        eleccion.abrir(padron_cargado=False)
+
+    assert eleccion.estado == EstadoEleccion.CONFIGURADA
