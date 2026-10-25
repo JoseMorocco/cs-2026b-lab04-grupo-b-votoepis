@@ -1,0 +1,39 @@
+@startuml eventos
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+title Auditoría y Notificaciones: Patrón Observer
+
+class ServicioVotacion <<Client>> {
+    +emitir_voto(estudiante_id, eleccion_id, candidato_id, fuente): bool
+}
+
+class PublicadorEventos <<Subject>> {
+    -_suscriptores: defaultdict[str, list]
+    +suscribir(nombre_evento: str, suscriptor): void
+    +publicar(nombre_evento: str, datos: dict): void
+}
+
+interface Suscriptor <<Observer>> {
+    +{abstract} actualizar(nombre_evento: str, datos: dict): void
+}
+
+class ConfirmacionCorreo <<ConcreteObserver>> {
+    +correo: CorreoSimulado
+    +actualizar(nombre_evento: str, datos: dict): void
+}
+
+class AuditoriaSeguridad <<ConcreteObserver>> {
+    +eventos_seguridad: list
+    +actualizar(nombre_evento: str, datos: dict): void
+}
+
+ServicioVotacion --> PublicadorEventos : publica eventos
+PublicadorEventos o--> "0..*" Suscriptor : notifica
+Suscriptor <|.. ConfirmacionCorreo
+Suscriptor <|.. AuditoriaSeguridad
+
+note bottom of PublicadorEventos
+  El evento "participacion_registrada" nunca incluye
+  candidato_id para preservar el secreto del voto.
+end note
+@enduml
