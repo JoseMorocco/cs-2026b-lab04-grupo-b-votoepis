@@ -42,7 +42,8 @@ def validar(directorio: Path) -> int:
                     (f"{bloque.name}.{metodo.name}", metodo)
                     for metodo in bloque.methods
                 ]
-            elif isinstance(bloque, Function):
+                
+            elif isinstance(bloque, Function) and not bloque.is_method:
                 elementos = [(bloque.name, bloque)]
 
             for nombre, funcion in elementos:

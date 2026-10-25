@@ -66,3 +66,12 @@ def test_excluye_version_antes(tmp_path):
 
     assert resultado.returncode == 0
     assert "antes" not in resultado.stdout
+
+def test_no_cuenta_metodos_dos_veces(tmp_path):
+    crear_ejemplo(tmp_path / "servicio.py", 1)
+
+    resultado = ejecutar(tmp_path)
+
+    assert resultado.returncode == 0
+    assert "Elementos analizados: 1" in resultado.stdout
+    assert resultado.stdout.count("Ejemplo.evaluar -> CC=2") == 1
