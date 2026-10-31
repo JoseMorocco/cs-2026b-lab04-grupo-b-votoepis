@@ -1,0 +1,20 @@
+{
+  "escenario": "S4",
+  "votos_sinteticos": 25000,
+  "antes": {
+    "resultados_publicados": 1,
+    "resultados_con_acta_y_listado_verificable": 0,
+    "porcentaje_resultados_verificables": 0
+  },
+  "despues": {
+    "resultados_publicados": 1,
+    "resultados_con_acta_y_listado_verificable": 1,
+    "porcentaje_resultados_verificables": 100,
+    "diferencias_conteo": 0,
+    "alteracion_de_voto_detectada": true,
+    "alteracion_de_totales_detectada": true,
+    "votos_con_campo_estudiante": 0,
+    "cumple_s4_en_prototipo": true
+  },
+  "limite": "La huella externa es una copia mantenida por el test; no se publica realmente."
+}
