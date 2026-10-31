@@ -48,5 +48,3 @@ class FabricaFuentes:
             )
 
         return self._creadores[nombre]()
-
-from src.votacion.servicio import ServicioVotacion  # E5 violacion temporal FF-02
