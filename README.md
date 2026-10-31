@@ -176,3 +176,39 @@ En el Laboratorio 07 se refactorizó el módulo `src/votacion` a partir de la ve
   * [Eventos y Auditoría: Observer](docs/design/patrones/eventos.puml)
   * [Asistente de IA Aislado: Strategy + Decorator + Chain of Responsibility](docs/design/patrones/ia.puml)
   * [Diagrama de Clases General Actualizado](docs/design/clases.puml)
+
+## Diseño de la arquitectura (Lab 08)
+
+![Fitness Functions](https://github.com/JoseMorocco/cs-2026b-lab04-grupo-b-votoepis/actions/workflows/fitness.yml/badge.svg)
+
+En el Laboratorio 08 se evolucionó la arquitectura de **VotoEPIS** para soportar el escenario de crecimiento a **25 000 votantes en 8 horas con auditoría externa**, aplicando el método **Attribute-Driven Design (ADD 3.0)** guiado por un árbol de utilidad, evaluación **ATAM-lite** y **Fitness Functions** automatizadas en Integración Continua[cite: 48, 49, 54].
+
+### 1. Árbol de Utilidad
+![Árbol de Utilidad VotoEPIS](docs/architecture/utilidad/arbol.png)
+
+* [Definición de Escenarios de Calidad de 6 partes (`escenarios.md`)](docs/architecture/utilidad/escenarios.md)
+* [Código fuente Graphviz (`arbol.dot`)](docs/architecture/utilidad/arbol.dot)
+
+### 2. Resumen de Iteraciones de ADD 3.0 y Evidencia Cuantitativa
+
+| Iteración | Escenario Objetivo | Prioridad | Táctica Arquitectónica Elegida | Evidencia Cuantitativa (Antes → Después) | ¿Cumple? |
+|---|---|---|---|---|---|
+| **Iteración 1** ([`iteracion-1.md`](docs/architecture/add/iteracion-1.md)) | **S1 (Seguridad / Integridad):** Rechazar el 100 % de intentos de voto duplicado en emisiones solapadas[cite: 54, 60]. | **(H,H)** | Restricción `UNIQUE(estudiante_id, eleccion_id)` y arbitraje transaccional en BD relacional ([ADR-006](docs/architecture/adr/006-unicidad-transaccional-integridad.md))[cite: 60]. | `fitness/simular_integridad.py` (25 000 votantes, 50 000 solicitudes adversariales): pasa de **0 % (0/25 000)** a **100 % (25 000/25 000)** de duplicados rechazados[cite: 56, 60]. | **Sí (100 % en prototipo)**[cite: 60] |
+| **Iteración 2** ([`iteracion-2.md`](docs/architecture/add/iteracion-2.md)) | **S2 (Disponibilidad / Conservación):** 0 registros parciales ante 100 fallos entre participación y voto; 100/100 reintentos válidos aceptados[cite: 54, 61]. | **(H,H)** | Unidad transaccional ACID única con `ROLLBACK` automático ante excepción entre escrituras ([ADR-007](docs/architecture/adr/007-atomicidad-rollback-conservacion.md))[cite: 61]. | `fitness/simular_recuperacion.py` (`test_ff03`): pasa de **100 participaciones huérfanas y 0/100 reintentos** a **0 huérfanas y 100/100 reintentos registrados**[cite: 57, 58, 61]. | **Sí (100 % en prototipo)**[cite: 61] |
+| **Iteración 3** ([`iteracion-3.md`](docs/architecture/add/iteracion-3.md)) | **S4 (Seguridad / Auditabilidad):** 100 % de resultados asociados a acta, listado anónimo y huella `SHA-256` externa con 0 diferencias de conteo[cite: 54, 62]. | **(H,M)** | Exportación de listado anónimo en JSON canónico + acta con hash `SHA-256` contrastable con copia externa ([ADR-008](docs/architecture/adr/008-paquete-verificable-auditoria-externa.md))[cite: 62]. | `fitness/simular_auditoria.py` (`test_ff04`, `test_ff05`): pasa de **0 % a 100 % verificable** en 25 000 votos, **0 diferencias**, **0 identidades filtradas** y **100 % detección de alteraciones**[cite: 55, 58, 62]. | **Sí (condicionado a canal externo)**[cite: 62] |
+| **Reto Opcional A** ([`reto-opcional-a.md`](docs/architecture/reto-opcional-a.md)) | **S6 (Rendimiento):** Tiempo de respuesta `p95 ≤ 2000 ms` y errores `≤ 1 %` bajo concentración de 16,67 req/s[cite: 51, 54]. | **(M,H)** | Endpoint HTTP `POST /votos` en FastAPI reutilizando `ServicioVotacion` y persistencia transaccional única[cite: 51]. | Medición real con Locust (960 solicitudes, 16,21 RPS): **latencia media = 2,29 ms, p95 = 3,0 ms** y **0 % de errores**[cite: 51]. | **Sí (p95 = 3 ms ≤ 2000 ms)**[cite: 51] |
+
+### 3. Fitness Functions Automatizadas (`.importlinter` y `tests/test_fitness*.py`)
+* **FF-01 (Estructural — ADR-001):** El módulo `src.votacion.dominio` no importa infraestructura ni orquestación (`externos`, `servicio`, `eventos`, `elegibilidad`, `decoradores`, `ia`).
+* **FF-02 (Estructural — ADR-005):** Los adaptadores, decoradores y eventos no dependen de `src.votacion.servicio`.
+* **FF-03 (Calidad — S2):** Verifica 0 registros parciales y 100/100 reintentos exitosos tras 100 fallas entre escrituras (`test_ff03_s2_cero_parciales_y_cien_reintentos`)[cite: 58].
+* **FF-04 y FF-05 (Calidad — S4 y S5):** Verifican 100 % de escrutinio auditable sobre 25 000 votos, 0 votos con `estudiante_id` y rechazo inmediato ante alteración de un voto o del acta (`test_ff04_s4_auditoria_integra_25000_votos` y `test_ff05_s4_rechaza_modificacion_de_acta`)[cite: 58].
+
+### 4. Decisiones Arquitectónicas y Evaluación ATAM-lite (Lab 08)
+* [ADR-006: Restricción UNIQUE y transacción relacional para integridad (S1)](docs/architecture/adr/006-unicidad-transaccional-integridad.md)
+* [ADR-007: Transacción ACID con ROLLBACK para conservación ante fallos (S2)](docs/architecture/adr/007-atomicidad-rollback-conservacion.md)
+* [ADR-008: Paquete verificable con listado anónimo y huella SHA-256 externa (S4)](docs/architecture/adr/008-paquete-verificable-auditoria-externa.md)
+* [Informe de Evaluación ATAM-lite y Matriz de Riesgos (`atam-lite.md`)](docs/architecture/atam-lite.md)
+* [Matriz de Probabilidad e Impacto (PNG)](docs/architecture/add/evidencias/matriz-riesgos.png)
+* [Vista de Contenedores C4 Actualizada con Trazabilidad (PNG)](docs/architecture/c4/img/structurizr-Contenedores.png)
+* [Bitácora de Uso de IA Actualizada (`bitacora-ia.md`)](docs/architecture/bitacora-ia.md)
