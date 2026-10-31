@@ -1,0 +1,39 @@
+{
+  "parametros": {
+    "votantes": 25000,
+    "horas": 8,
+    "semilla": 20261031,
+    "duplicados_por_votante": 1,
+    "eleccion": 1
+  },
+  "resultados": [
+    {
+      "modo": "antes",
+      "votantes": 25000,
+      "horas": 8,
+      "solicitudes": 50000,
+      "intentos_duplicados": 25000,
+      "duplicados_rechazados": 0,
+      "porcentaje_duplicados_rechazados": 0.0,
+      "emisiones_aceptadas": 50000,
+      "participacion": 50000,
+      "voto": 50000,
+      "evento": 0,
+      "cumple_s1": false
+    },
+    {
+      "modo": "despues",
+      "votantes": 25000,
+      "horas": 8,
+      "solicitudes": 50000,
+      "intentos_duplicados": 25000,
+      "duplicados_rechazados": 25000,
+      "porcentaje_duplicados_rechazados": 100.0,
+      "emisiones_aceptadas": 25000,
+      "participacion": 25000,
+      "voto": 25000,
+      "evento": 25000,
+      "cumple_s1": true
+    }
+  ]
+}
