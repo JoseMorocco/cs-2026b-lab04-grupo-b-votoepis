@@ -1,0 +1,24 @@
+digraph Utilidad {
+  graph [rankdir=LR, bgcolor="white", pad="0.3", nodesep="0.30", ranksep="0.65", dpi=125,
+    label="VotoEPIS · Lab 08 E1\n25 000 votantes / 8 horas · auditoría externa\nPrioridad: (importancia, dificultad) · H alta / M media / L baja", labelloc=t, fontsize=18, fontname="Arial"];
+  node [shape=box, style="rounded,filled", fillcolor="#eef4fb", color="#496783", fontname="Arial", fontsize=12, margin="0.15,0.12"];
+  edge [color="#7990a5"];
+  utilidad [label="Utilidad\nVotoEPIS", fillcolor="#173b60", fontcolor=white];
+  seguridad [label="Seguridad\nQA-01 / QA-03", fillcolor="#d6e8fc"];
+  disponibilidad [label="Disponibilidad\nQA-02", fillcolor="#d6e8fc"];
+  rendimiento [label="Rendimiento", fillcolor="#d6e8fc"];
+  modificabilidad [label="Modificabilidad\nQA-04", fillcolor="#d6e8fc"];
+  utilidad -> {seguridad disponibilidad rendimiento modificabilidad};
+  s1 [label="S1 · Integridad (H,H) · ADD 1\n100 % de duplicados rechazados", fillcolor="#ffe4bb", penwidth=2];
+  s4 [label="S4 · Auditabilidad (H,M)\n100 % resultados con acta/listado/huella\n0 diferencias de conteo"];
+  s5 [label="S5 · Confidencialidad (H,M)\n0 identidades en votos\n0 candidatos en eventos"];
+  s8 [label="S8 · Auditoría de rechazo (H,M)\n25 000/25 000 rechazos con evento\n0 eventos con candidato_id"];
+  s2 [label="S2 · Conservación (H,H)\n0 registros parciales / 100 fallos\n100/100 reintentos registrados"];
+  s3 [label="S3 · Continuidad (H,H)\n≥99,5 % de sondeos en ≤2 s\n≤144 fallos / 28 800 sondeos"];
+  s6 [label="S6 · Tiempo de respuesta (M,H)\np95 ≤2 s; errores técnicos ≤1 %\nMedia y concentración supuesta"];
+  s7 [label="S7 · Extensión del padrón (M,L)\n0 líneas cambiadas en el servicio\n100 % suite previa; 1 prueba nueva"];
+  seguridad -> {s1 s4 s5 s8};
+  disponibilidad -> {s2 s3};
+  rendimiento -> s6;
+  modificabilidad -> s7;
+}
