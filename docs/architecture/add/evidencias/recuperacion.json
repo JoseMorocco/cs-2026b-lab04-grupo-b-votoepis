@@ -1,0 +1,24 @@
+{
+  "escenario": "S2",
+  "supuesto": "100 fallas de aplicación entre INSERT participación e INSERT voto",
+  "antes": {
+    "modo": "commits_separados",
+    "fallos_inyectados": 100,
+    "registros_parciales": 100,
+    "reintentos_aceptados": 0,
+    "reintentos_esperados": 100,
+    "participaciones": 100,
+    "votos": 0,
+    "cumple_s2": false
+  },
+  "despues": {
+    "modo": "transaccion",
+    "fallos_inyectados": 100,
+    "registros_parciales": 0,
+    "reintentos_aceptados": 100,
+    "reintentos_esperados": 100,
+    "participaciones": 100,
+    "votos": 100,
+    "cumple_s2": true
+  }
+}
