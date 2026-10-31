@@ -1,5 +1,5 @@
 @startuml
-title <size:24>Dynamic View: VotoEPIS - Aplicación VotoEPIS</size>\n<size:24>Vista dinámica: Flujo crítico para emitir un voto secreto.</size>
+title <size:24>Dynamic View: VotoEPIS - Aplicación VotoEPIS</size>\n<size:24>Vista dinámica: Emisión atómica y prevención de duplicados [S1, S2, S5, S8].</size>
 
 set separator none
 left to right direction
@@ -16,27 +16,29 @@ left to right direction
 !include <C4/C4_Container>
 !include <C4/C4_Component>
 
-System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Envía confirmaciones de participación sin revelar candidato y distribuye copia externa de huella SHA-256 [QA-01, QA-03, S4, S5].", $tags="", $link="")
 
 System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
   Container_Boundary("VotoEPIS.AplicaciónVotoEPIS_boundary", "Aplicación VotoEPIS", $tags="") {
-    Component(VotoEPIS.AplicaciónVotoEPIS.Padrón, "Padrón", $techn="Módulo interno", $descr="Consulta el padrón y verifica la habilitación de los estudiantes.", $tags="", $link="")
-    Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno", $descr="Valida las condiciones de emisión y registra los votos.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, "Auditoría y Escrutinio", $techn="Módulo interno (Observer)", $descr="Registra eventos INTENTO_DUPLICADO sin candidato_id y genera paquete de acta + listado anónimo con SHA-256 [QA-03, S4, S5, S8].", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, "Padrón y Elegibilidad", $techn="Módulo interno (Strategy/Adapter/Factory/Decorator)", $descr="Verifica habilitación mediante PadronPort, FabricaFuentes y ConReintentos [QA-02, QA-04, S7].", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno (State)", $descr="Coordina estado de elección y registro transaccional de participación y voto sin identidad [QA-01, QA-02, S1, S2, S5, S6].", $tags="", $link="")
   }
 
-  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
-  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena tablas separadas de participación con UNIQUE(estudiante_id, eleccion_id) y voto anónimo en transacción ACID [QA-01, QA-02, S1, S2, S5].", $tags="", $link="")
+  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Interfaz de votación, panel electoral y portal de resultados y paquete de auditoría [QA-01, QA-03, S4, S6].", $tags="", $link="")
 }
 
-Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
-ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
-System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Interfaz de votación, panel electoral y portal de resultados y paquete de auditoría [QA-01, QA-03, S4, S6].", $tags="", $link="")
+ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena tablas separadas de participación con UNIQUE(estudiante_id, eleccion_id) y voto anónimo en transacción ACID [QA-01, QA-02, S1, S2, S5].", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Envía confirmaciones de participación sin revelar candidato y distribuye copia externa de huella SHA-256 [QA-01, QA-03, S4, S5].", $tags="", $link="")
 
-Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Votación, "1: Solicita la emisión de votos", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Padrón, "2: Verifica la habilitación electoral", $techn="PadronPort", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.Basededatos, "3: Consulta información del padrón", $techn="SQL", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "4: Registra votos y participaciones", $techn="SQL", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, Serviciodecorreoinstitucional, "5: Envía confirmación de voto", $techn="SMTP", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Votación, "1: Solicita la emisión de voto", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, "2: Verifica habilitación electoral (ConReintentos)", $techn="PadronPort", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, VotoEPIS.Basededatos, "3: Consulta padrón", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "4: Transacción ACID: INSERT participacion [UNIQUE] + INSERT voto [anónimo]", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, "5: Publica evento sin candidato_id", $techn="PublicadorEventos", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, Serviciodecorreoinstitucional, "6: Envía confirmación de participación", $techn="SMTP", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

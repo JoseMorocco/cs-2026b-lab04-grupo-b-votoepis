@@ -1,5 +1,5 @@
 @startuml
-title <size:24>Component View: VotoEPIS - Aplicación VotoEPIS</size>\n<size:24>Nivel 3: componentes internos de la Aplicación VotoEPIS y sus dependencias.</size>
+title <size:24>Component View: VotoEPIS - Aplicación VotoEPIS</size>\n<size:24>Nivel 3: Componentes internos de Aplicación VotoEPIS y trazabilidad a escenarios.</size>
 
 set separator none
 left to right direction
@@ -16,35 +16,37 @@ left to right direction
 !include <C4/C4_Container>
 !include <C4/C4_Component>
 
-System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Envía confirmaciones de participación sin revelar candidato y distribuye copia externa de huella SHA-256 [QA-01, QA-03, S4, S5].", $tags="", $link="")
+System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Fuente externa de habilitación integrada mediante SistemaAcademicoAdapter y ConReintentos [QA-02, QA-04, S7].", $tags="", $link="")
 
 System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
   Container_Boundary("VotoEPIS.AplicaciónVotoEPIS_boundary", "Aplicación VotoEPIS", $tags="") {
-    Component(VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Auditoría", $techn="Módulo interno", $descr="Registra eventos de seguridad y operaciones relevantes del proceso electoral.", $tags="", $link="")
-    Component(VotoEPIS.AplicaciónVotoEPIS.Compartido, "Compartido", $techn="Módulo interno", $descr="Proporciona elementos comunes utilizados por los otros módulos.", $tags="", $link="")
-    Component(VotoEPIS.AplicaciónVotoEPIS.Acceso, "Acceso", $techn="Módulo interno", $descr="Gestiona el acceso de los usuarios al sistema electoral.", $tags="", $link="")
-    Component(VotoEPIS.AplicaciónVotoEPIS.Padrón, "Padrón", $techn="Módulo interno", $descr="Consulta el padrón y verifica la habilitación de los estudiantes.", $tags="", $link="")
-    Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno", $descr="Valida las condiciones de emisión y registra los votos.", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, "Auditoría y Escrutinio", $techn="Módulo interno (Observer)", $descr="Registra eventos INTENTO_DUPLICADO sin candidato_id y genera paquete de acta + listado anónimo con SHA-256 [QA-03, S4, S5, S8].", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.CompartidoyDominio, "Compartido y Dominio", $techn="Módulo interno", $descr="Entidades de dominio y puertos independientes de infraestructura, protegidos por FF-01 y FF-02 [QA-04, S7].", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Acceso, "Acceso", $techn="Módulo interno", $descr="Gestiona la autenticación y el control de sesión de usuarios [QA-01].", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, "Padrón y Elegibilidad", $techn="Módulo interno (Strategy/Adapter/Factory/Decorator)", $descr="Verifica habilitación mediante PadronPort, FabricaFuentes y ConReintentos [QA-02, QA-04, S7].", $tags="", $link="")
+    Component(VotoEPIS.AplicaciónVotoEPIS.Votación, "Votación", $techn="Módulo interno (State)", $descr="Coordina estado de elección y registro transaccional de participación y voto sin identidad [QA-01, QA-02, S1, S2, S5, S6].", $tags="", $link="")
   }
 
-  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
-  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena tablas separadas de participación con UNIQUE(estudiante_id, eleccion_id) y voto anónimo en transacción ACID [QA-01, QA-02, S1, S2, S5].", $tags="", $link="")
+  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Interfaz de votación, panel electoral y portal de resultados y paquete de auditoría [QA-01, QA-03, S4, S6].", $tags="", $link="")
 }
 
-Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Acceso, "Solicita operaciones de acceso", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Votación, "Solicita la emisión de votos", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Padrón, "Solicita consultas y gestión del padrón", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Solicita consultas de auditoría", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Padrón, "Verifica la habilitación electoral", $techn="PadronPort", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Auditoría, "Registra intentos duplicados", $techn="", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Auditoría, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Acceso, VotoEPIS.AplicaciónVotoEPIS.Compartido, "Utiliza elementos comunes", $techn="", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "Registra votos y participaciones", $techn="SQL", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Padrón, VotoEPIS.Basededatos, "Consulta información del padrón", $techn="SQL", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Auditoría, VotoEPIS.Basededatos, "Registra eventos de seguridad", $techn="SQL", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, Serviciodecorreoinstitucional, "Envía confirmación de voto", $techn="SMTP", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Acceso, "Solicita autenticación [QA-01]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.Votación, "Solicita emisión de voto [S1, S2, S6]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, "Consulta habilitación [S7]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, "Consulta paquete de auditoría (acta + listado + SHA-256) [S4]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, "Verifica habilitación electoral [S7]", $techn="PadronPort", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, "Publica eventos sin candidato_id [S5, S8]", $techn="PublicadorEventos", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.AplicaciónVotoEPIS.CompartidoyDominio, "Usa entidades y puertos de dominio [FF-01]", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, VotoEPIS.AplicaciónVotoEPIS.CompartidoyDominio, "Implementa PadronPort [FF-01, FF-02]", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, VotoEPIS.AplicaciónVotoEPIS.CompartidoyDominio, "Usa contratos de dominio [FF-01, FF-02]", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Acceso, VotoEPIS.AplicaciónVotoEPIS.CompartidoyDominio, "Usa elementos comunes", $techn="", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.Votación, VotoEPIS.Basededatos, "BEGIN / INSERT participacion [UNIQUE] + INSERT voto [anónimo] / COMMIT o ROLLBACK [S1, S2, S5]", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, VotoEPIS.Basededatos, "Consulta padrón local [S7]", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.PadrónyElegibilidad, SistemaacadémicoUNSA, "Adapta consulta académica con reintentos [S7]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, VotoEPIS.Basededatos, "Registra INTENTO_DUPLICADO y exporta listado canónico [S4, S8]", $techn="SQL", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS.AuditoríayEscrutinio, Serviciodecorreoinstitucional, "Envía confirmación sin candidato y huella SHA-256 [S4, S5]", $techn="SMTP", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes
