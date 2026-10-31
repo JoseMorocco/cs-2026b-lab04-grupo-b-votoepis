@@ -25,6 +25,13 @@ python -m pytest -q tests/
 
 **Resultados efectivamente obtenidos en el entorno de preparación:** cinco pruebas nuevas pasaron (`5 passed`). Las dos pruebas estructurales detectaron, por separado, imports inyectados, y volvieron a pasar después de restaurar los archivos. También pasaron las 56 pruebas de la suite que no dependían de `radon`. El intento de ejecutar **toda** la suite arrojó 4 fallos porque `radon` no está instalado en este entorno, no porque se observara una regresión del proyecto. No se pudo instalar `import-linter` por falta de conectividad; **su ejecución real en GitHub Actions aún debe verificarse**. El workflow instala ambos y ejecuta la suite completa.
 
+**Ejecución real en la rama `lab08/e4-e5-add-fitness` (31/10/2026):** con Python
+3.14.8 y las versiones fijadas de las herramientas, `lint-imports` informó
+`Contracts: 2 kept, 0 broken`; las cinco pruebas de fitness pasaron; y la suite
+completa terminó con `60 passed`. La inyección temporal de FF-02 fue detectada
+por la prueba AST y por `lint-imports`, y se revirtió con `git revert`. El
+registro completo está en [`evidencia-ejecucion-real.md`](evidencia-ejecucion-real.md).
+
 ## Reproducción en rama de fallo (NO fusionar mientras esté roja)
 
 ```bash
@@ -52,5 +59,6 @@ La salida local sintetizada está en [`salida-violacion-ast.md`](salida-violacio
 
 - URL del PR de violación, con ejecución roja y luego verde: **PENDIENTE**.
 - Link del job `fitness-functions-lab08` verde en PR limpio: **PENDIENTE**.
-- Confirmación de los dos contratos de import-linter: **PENDIENTE**.
-- Commit y responsable que revisó los resultados: **PENDIENTE**.
+- Confirmación de los dos contratos de import-linter: verificada localmente
+  (`2 kept, 0 broken`); en Actions: **PENDIENTE**.
+- Commit y responsable que revisó los resultados: **PENDIENTE** de revisión humana.
