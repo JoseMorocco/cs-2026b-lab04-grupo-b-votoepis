@@ -1,0 +1,3 @@
+modo,votantes,horas,solicitudes,intentos_duplicados,duplicados_rechazados,porcentaje_duplicados_rechazados,emisiones_aceptadas,participacion,voto,evento,cumple_s1
+antes,25000,8,50000,25000,0,0.0,50000,50000,50000,0,False
+despues,25000,8,50000,25000,25000,100.0,25000,25000,25000,25000,True
