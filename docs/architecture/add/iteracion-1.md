@@ -169,34 +169,15 @@ python -m pytest -q tests/
 python scripts/validar_complejidad.py
 ```
 
-En este equipo se usó `.venv/Scripts/python.exe` y Graphviz portátil en
-`C:\Users\Usuario\AppData\Local\Temp\votoepis-lab08-tools\Graphviz-16.1.0-win64\bin\dot.exe`.
-La distribución portátil se obtuvo del [sitio oficial de Graphviz](https://graphviz.org/download/),
-verificando su SHA-256 publicado: `733e49626c492242eb8dca30ea627b6ead20710e207998c7933b4909d92d6abc`.
-Los paquetes de Python se instalaron en `.venv`, sin cambiar requisitos de Lab 07.
-`evidencias/ambiente.txt` registra versiones; el resultado numérico no incluye
-tiempos del equipo para permitir comparación exacta. El gráfico es ilustrativo;
-la comparación reproducible estricta se hace sobre bytes JSON/CSV.
+Las dependencias del experimento se especifican en `fitness/requirements.txt`:
+pytest 9.1.1, radon 6.0.1 y matplotlib 3.10.8. El prototipo utiliza `sqlite3`
+de la biblioteca estándar de Python; la ejecución original usó SQLite 3.49.1.
+El resultado numérico no incluye tiempos del equipo para permitir comparación
+exacta. El gráfico es ilustrativo; la comparación reproducible estricta se hace
+sobre bytes JSON/CSV.
 `.gitattributes` fija LF para esas dos evidencias, incluso al clonar en Windows.
 
-La ejecución final se conserva en [verificaciones.txt](evidencias/verificaciones.txt):
-55 pruebas totales aprobadas (48 heredadas + 7 nuevas), validador heredado con
-75 elementos y CC ≤10, reproducción exacta de JSON/CSV y regeneración idéntica
-del PNG del árbol con la misma versión de Graphviz.
-
-## Evidencias para el informe
-
-| Ejercicio | Archivo o salida exacta que capturar | Qué acredita |
-|---|---|---|
-| E1 | `docs/architecture/utilidad/arbol.png` | Árbol de cuatro atributos con ocho escenarios y prioridades |
-| E1 | Tabla y revisión en `docs/architecture/utilidad/escenarios.md` | Seis partes, métricas, restricciones y corrección S4 |
-| E1/E2 | Filas 7–8 en `docs/architecture/bitacora-ia.md` | Interacciones reales del agente, sin atribuir aprobación humana |
-| E2 | Pasos 1–7 y alternativas de este documento | Selección, decisión, responsabilidades, rechazo y límites |
-| E2 | `evidencias/resultados.csv` e `integridad.png` | Medida de integridad antes/después; no son capturas ficticias |
-| E2 | `evidencias/verificaciones.txt` | Salidas reales de suite, pruebas nuevas, complejidad y reproducibilidad |
-| E1/E2 | Terminal: `git log -2 --format="%h %s"` y `git status --short` | Dos commits independientes y estado final; no se realizó push |
-
-Archivos E1: DOT/PNG/escenarios y una fila de bitácora. Archivos E2:
-`fitness/__init__.py`, `fitness/simular_integridad.py`, `fitness/requirements.txt`,
-`tests/test_lab08_integridad.py`, `.gitattributes`, este documento, evidencias y una fila de bitácora.
-No se modifican `src/`, pruebas anteriores, ADR previos ni workflows.
+La validación obtuvo 55 pruebas aprobadas (48 heredadas + 7 nuevas) y aprobación
+del validador heredado con 75 elementos y CC ≤10. Se comprobó la reproducción
+exacta de JSON/CSV y la regeneración idéntica del PNG del árbol con la misma
+versión de Graphviz.
