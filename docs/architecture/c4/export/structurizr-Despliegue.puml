@@ -1,5 +1,5 @@
 @startuml
-title <size:24>Deployment View: VotoEPIS - Producción</size>\n<size:24>Vista de despliegue en entorno de Producción (MVP).</size>
+title <size:24>Deployment View: VotoEPIS - Producción</size>\n<size:24>Vista de despliegue en VPS único (R-04) [S3, S6].</size>
 
 set separator none
 left to right direction
@@ -16,20 +16,20 @@ left to right direction
 !include <C4/C4_Container>
 !include <C4/C4_Deployment>
 
-Deployment_Node(Producción.Dispositivodelusuario, "Dispositivo del usuario", $type="PC o Móvil (Navegador Web)", $descr="Cliente de votación y consulta", $tags="", $link="") {
-  Container(Producción.Dispositivodelusuario.Aplicaciónweb_1, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
+Deployment_Node(Producción.Dispositivodelusuario, "Dispositivo del usuario", $type="PC o Móvil (Navegador Web)", $descr="Cliente de votación y auditoría", $tags="", $link="") {
+  Container(Producción.Dispositivodelusuario.Aplicaciónweb_1, "Aplicación web", $techn="Web", $descr="Interfaz de votación, panel electoral y portal de resultados y paquete de auditoría [QA-01, QA-03, S4, S6].", $tags="", $link="")
 }
 
-Deployment_Node(Producción.VPSEconómicoR04, "VPS Económico (R-04)", $type="Ubuntu 24.04 LTS (2 vCPU, 4 GB RAM)", $descr="Servidor único de bajo presupuesto para el MVP", $tags="", $link="") {
+Deployment_Node(Producción.VPSEconómicoR04, "VPS Económico (R-04)", $type="Ubuntu 24.04 LTS (2 vCPU, 4 GB RAM)", $descr="Servidor único del MVP para 25 000 votantes [S3, S6]", $tags="", $link="") {
   Deployment_Node(Producción.VPSEconómicoR04.DockerCompose, "Docker Compose", $type="Docker Engine 27 + Nginx", $descr="Orquestación local de contenedores", $tags="", $link="") {
-    Container(Producción.VPSEconómicoR04.DockerCompose.AplicaciónVotoEPIS_1, "Aplicación VotoEPIS", $techn="Monolito en capas", $descr="Implementa las reglas de acceso, padrón, votación, conteo, resultados y actas.", $tags="", $link="")
-    ContainerDb(Producción.VPSEconómicoR04.DockerCompose.Basededatos_1, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
+    Container(Producción.VPSEconómicoR04.DockerCompose.AplicaciónVotoEPIS_1, "Aplicación VotoEPIS", $techn="Monolito en capas (Python 3.12)", $descr="Ejecuta reglas de habilitación extensible [QA-04, S7], emisión atómica [QA-01, QA-02, S1, S2] y generación de paquete auditable [QA-03, S4, S5, S8].", $tags="", $link="")
+    ContainerDb(Producción.VPSEconómicoR04.DockerCompose.Basededatos_1, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena tablas separadas de participación con UNIQUE(estudiante_id, eleccion_id) y voto anónimo en transacción ACID [QA-01, QA-02, S1, S2, S5].", $tags="", $link="")
   }
 
 }
 
-Rel(Producción.Dispositivodelusuario.Aplicaciónweb_1, Producción.VPSEconómicoR04.DockerCompose.AplicaciónVotoEPIS_1, "Solicita operaciones electorales", $techn="HTTPS", $tags="", $link="")
-Rel(Producción.VPSEconómicoR04.DockerCompose.AplicaciónVotoEPIS_1, Producción.VPSEconómicoR04.DockerCompose.Basededatos_1, "Consulta y registra información electoral", $techn="SQL", $tags="", $link="")
+Rel(Producción.Dispositivodelusuario.Aplicaciónweb_1, Producción.VPSEconómicoR04.DockerCompose.AplicaciónVotoEPIS_1, "Solicita operaciones electorales (p95 <= 2 s) [S6]", $techn="HTTPS", $tags="", $link="")
+Rel(Producción.VPSEconómicoR04.DockerCompose.AplicaciónVotoEPIS_1, Producción.VPSEconómicoR04.DockerCompose.Basededatos_1, "Ejecuta transacción ACID participación (UNIQUE) + voto y consulta escrutinio [S1, S2, S4, S5]", $techn="SQL / ACID", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

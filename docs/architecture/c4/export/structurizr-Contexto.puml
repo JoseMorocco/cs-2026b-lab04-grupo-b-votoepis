@@ -1,5 +1,5 @@
 @startuml
-title <size:24>System Context View: VotoEPIS</size>\n<size:24>Nivel 1: VotoEPIS, sus usuarios y sistemas externos.</size>
+title <size:24>System Context View: VotoEPIS</size>\n<size:24>Nivel 1: VotoEPIS, actores y sistemas externos con trazabilidad QA/S.</size>
 
 set separator none
 left to right direction
@@ -14,18 +14,18 @@ left to right direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-Person(Estudiantevotante, "Estudiante votante", $descr="Consulta su habilitación, emite su voto y revisa los resultados.", $tags="", $link="")
-System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
-System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.", $tags="", $link="")
-Person(Comitéelectoral, "Comité electoral", $descr="Gestiona el padrón, administra las elecciones y publica resultados y actas.", $tags="", $link="")
-Person(Auditor, "Auditor", $descr="Revisa los resultados y verifica el acta electoral.", $tags="", $link="")
-System(VotoEPIS, "VotoEPIS", $descr="Plataforma para realizar elecciones estudiantiles y publicar resultados verificables.", $tags="", $link="")
+Person(Estudiantevotante, "Estudiante votante", $descr="Consulta su habilitación, emite su voto único y revisa resultados [S1, S2, S6].", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Envía confirmaciones de participación sin revelar candidato y distribuye copia externa de huella SHA-256 [QA-01, QA-03, S4, S5].", $tags="", $link="")
+System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Fuente externa de habilitación integrada mediante SistemaAcademicoAdapter y ConReintentos [QA-02, QA-04, S7].", $tags="", $link="")
+Person(Comitéelectoral, "Comité electoral", $descr="Gestiona el padrón, administra el ciclo electoral y publica actas y huellas SHA-256 [S3, S4].", $tags="", $link="")
+Person(Auditorexterno, "Auditor externo", $descr="Recalcula totales y verifica la integridad del listado anónimo contra la huella SHA-256 externa [QA-03, S4, S5].", $tags="", $link="")
+System(VotoEPIS, "VotoEPIS", $descr="Plataforma de elecciones universitarias (25 000 votantes / 8 h) con integridad transaccional y auditoría verificable [QA-01, QA-02, QA-03, QA-04].", $tags="", $link="")
 
-Rel(Estudiantevotante, VotoEPIS, "Consulta su habilitación, emite su voto y revisa resultados", $techn="", $tags="", $link="")
-Rel(Comitéelectoral, VotoEPIS, "Gestiona el padrón y las elecciones; publica resultados y actas", $techn="", $tags="", $link="")
-Rel(Auditor, VotoEPIS, "Consulta el acta y verifica los resultados", $techn="", $tags="", $link="")
-Rel(VotoEPIS, Serviciodecorreoinstitucional, "Envía confirmaciones y avisos por correo institucional", $techn="", $tags="", $link="")
-Rel(VotoEPIS, SistemaacadémicoUNSA, "Consulta datos de habilitación (integración propuesta)", $techn="", $tags="", $link="")
+Rel(Estudiantevotante, VotoEPIS, "Emite voto único y consulta resultados [S1, S6]", $techn="", $tags="", $link="")
+Rel(Comitéelectoral, VotoEPIS, "Administra elección y publica paquete auditable [S3, S4]", $techn="", $tags="", $link="")
+Rel(Auditorexterno, VotoEPIS, "Descarga acta y listado anónimo para verificar SHA-256 [S4, S5]", $techn="", $tags="", $link="")
+Rel(VotoEPIS, Serviciodecorreoinstitucional, "Envía confirmaciones sin candidato y huella externa [S4, S5]", $techn="", $tags="", $link="")
+Rel(VotoEPIS, SistemaacadémicoUNSA, "Consulta condición de habilitación con reintentos [S7]", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

@@ -1,5 +1,5 @@
 @startuml
-title <size:24>Container View: VotoEPIS</size>\n<size:24>Nivel 2: contenedores lógicos de VotoEPIS y sus relaciones.</size>
+title <size:24>Container View: VotoEPIS</size>\n<size:24>Nivel 2: Contenedores de VotoEPIS después de 3 iteraciones de ADD [S1, S2, S4, S5, S6, S7].</size>
 
 set separator none
 left to right direction
@@ -15,25 +15,25 @@ left to right direction
 !include <C4/C4_Context>
 !include <C4/C4_Container>
 
-Person(Estudiantevotante, "Estudiante votante", $descr="Consulta su habilitación, emite su voto y revisa los resultados.", $tags="", $link="")
-Person(Comitéelectoral, "Comité electoral", $descr="Gestiona el padrón, administra las elecciones y publica resultados y actas.", $tags="", $link="")
-Person(Auditor, "Auditor", $descr="Revisa los resultados y verifica el acta electoral.", $tags="", $link="")
-System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Servicio externo de envío de correos y confirmaciones.", $tags="", $link="")
-System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Posible fuente de información para verificar la habilitación de estudiantes; integración pendiente de confirmar.", $tags="", $link="")
+Person(Estudiantevotante, "Estudiante votante", $descr="Consulta su habilitación, emite su voto único y revisa resultados [S1, S2, S6].", $tags="", $link="")
+Person(Comitéelectoral, "Comité electoral", $descr="Gestiona el padrón, administra el ciclo electoral y publica actas y huellas SHA-256 [S3, S4].", $tags="", $link="")
+Person(Auditorexterno, "Auditor externo", $descr="Recalcula totales y verifica la integridad del listado anónimo contra la huella SHA-256 externa [QA-03, S4, S5].", $tags="", $link="")
+System(Serviciodecorreoinstitucional, "Servicio de correo institucional", $descr="Envía confirmaciones de participación sin revelar candidato y distribuye copia externa de huella SHA-256 [QA-01, QA-03, S4, S5].", $tags="", $link="")
+System(SistemaacadémicoUNSA, "Sistema académico UNSA", $descr="Fuente externa de habilitación integrada mediante SistemaAcademicoAdapter y ConReintentos [QA-02, QA-04, S7].", $tags="", $link="")
 
 System_Boundary("VotoEPIS_boundary", "VotoEPIS", $tags="") {
-  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena padrón, participaciones, votos, resultados, actas y registros de auditoría.", $tags="", $link="")
-  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Presenta la interfaz de votación, el panel electoral y la consulta pública de resultados.", $tags="", $link="")
-  Container(VotoEPIS.AplicaciónVotoEPIS, "Aplicación VotoEPIS", $techn="Monolito en capas", $descr="Implementa las reglas de acceso, padrón, votación, conteo, resultados y actas.", $tags="", $link="")
+  ContainerDb(VotoEPIS.Basededatos, "Base de datos", $techn="PostgreSQL 16", $descr="Almacena tablas separadas de participación con UNIQUE(estudiante_id, eleccion_id) y voto anónimo en transacción ACID [QA-01, QA-02, S1, S2, S5].", $tags="", $link="")
+  Container(VotoEPIS.Aplicaciónweb, "Aplicación web", $techn="Web", $descr="Interfaz de votación, panel electoral y portal de resultados y paquete de auditoría [QA-01, QA-03, S4, S6].", $tags="", $link="")
+  Container(VotoEPIS.AplicaciónVotoEPIS, "Aplicación VotoEPIS", $techn="Monolito en capas (Python 3.12)", $descr="Ejecuta reglas de habilitación extensible [QA-04, S7], emisión atómica [QA-01, QA-02, S1, S2] y generación de paquete auditable [QA-03, S4, S5, S8].", $tags="", $link="")
 }
 
-Rel(Estudiantevotante, VotoEPIS.Aplicaciónweb, "Emite votos y consulta resultados", $techn="HTTPS", $tags="", $link="")
-Rel(Comitéelectoral, VotoEPIS.Aplicaciónweb, "Administra elecciones y publica actas", $techn="HTTPS", $tags="", $link="")
-Rel(Auditor, VotoEPIS.Aplicaciónweb, "Consulta resultados y actas", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS, "Solicita operaciones electorales", $techn="HTTPS", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS, VotoEPIS.Basededatos, "Consulta y registra información electoral", $techn="SQL", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS, Serviciodecorreoinstitucional, "Solicita el envío de correos institucionales", $techn="SMTP", $tags="", $link="")
-Rel(VotoEPIS.AplicaciónVotoEPIS, SistemaacadémicoUNSA, "Consulta información de habilitación (propuesta)", $techn="Integración por definir", $tags="", $link="")
+Rel(Estudiantevotante, VotoEPIS.Aplicaciónweb, "Emite voto y consulta resultados [S1, S6]", $techn="HTTPS", $tags="", $link="")
+Rel(Comitéelectoral, VotoEPIS.Aplicaciónweb, "Gestiona elección y cierre electoral [S3, S4]", $techn="HTTPS", $tags="", $link="")
+Rel(Auditorexterno, VotoEPIS.Aplicaciónweb, "Verifica paquete de escrutinio y SHA-256 [S4, S5]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.Aplicaciónweb, VotoEPIS.AplicaciónVotoEPIS, "Solicita operaciones electorales (p95 <= 2 s) [S6]", $techn="HTTPS", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS, VotoEPIS.Basededatos, "Ejecuta transacción ACID participación (UNIQUE) + voto y consulta escrutinio [S1, S2, S4, S5]", $techn="SQL / ACID", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS, Serviciodecorreoinstitucional, "Publica confirmación de participación y copia de huella [S4, S5]", $techn="SMTP", $tags="", $link="")
+Rel(VotoEPIS.AplicaciónVotoEPIS, SistemaacadémicoUNSA, "Consulta habilitación mediante PadronPort [S7]", $techn="HTTPS", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

@@ -4,23 +4,23 @@ graph LR
   subgraph diagram ["System Context View: VotoEPIS"]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    1["<div style='font-weight: bold'>Estudiante votante</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Consulta su habilitación,<br />emite su voto y revisa los<br />resultados.</div>"]
+    1["<div style='font-weight: bold'>Estudiante votante</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Consulta su habilitación,<br />emite su voto único y revisa<br />resultados [S1, S2, S6].</div>"]
     style 1 fill:#08427b,stroke:#052e56,color:#ffffff
-    13["<div style='font-weight: bold'>Servicio de correo institucional</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Servicio externo de envío de<br />correos y confirmaciones.</div>"]
+    13["<div style='font-weight: bold'>Servicio de correo institucional</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Envía confirmaciones de<br />participación sin revelar<br />candidato y distribuye copia<br />externa de huella SHA-256<br />[QA-01, QA-03, S4, S5].</div>"]
     style 13 fill:#999999,stroke:#6b6b6b,color:#ffffff
-    14["<div style='font-weight: bold'>Sistema académico UNSA</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Posible fuente de información<br />para verificar la<br />habilitación de estudiantes;<br />integración pendiente de<br />confirmar.</div>"]
+    14["<div style='font-weight: bold'>Sistema académico UNSA</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Fuente externa de<br />habilitación integrada<br />mediante<br />SistemaAcademicoAdapter y<br />ConReintentos [QA-02, QA-04,<br />S7].</div>"]
     style 14 fill:#999999,stroke:#6b6b6b,color:#ffffff
-    2["<div style='font-weight: bold'>Comité electoral</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Gestiona el padrón,<br />administra las elecciones y<br />publica resultados y actas.</div>"]
+    2["<div style='font-weight: bold'>Comité electoral</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Gestiona el padrón,<br />administra el ciclo electoral<br />y publica actas y huellas<br />SHA-256 [S3, S4].</div>"]
     style 2 fill:#08427b,stroke:#052e56,color:#ffffff
-    3["<div style='font-weight: bold'>Auditor</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Revisa los resultados y<br />verifica el acta electoral.</div>"]
+    3["<div style='font-weight: bold'>Auditor externo</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Recalcula totales y verifica<br />la integridad del listado<br />anónimo contra la huella<br />SHA-256 externa [QA-03, S4,<br />S5].</div>"]
     style 3 fill:#08427b,stroke:#052e56,color:#ffffff
-    4["<div style='font-weight: bold'>VotoEPIS</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Plataforma para realizar<br />elecciones estudiantiles y<br />publicar resultados<br />verificables.</div>"]
+    4["<div style='font-weight: bold'>VotoEPIS</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Plataforma de elecciones<br />universitarias (25 000<br />votantes / 8 h) con<br />integridad transaccional y<br />auditoría verificable [QA-01,<br />QA-02, QA-03, QA-04].</div>"]
     style 4 fill:#1168bd,stroke:#0b4884,color:#ffffff
 
-    1-. "<div>Consulta su habilitación,<br />emite su voto y revisa<br />resultados</div><div style='font-size: 70%'></div>" .->4
-    2-. "<div>Gestiona el padrón y las<br />elecciones; publica<br />resultados y actas</div><div style='font-size: 70%'></div>" .->4
-    3-. "<div>Consulta el acta y verifica<br />los resultados</div><div style='font-size: 70%'></div>" .->4
-    4-. "<div>Envía confirmaciones y avisos<br />por correo institucional</div><div style='font-size: 70%'></div>" .->13
-    4-. "<div>Consulta datos de<br />habilitación (integración<br />propuesta)</div><div style='font-size: 70%'></div>" .->14
+    1-. "<div>Emite voto único y consulta<br />resultados [S1, S6]</div><div style='font-size: 70%'></div>" .->4
+    2-. "<div>Administra elección y publica<br />paquete auditable [S3, S4]</div><div style='font-size: 70%'></div>" .->4
+    3-. "<div>Descarga acta y listado<br />anónimo para verificar<br />SHA-256 [S4, S5]</div><div style='font-size: 70%'></div>" .->4
+    4-. "<div>Envía confirmaciones sin<br />candidato y huella externa<br />[S4, S5]</div><div style='font-size: 70%'></div>" .->13
+    4-. "<div>Consulta condición de<br />habilitación con reintentos<br />[S7]</div><div style='font-size: 70%'></div>" .->14
 
   end

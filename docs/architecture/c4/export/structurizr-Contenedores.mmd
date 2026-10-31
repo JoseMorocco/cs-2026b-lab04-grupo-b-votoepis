@@ -4,34 +4,34 @@ graph LR
   subgraph diagram ["Container View: VotoEPIS"]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    1["<div style='font-weight: bold'>Estudiante votante</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Consulta su habilitación,<br />emite su voto y revisa los<br />resultados.</div>"]
+    1["<div style='font-weight: bold'>Estudiante votante</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Consulta su habilitación,<br />emite su voto único y revisa<br />resultados [S1, S2, S6].</div>"]
     style 1 fill:#08427b,stroke:#052e56,color:#ffffff
-    2["<div style='font-weight: bold'>Comité electoral</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Gestiona el padrón,<br />administra las elecciones y<br />publica resultados y actas.</div>"]
+    2["<div style='font-weight: bold'>Comité electoral</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Gestiona el padrón,<br />administra el ciclo electoral<br />y publica actas y huellas<br />SHA-256 [S3, S4].</div>"]
     style 2 fill:#08427b,stroke:#052e56,color:#ffffff
-    3["<div style='font-weight: bold'>Auditor</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Revisa los resultados y<br />verifica el acta electoral.</div>"]
+    3["<div style='font-weight: bold'>Auditor externo</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Recalcula totales y verifica<br />la integridad del listado<br />anónimo contra la huella<br />SHA-256 externa [QA-03, S4,<br />S5].</div>"]
     style 3 fill:#08427b,stroke:#052e56,color:#ffffff
-    13["<div style='font-weight: bold'>Servicio de correo institucional</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Servicio externo de envío de<br />correos y confirmaciones.</div>"]
+    13["<div style='font-weight: bold'>Servicio de correo institucional</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Envía confirmaciones de<br />participación sin revelar<br />candidato y distribuye copia<br />externa de huella SHA-256<br />[QA-01, QA-03, S4, S5].</div>"]
     style 13 fill:#999999,stroke:#6b6b6b,color:#ffffff
-    14["<div style='font-weight: bold'>Sistema académico UNSA</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Posible fuente de información<br />para verificar la<br />habilitación de estudiantes;<br />integración pendiente de<br />confirmar.</div>"]
+    14["<div style='font-weight: bold'>Sistema académico UNSA</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Fuente externa de<br />habilitación integrada<br />mediante<br />SistemaAcademicoAdapter y<br />ConReintentos [QA-02, QA-04,<br />S7].</div>"]
     style 14 fill:#999999,stroke:#6b6b6b,color:#ffffff
 
     subgraph 4 ["VotoEPIS"]
       style 4 fill:#ffffff,stroke:#0b4884,color:#0b4884
 
-      12[("<div style='font-weight: bold'>Base de datos</div><div style='font-size: 70%; margin-top: 0px'>[Container: PostgreSQL 16]</div><div style='font-size: 80%; margin-top:10px'>Almacena padrón,<br />participaciones, votos,<br />resultados, actas y registros<br />de auditoría.</div>")]
+      12[("<div style='font-weight: bold'>Base de datos</div><div style='font-size: 70%; margin-top: 0px'>[Container: PostgreSQL 16]</div><div style='font-size: 80%; margin-top:10px'>Almacena tablas separadas de<br />participación con<br />UNIQUE(estudiante_id,<br />eleccion_id) y voto anónimo<br />en transacción ACID [QA-01,<br />QA-02, S1, S2, S5].</div>")]
       style 12 fill:#438dd5,stroke:#2e6295,color:#ffffff
-      5["<div style='font-weight: bold'>Aplicación web</div><div style='font-size: 70%; margin-top: 0px'>[Container: Web]</div><div style='font-size: 80%; margin-top:10px'>Presenta la interfaz de<br />votación, el panel electoral<br />y la consulta pública de<br />resultados.</div>"]
+      5["<div style='font-weight: bold'>Aplicación web</div><div style='font-size: 70%; margin-top: 0px'>[Container: Web]</div><div style='font-size: 80%; margin-top:10px'>Interfaz de votación, panel<br />electoral y portal de<br />resultados y paquete de<br />auditoría [QA-01, QA-03, S4,<br />S6].</div>"]
       style 5 fill:#438dd5,stroke:#2e6295,color:#ffffff
-      6["<div style='font-weight: bold'>Aplicación VotoEPIS</div><div style='font-size: 70%; margin-top: 0px'>[Container: Monolito en capas]</div><div style='font-size: 80%; margin-top:10px'>Implementa las reglas de<br />acceso, padrón, votación,<br />conteo, resultados y actas.</div>"]
+      6["<div style='font-weight: bold'>Aplicación VotoEPIS</div><div style='font-size: 70%; margin-top: 0px'>[Container: Monolito en capas (Python 3.12)]</div><div style='font-size: 80%; margin-top:10px'>Ejecuta reglas de<br />habilitación extensible<br />[QA-04, S7], emisión atómica<br />[QA-01, QA-02, S1, S2] y<br />generación de paquete<br />auditable [QA-03, S4, S5,<br />S8].</div>"]
       style 6 fill:#438dd5,stroke:#2e6295,color:#ffffff
     end
 
-    1-. "<div>Emite votos y consulta<br />resultados</div><div style='font-size: 70%'>[HTTPS]</div>" .->5
-    2-. "<div>Administra elecciones y<br />publica actas</div><div style='font-size: 70%'>[HTTPS]</div>" .->5
-    3-. "<div>Consulta resultados y actas</div><div style='font-size: 70%'>[HTTPS]</div>" .->5
-    5-. "<div>Solicita operaciones<br />electorales</div><div style='font-size: 70%'>[HTTPS]</div>" .->6
-    6-. "<div>Consulta y registra<br />información electoral</div><div style='font-size: 70%'>[SQL]</div>" .->12
-    6-. "<div>Solicita el envío de correos<br />institucionales</div><div style='font-size: 70%'>[SMTP]</div>" .->13
-    6-. "<div>Consulta información de<br />habilitación (propuesta)</div><div style='font-size: 70%'>[Integración por definir]</div>" .->14
+    1-. "<div>Emite voto y consulta<br />resultados [S1, S6]</div><div style='font-size: 70%'>[HTTPS]</div>" .->5
+    2-. "<div>Gestiona elección y cierre<br />electoral [S3, S4]</div><div style='font-size: 70%'>[HTTPS]</div>" .->5
+    3-. "<div>Verifica paquete de<br />escrutinio y SHA-256 [S4, S5]</div><div style='font-size: 70%'>[HTTPS]</div>" .->5
+    5-. "<div>Solicita operaciones<br />electorales (p95 <= 2 s) [S6]</div><div style='font-size: 70%'>[HTTPS]</div>" .->6
+    6-. "<div>Ejecuta transacción ACID<br />participación (UNIQUE) + voto<br />y consulta escrutinio [S1,<br />S2, S4, S5]</div><div style='font-size: 70%'>[SQL / ACID]</div>" .->12
+    6-. "<div>Publica confirmación de<br />participación y copia de<br />huella [S4, S5]</div><div style='font-size: 70%'>[SMTP]</div>" .->13
+    6-. "<div>Consulta habilitación<br />mediante PadronPort [S7]</div><div style='font-size: 70%'>[HTTPS]</div>" .->14
 
   end
