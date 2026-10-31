@@ -1,0 +1,26 @@
+[importlinter]
+root_package = src
+
+[importlinter:contract:ff01-dominio]
+name = FF-01 El dominio no depende de infraestructura ni orquestacion (ADR-001)
+type = forbidden
+source_modules =
+    src.votacion.dominio
+forbidden_modules =
+    src.votacion.externos
+    src.votacion.servicio
+    src.votacion.eventos
+    src.votacion.elegibilidad
+    src.votacion.decoradores
+    src.votacion.ia
+
+[importlinter:contract:ff02-adaptadores]
+name = FF-02 Los adaptadores y eventos no conocen la orquestacion (ADR-005)
+type = forbidden
+source_modules =
+    src.votacion.elegibilidad
+    src.votacion.decoradores
+    src.votacion.eventos
+    src.votacion.externos
+forbidden_modules =
+    src.votacion.servicio
