@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Instalar herramientas
-        run: python -m pip install 'pytest==9.1.1' 'radon==6.0.1' 'import-linter>=2.0,<3.0'
+        run: python -m pip install 'pytest==9.1.1' 'radon==6.0.1' 'import-linter>=2.0,<3.0' -r prompts/criterios/requirements.txt
       - name: FF-01 y FF-02: contratos estructurales
         run: lint-imports
       - name: FF de calidad y verificacion estructural complementaria
