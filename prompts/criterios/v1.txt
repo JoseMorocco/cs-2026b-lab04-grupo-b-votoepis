@@ -1,0 +1,6 @@
+Genera criterios de aceptación Gherkin para la siguiente historia de usuario.
+
+Historia {{historia_id}}:
+{{historia}}
+
+Devuelve solo un objeto JSON con historia_id, invest_ok, preguntas y escenarios. Si la historia no cumple INVEST, marca invest_ok como false, plantea preguntas de aclaración y deja escenarios vacío. En cada escenario usa titulo, tipo (exito, error o borde), dado (lista de condiciones), cuando (acción) y entonces (lista de resultados).

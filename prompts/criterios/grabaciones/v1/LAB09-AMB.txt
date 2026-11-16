@@ -1,0 +1,16 @@
+{
+  "historia_id": "LAB09-AMB",
+  "invest_ok": false,
+  "preguntas": [
+    "¿A qué tipo de verificación se refiere la historia de usuario?",
+    "¿Cuál es el problema actual que presenta la verificación?",
+    "¿Qué comportamiento específico se espera corregir?",
+    "¿Qué significa que la verificación funcione mejor?",
+    "¿Cuáles son las condiciones para considerar una verificación exitosa?",
+    "¿Qué debe mostrar el sistema cuando la verificación falla?",
+    "¿Qué criterios medibles permitirán comprobar que el problema fue solucionado?",
+    "¿La corrección afecta únicamente a los estudiantes o también a otros roles?",
+    "¿Puede delimitarse la corrección para implementarse y probarse en una sola iteración?"
+  ],
+  "escenarios": []
+}

@@ -1,0 +1,155 @@
+{
+  "historia_id": "HU-01",
+  "invest_ok": true,
+  "preguntas": [],
+  "escenarios": [
+    {
+      "titulo": "Emitir un voto válido en una elección abierta",
+      "tipo": "exito",
+      "dado": [
+        "Que el estudiante está autenticado y habilitado para votar",
+        "Y que la elección se encuentra abierta",
+        "Y que el candidato seleccionado pertenece a la elección",
+        "Y que el estudiante no ha votado previamente en esa elección"
+      ],
+      "cuando": "El estudiante confirma la emisión de su voto",
+      "entonces": [
+        "El sistema registra el voto exitosamente",
+        "Y el voto se contabiliza una sola vez",
+        "Y el sistema confirma que la emisión fue aceptada",
+        "Y la identidad del estudiante no queda vinculada al candidato seleccionado"
+      ]
+    },
+    {
+      "titulo": "Garantizar el secreto del voto",
+      "tipo": "exito",
+      "dado": [
+        "Que el estudiante está habilitado para votar",
+        "Y que la elección está abierta",
+        "Y que el candidato pertenece a la elección"
+      ],
+      "cuando": "El estudiante emite un voto válido",
+      "entonces": [
+        "El sistema registra el voto sin asociar la identidad del estudiante con el candidato seleccionado",
+        "Y la información de participación no permite identificar la preferencia electoral",
+        "Y se mantiene la confidencialidad del voto"
+      ]
+    },
+    {
+      "titulo": "Enviar confirmación institucional asíncrona",
+      "tipo": "exito",
+      "dado": [
+        "Que el estudiante ha emitido un voto válido",
+        "Y que el sistema ha registrado correctamente el voto"
+      ],
+      "cuando": "El sistema completa el registro del voto",
+      "entonces": [
+        "Se solicita el envío asíncrono de una confirmación institucional",
+        "Y el envío no bloquea la finalización de la emisión",
+        "Y la confirmación no revela el candidato seleccionado",
+        "Y la confirmación informa que el voto fue registrado"
+      ]
+    },
+    {
+      "titulo": "Rechazar un segundo intento de votación",
+      "tipo": "error",
+      "dado": [
+        "Que el estudiante está autenticado y habilitado",
+        "Y que la elección permanece abierta",
+        "Y que el estudiante ya emitió un voto válido en esa elección"
+      ],
+      "cuando": "El estudiante intenta emitir otro voto en la misma elección",
+      "entonces": [
+        "El sistema rechaza el segundo intento",
+        "Y muestra un mensaje indicando que ya existe una participación registrada",
+        "Y no registra ni contabiliza un nuevo voto",
+        "Y registra el intento rechazado como un evento de seguridad",
+        "Y el evento de seguridad no revela el candidato seleccionado"
+      ]
+    },
+    {
+      "titulo": "Rechazar el voto de un estudiante no habilitado",
+      "tipo": "error",
+      "dado": [
+        "Que el estudiante está autenticado",
+        "Y que el estudiante no está habilitado para votar",
+        "Y que la elección está abierta"
+      ],
+      "cuando": "El estudiante intenta emitir un voto",
+      "entonces": [
+        "El sistema rechaza la emisión del voto",
+        "Y informa que el estudiante no está habilitado",
+        "Y no registra ni contabiliza ningún voto",
+        "Y no solicita el envío de una confirmación de voto válido"
+      ]
+    },
+    {
+      "titulo": "Rechazar un candidato ajeno a la elección",
+      "tipo": "error",
+      "dado": [
+        "Que el estudiante está habilitado para votar",
+        "Y que la elección está abierta",
+        "Y que el estudiante todavía no ha votado",
+        "Y que el candidato seleccionado no pertenece a la elección"
+      ],
+      "cuando": "El estudiante intenta emitir su voto por ese candidato",
+      "entonces": [
+        "El sistema rechaza la emisión",
+        "Y informa que el candidato no es válido para la elección",
+        "Y no registra ni contabiliza el voto",
+        "Y conserva el derecho del estudiante a emitir un voto válido"
+      ]
+    },
+    {
+      "titulo": "Impedir la votación en una elección cerrada",
+      "tipo": "error",
+      "dado": [
+        "Que el estudiante está habilitado para votar",
+        "Y que la elección se encuentra cerrada",
+        "Y que el candidato pertenece a esa elección"
+      ],
+      "cuando": "El estudiante intenta emitir un voto",
+      "entonces": [
+        "El sistema rechaza la emisión",
+        "Y informa que la elección no está abierta",
+        "Y no registra ni contabiliza ningún voto"
+      ]
+    },
+    {
+      "titulo": "Impedir votos duplicados ante intentos simultáneos",
+      "tipo": "borde",
+      "dado": [
+        "Que el estudiante está habilitado para votar",
+        "Y que la elección está abierta",
+        "Y que el estudiante no ha votado previamente",
+        "Y que los candidatos seleccionados pertenecen a la elección"
+      ],
+      "cuando": "El estudiante realiza dos intentos de emisión simultáneos en la misma elección",
+      "entonces": [
+        "El sistema acepta como máximo uno de los intentos",
+        "Y registra y contabiliza un único voto",
+        "Y rechaza el intento duplicado",
+        "Y registra el intento rechazado como evento de seguridad",
+        "Y mantiene el secreto del voto"
+      ]
+    },
+    {
+      "titulo": "Permitir votar en elecciones diferentes",
+      "tipo": "borde",
+      "dado": [
+        "Que el estudiante está habilitado para votar",
+        "Y que ha emitido un voto válido en una primera elección",
+        "Y que existe una segunda elección abierta",
+        "Y que el candidato seleccionado pertenece a la segunda elección",
+        "Y que el estudiante todavía no ha votado en la segunda elección"
+      ],
+      "cuando": "El estudiante emite su voto en la segunda elección",
+      "entonces": [
+        "El sistema acepta y registra el voto en la segunda elección",
+        "Y mantiene un único voto por estudiante en cada elección",
+        "Y conserva el secreto de ambos votos",
+        "Y solicita el envío asíncrono de la confirmación institucional correspondiente"
+      ]
+    }
+  ]
+}

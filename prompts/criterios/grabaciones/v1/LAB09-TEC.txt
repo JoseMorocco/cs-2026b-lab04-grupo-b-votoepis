@@ -1,0 +1,14 @@
+{
+  "historia_id": "LAB09-TEC",
+  "invest_ok": false,
+  "preguntas": [
+    "¿Qué necesidad del usuario o del negocio se busca satisfacer al reemplazar la consulta de conteo por una vista en la base de datos?",
+    "¿Qué problema presenta la consulta actual y cómo se comprobará que la vista lo resuelve?",
+    "¿Qué datos debe devolver la vista y qué reglas de conteo debe respetar?",
+    "¿Cómo se garantizará que los resultados de la vista coincidan con los obtenidos mediante la consulta actual?",
+    "¿Existen restricciones de rendimiento, seguridad o compatibilidad que deban cumplirse?",
+    "¿Es obligatorio utilizar una vista de base de datos o pueden evaluarse otras soluciones técnicas?",
+    "¿Qué criterios verificables permitirán determinar que la implementación fue simplificada satisfactoriamente?"
+  ],
+  "escenarios": []
+}

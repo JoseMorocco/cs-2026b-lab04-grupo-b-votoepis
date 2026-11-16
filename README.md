@@ -212,3 +212,7 @@ En el Laboratorio 08 se evolucionó la arquitectura de **VotoEPIS** para soporta
 * [Matriz de Probabilidad e Impacto (PNG)](docs/architecture/add/evidencias/matriz-riesgos.png)
 * [Vista de Contenedores C4 Actualizada con Trazabilidad (PNG)](docs/architecture/c4/img/structurizr-Contenedores.png)
 * [Bitácora de Uso de IA Actualizada (`bitacora-ia.md`)](docs/architecture/bitacora-ia.md)
+
+## Prompts como código (Lab 09)
+
+La línea base v1 obtuvo **88,89 %** con promptfoo 0.125.1 (8 casos aprobados, 1 fallido y 0 errores). [Evaluación y reproducción](prompts/criterios/README.md) · [Resultado JSON](prompts/criterios/resultado-v1.json)

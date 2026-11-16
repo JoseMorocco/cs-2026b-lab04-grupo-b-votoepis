@@ -1,0 +1,56 @@
+{
+  "HU-01": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "8abfcf769ff8f9947c5991f569fe1835e40b48e98ddf1d8187144968c1a8c9b7",
+    "respuesta_sha256": "f6a22ba9545b1336ecd8e6b7c7e7e8068d795b5bcb4f0ec3168e3db080b01d88"
+  },
+  "HU-L09-02": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "2dd40f824aec2b69fac58b323ba1f9fbb5a72cfad6349be0cf6cf3fe2ed57a97",
+    "respuesta_sha256": "d7ec957cd947ae70cbb076c38d1ef03a6823b7eaa64b432aa3cdfdef6014f73d"
+  },
+  "HU-L09-03": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "4bbc70dedbe856124c346c904096c65bea67b7cb8078358a322831005551597b",
+    "respuesta_sha256": "a8e6d7a57ec3234c8e4235cf55cf7a02224005f1108bcee8862967b88cc54724"
+  },
+  "HU-L09-04": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "ac1929612e2b94648945c345e792ab520c6932d0f97992f843576b01f548eaad",
+    "respuesta_sha256": "f0ba06f870ac28a8443a875ce208f5ebf58e84f20708df80387f49963e44736a"
+  },
+  "HU-L09-05": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "2c1b380e8f46cb424d55552c2bade1b2cc9ebeb04bb8edb3142ceb62e6bc030e",
+    "respuesta_sha256": "931afab442f8937ee84b9951d9e0e4d0ebab0255fbbaab41831fc316b9343536"
+  },
+  "HU-L09-06": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "675b1a7aa3053022f7d07321a53420567d36fc53b8d18eb564974cdce6c440d0",
+    "respuesta_sha256": "99b2c49457e6837d2cfbb02fcaefa18e5ed088c07dad2215273e303bdc274b24"
+  },
+  "LAB09-ADV": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "eedfd2b0812079f4f2cb3b602f0ed43267816dbe4550cf847db48bea054982f8",
+    "respuesta_sha256": "f29a66865c9f18492b5987d36e4f51f3f2edf7d4069662e31a29cf0ebed62e2f"
+  },
+  "LAB09-AMB": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "4bca16166bc626b96c456809a774a96caed68d6e5b98ecdc0a5086a0e126674b",
+    "respuesta_sha256": "58be16a1045a66c5ee176060b5d9114539f500b438984548eb6367c3ea500bfa"
+  },
+  "LAB09-TEC": {
+    "asistente": "ChatGPT",
+    "modelo_reportado": null,
+    "prompt_sha256": "3a472be7fe3f565063d06d0575cc0a85bbf48ff92ed1a2c9262461d05eb8224f",
+    "respuesta_sha256": "600c209d0f641c3470fcef84f6542b2e23a92a1ef8df485589fd65a99bb761b1"
+  }
+}

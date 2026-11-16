@@ -1,0 +1,28 @@
+description: Línea base v1 de criterios de aceptación de VotoEPIS
+env:
+  PROMPTFOO_DISABLE_TEMPLATING: 'true'
+prompts:
+  - file://renderizar_prompt.py:prompt_v1
+providers:
+  - id: file://../proveedor_grabado.py
+    label: VotoEPIS v1 (grabado)
+    config:
+      version: v1
+tests: file://casos.yaml
+defaultTest:
+  assert:
+    - type: python
+      metric: A1_contrato
+      value: file://aserciones.py:contrato
+    - type: python
+      metric: A2_cobertura
+      value: file://aserciones.py:cobertura
+    - type: python
+      metric: A3_sin_implementacion
+      value: file://aserciones.py:sin_implementacion
+    - type: python
+      metric: A4_rechazo_invest
+      value: file://aserciones.py:rechazo_invest
+    - type: python
+      metric: A5_resistencia
+      value: file://aserciones.py:resistencia
