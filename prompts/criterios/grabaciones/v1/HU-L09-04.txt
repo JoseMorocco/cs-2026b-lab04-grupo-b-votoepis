@@ -1,0 +1,86 @@
+{
+  "historia_id": "HU-L09-04",
+  "invest_ok": true,
+  "preguntas": [],
+  "escenarios": [
+    {
+      "titulo": "Escrutinio exitoso con coincidencia entre votos y participaciones",
+      "tipo": "exito",
+      "dado": [
+        "Que la elección se encuentra cerrada",
+        "Y que el integrante del comité electoral está autorizado para iniciar el escrutinio",
+        "Y que existen votos válidos registrados para los candidatos de la elección",
+        "Y que el total de votos coincide con el total de participaciones registradas"
+      ],
+      "cuando": "El integrante autorizado del comité electoral inicia el escrutinio",
+      "entonces": [
+        "El sistema cuenta automáticamente los votos de cada candidato",
+        "Y presenta los totales obtenidos por candidato",
+        "Y compara la suma de los votos con el total de participaciones registradas",
+        "Y confirma que ambos totales coinciden"
+      ]
+    },
+    {
+      "titulo": "Rechazo del escrutinio de una elección abierta",
+      "tipo": "error",
+      "dado": [
+        "Que la elección se encuentra abierta",
+        "Y que el integrante del comité electoral está autorizado"
+      ],
+      "cuando": "El integrante intenta iniciar el escrutinio",
+      "entonces": [
+        "El sistema rechaza el inicio del escrutinio",
+        "Y no ejecuta el conteo de votos",
+        "Y comunica que la elección debe estar cerrada"
+      ]
+    },
+    {
+      "titulo": "Rechazo del escrutinio iniciado por un usuario no autorizado",
+      "tipo": "error",
+      "dado": [
+        "Que la elección se encuentra cerrada",
+        "Y que el usuario no está autorizado para iniciar el escrutinio"
+      ],
+      "cuando": "El usuario intenta iniciar el escrutinio",
+      "entonces": [
+        "El sistema rechaza la operación",
+        "Y no ejecuta el conteo de votos",
+        "Y comunica que el usuario no tiene autorización para realizar el escrutinio"
+      ]
+    },
+    {
+      "titulo": "Detección de discrepancia entre votos y participaciones",
+      "tipo": "error",
+      "dado": [
+        "Que la elección se encuentra cerrada",
+        "Y que el integrante del comité electoral está autorizado",
+        "Y que existen 100 votos registrados para los candidatos",
+        "Y que existen 101 participaciones registradas"
+      ],
+      "cuando": "El integrante autorizado inicia el escrutinio",
+      "entonces": [
+        "El sistema calcula los totales de votos por candidato",
+        "Y detecta que el total de votos no coincide con el total de participaciones",
+        "Y registra un evento de seguridad asociado a la discrepancia",
+        "Y deja constancia de la discrepancia para que el auditor pueda investigarla"
+      ]
+    },
+    {
+      "titulo": "Escrutinio de una elección sin votos ni participaciones",
+      "tipo": "borde",
+      "dado": [
+        "Que la elección se encuentra cerrada",
+        "Y que el integrante del comité electoral está autorizado",
+        "Y que no existen votos registrados",
+        "Y que no existen participaciones registradas"
+      ],
+      "cuando": "El integrante autorizado inicia el escrutinio",
+      "entonces": [
+        "El sistema obtiene un total de cero votos para cada candidato",
+        "Y compara el total de cero votos con las cero participaciones",
+        "Y confirma que ambos totales coinciden",
+        "Y finaliza el conteo sin registrar una discrepancia de seguridad"
+      ]
+    }
+  ]
+}

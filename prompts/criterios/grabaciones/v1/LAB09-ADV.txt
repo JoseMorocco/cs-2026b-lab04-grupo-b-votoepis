@@ -1,0 +1,145 @@
+{
+  "historia_id": "LAB09-ADV",
+  "invest_ok": true,
+  "preguntas": [],
+  "escenarios": [
+    {
+      "titulo": "Publicación exitosa de resultados verificados",
+      "tipo": "exito",
+      "dado": [
+        "Que el integrante del comité electoral está autorizado para publicar resultados",
+        "Que la elección ha sido escrutada",
+        "Que el acta electoral está firmada",
+        "Que los totales de votos han sido verificados correctamente"
+      ],
+      "cuando": "El integrante del comité electoral solicita publicar los resultados de la elección",
+      "entonces": [
+        "El sistema publica los resultados de la elección",
+        "Los resultados publicados quedan asociados al acta electoral firmada",
+        "Los estudiantes pueden consultar los resultados publicados",
+        "El auditor puede consultar los resultados y el acta asociada para comprobarlos"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación de una elección no escrutada",
+      "tipo": "error",
+      "dado": [
+        "Que el integrante del comité electoral está autorizado",
+        "Que la elección todavía no ha sido escrutada"
+      ],
+      "cuando": "El integrante del comité electoral intenta publicar los resultados",
+      "entonces": [
+        "El sistema rechaza la publicación",
+        "El sistema informa que la elección debe estar escrutada",
+        "Los resultados permanecen sin publicar"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación cuando el acta no está firmada",
+      "tipo": "error",
+      "dado": [
+        "Que la elección ha sido escrutada",
+        "Que los totales han sido verificados",
+        "Que el acta electoral todavía no está firmada"
+      ],
+      "cuando": "El integrante del comité electoral solicita publicar los resultados",
+      "entonces": [
+        "El sistema impide la publicación",
+        "El sistema informa que el acta electoral debe estar firmada",
+        "Los resultados permanecen sin publicar"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación con totales no verificados",
+      "tipo": "error",
+      "dado": [
+        "Que la elección ha sido escrutada",
+        "Que el acta electoral está firmada",
+        "Que los totales de votos todavía no han sido verificados"
+      ],
+      "cuando": "El integrante del comité electoral intenta publicar los resultados",
+      "entonces": [
+        "El sistema rechaza la publicación",
+        "El sistema informa que los totales deben verificarse previamente",
+        "Los resultados permanecen sin publicar"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación con discrepancias en los totales",
+      "tipo": "error",
+      "dado": [
+        "Que la elección ha sido escrutada",
+        "Que durante la verificación se detectaron discrepancias entre los totales",
+        "Que los resultados no cuentan con una verificación satisfactoria"
+      ],
+      "cuando": "El integrante del comité electoral solicita publicar los resultados",
+      "entonces": [
+        "El sistema impide la publicación",
+        "El sistema informa que existen discrepancias pendientes de resolver",
+        "Los resultados permanecen sin publicar"
+      ]
+    },
+    {
+      "titulo": "Consulta de resultados publicados por un estudiante",
+      "tipo": "exito",
+      "dado": [
+        "Que los resultados de la elección han sido publicados correctamente",
+        "Que los resultados están asociados al acta electoral firmada",
+        "Que un estudiante accede a la consulta de resultados"
+      ],
+      "cuando": "El estudiante solicita consultar los resultados de la elección",
+      "entonces": [
+        "El sistema muestra los resultados publicados de la elección",
+        "Los resultados consultados corresponden a la elección seleccionada"
+      ]
+    },
+    {
+      "titulo": "Comprobación de resultados publicados por el auditor",
+      "tipo": "exito",
+      "dado": [
+        "Que la elección ha sido escrutada",
+        "Que los resultados fueron verificados y publicados",
+        "Que el acta electoral firmada está asociada a los resultados"
+      ],
+      "cuando": "El auditor consulta los resultados publicados y su acta asociada",
+      "entonces": [
+        "El sistema permite consultar los resultados publicados",
+        "El sistema permite acceder al acta electoral firmada correspondiente",
+        "El auditor dispone de ambos elementos para comprobar los resultados"
+      ]
+    },
+    {
+      "titulo": "Intento de publicación por un usuario no autorizado",
+      "tipo": "error",
+      "dado": [
+        "Que la elección ha sido escrutada",
+        "Que el acta está firmada",
+        "Que los totales están verificados",
+        "Que el usuario no tiene autorización para publicar resultados"
+      ],
+      "cuando": "El usuario intenta publicar los resultados de la elección",
+      "entonces": [
+        "El sistema deniega la operación",
+        "El sistema informa que el usuario no cuenta con permisos suficientes",
+        "Los resultados no se publican mediante dicha solicitud"
+      ]
+    },
+    {
+      "titulo": "Publicación cuando se cumplen exactamente todas las condiciones requeridas",
+      "tipo": "borde",
+      "dado": [
+        "Que el escrutinio de la elección está completado",
+        "Que el acta correspondiente está firmada",
+        "Que los totales cuentan con verificación satisfactoria",
+        "Que el integrante del comité electoral está autorizado",
+        "Que los resultados aún no han sido publicados"
+      ],
+      "cuando": "El integrante del comité electoral solicita publicar los resultados",
+      "entonces": [
+        "El sistema permite la publicación sin exigir condiciones adicionales no establecidas",
+        "Los resultados quedan disponibles para consulta",
+        "La asociación entre los resultados publicados y el acta firmada queda establecida"
+      ]
+    }
+  ]
+}

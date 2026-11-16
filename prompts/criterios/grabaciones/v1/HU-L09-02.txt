@@ -1,0 +1,17 @@
+{
+  "historia_id": "HU-L09-02",
+  "invest_ok": false,
+  "preguntas": [
+    "¿Qué operaciones comprende la gestión del padrón electoral: cargar, consultar, actualizar, eliminar o validar registros?",
+    "¿Qué datos debe contener cada registro del padrón electoral?",
+    "¿Quiénes están autorizados para gestionar el padrón y qué permisos tienen?",
+    "¿Qué formatos y mecanismos se permiten para cargar el padrón electoral?",
+    "¿Qué validaciones deben aplicarse al cargar o modificar el padrón, incluyendo registros duplicados, datos incompletos y votantes no habilitados?",
+    "¿Se permite modificar el padrón después de abrir la elección o debe permanecer bloqueado?",
+    "¿Qué debe ocurrir si se intenta abrir una elección sin un padrón cargado o sin candidatos registrados?",
+    "¿Qué condiciones determinan que un padrón está correctamente cargado y listo para permitir la apertura de la elección?",
+    "¿La gestión del padrón debe registrar auditorías de las operaciones realizadas?",
+    "¿Debe dividirse esta historia en historias más pequeñas según las operaciones de gestión que se definan?"
+  ],
+  "escenarios": []
+}

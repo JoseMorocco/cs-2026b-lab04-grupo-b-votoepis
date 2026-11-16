@@ -1,0 +1,17 @@
+{
+  "historia_id": "HU-L09-06",
+  "invest_ok": false,
+  "preguntas": [
+    "¿La generación, revisión, firma, verificación y publicación del acta deben formar parte de una sola historia de usuario o dividirse en historias independientes para garantizar que sea pequeña y estimable?",
+    "¿Qué mecanismo de firma utilizará el comité electoral: firma digital, firma electrónica o aprobación autenticada dentro del sistema?",
+    "¿Deben firmar todos los integrantes del comité electoral o basta con la firma de un integrante autorizado?",
+    "¿La verificación del auditor es obligatoria antes de publicar el acta firmada o puede realizarse después de su publicación?",
+    "¿Qué procedimiento debe seguir el sistema si el auditor detecta inconsistencias entre el acta, los resultados y el listado anonimizado?",
+    "¿Cuál será el canal independiente utilizado para publicar la huella SHA-256 y quién será responsable de realizar dicha publicación?",
+    "¿Qué formato tendrá el acta y el listado anonimizado, y qué información podrán consultar públicamente los estudiantes y auditores?",
+    "¿Se permitirá corregir o reemplazar un acta después de firmarla o publicarla? En caso afirmativo, ¿cómo se garantizará la trazabilidad de las versiones?",
+    "¿Qué debe ocurrir si falla la firma, la publicación del acta o la publicación de la huella en el canal independiente?",
+    "¿Qué criterios verificables determinarán que el auditor ha comprobado satisfactoriamente la integridad del acta y la correspondencia de los resultados?"
+  ],
+  "escenarios": []
+}

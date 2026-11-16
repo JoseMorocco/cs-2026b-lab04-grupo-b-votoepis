@@ -1,0 +1,67 @@
+{
+  "historia_id": "HU-L09-03",
+  "invest_ok": true,
+  "preguntas": [],
+  "escenarios": [
+    {
+      "titulo": "Consultar habilitación de un estudiante habilitado",
+      "tipo": "exito",
+      "dado": [
+        "Que el estudiante está identificado en el sistema",
+        "Y que existe una elección registrada",
+        "Y que el estudiante está habilitado para votar en dicha elección"
+      ],
+      "cuando": "El estudiante consulta su habilitación para la elección",
+      "entonces": [
+        "El sistema verifica la habilitación del estudiante en la elección consultada",
+        "Y muestra que el estudiante está habilitado para votar",
+        "Y permite identificar la elección a la que corresponde el resultado"
+      ]
+    },
+    {
+      "titulo": "Consultar habilitación de un estudiante no habilitado",
+      "tipo": "error",
+      "dado": [
+        "Que el estudiante está identificado en el sistema",
+        "Y que existe una elección registrada",
+        "Y que el estudiante no está habilitado para votar en dicha elección"
+      ],
+      "cuando": "El estudiante consulta su habilitación para la elección",
+      "entonces": [
+        "El sistema verifica la habilitación del estudiante en la elección consultada",
+        "Y muestra que el estudiante no está habilitado para votar",
+        "Y no presenta al estudiante como habilitado para dicha elección"
+      ]
+    },
+    {
+      "titulo": "Consultar habilitación en elecciones diferentes",
+      "tipo": "borde",
+      "dado": [
+        "Que el estudiante está identificado en el sistema",
+        "Y que existen dos elecciones registradas",
+        "Y que el estudiante está habilitado en la primera elección",
+        "Y que el estudiante no está habilitado en la segunda elección"
+      ],
+      "cuando": "El estudiante consulta su habilitación para cada elección",
+      "entonces": [
+        "El sistema muestra que está habilitado en la primera elección",
+        "Y muestra que no está habilitado en la segunda elección",
+        "Y determina cada resultado según el estudiante y la elección consultada"
+      ]
+    },
+    {
+      "titulo": "Impedir el voto de un estudiante no habilitado",
+      "tipo": "error",
+      "dado": [
+        "Que existe una elección abierta",
+        "Y que el estudiante no está habilitado para votar en dicha elección"
+      ],
+      "cuando": "El estudiante intenta emitir un voto en la elección",
+      "entonces": [
+        "El sistema verifica la habilitación del estudiante para esa elección",
+        "Y rechaza el intento de emisión del voto",
+        "Y no registra ningún voto válido correspondiente al intento"
+      ]
+    }
+  ]
+}

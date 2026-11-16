@@ -1,0 +1,111 @@
+{
+  "historia_id": "HU-L09-05",
+  "invest_ok": true,
+  "preguntas": [],
+  "escenarios": [
+    {
+      "titulo": "Publicación exitosa de resultados verificados",
+      "tipo": "exito",
+      "dado": [
+        "Que la elección se encuentra escrutada",
+        "Y que el acta electoral está firmada",
+        "Y que los totales de votos han sido verificados",
+        "Y que el integrante del comité electoral está autorizado"
+      ],
+      "cuando": "El integrante del comité electoral solicita publicar los resultados de la elección",
+      "entonces": [
+        "El sistema publica los resultados de la elección",
+        "Y los resultados quedan disponibles para su consulta",
+        "Y los resultados publicados quedan asociados al acta electoral correspondiente"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación de una elección sin escrutar",
+      "tipo": "error",
+      "dado": [
+        "Que la elección no se encuentra escrutada",
+        "Y que un integrante autorizado del comité electoral intenta publicar los resultados"
+      ],
+      "cuando": "El integrante solicita publicar los resultados",
+      "entonces": [
+        "El sistema rechaza la publicación",
+        "Y los resultados no quedan disponibles públicamente",
+        "Y se informa que la elección debe estar escrutada"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación con acta sin firmar",
+      "tipo": "error",
+      "dado": [
+        "Que la elección se encuentra escrutada",
+        "Y que los totales han sido verificados",
+        "Y que el acta electoral no está firmada"
+      ],
+      "cuando": "El integrante autorizado del comité electoral solicita publicar los resultados",
+      "entonces": [
+        "El sistema impide la publicación de los resultados",
+        "Y se informa que el acta debe estar firmada",
+        "Y los resultados permanecen sin publicar"
+      ]
+    },
+    {
+      "titulo": "Rechazo de publicación con totales no verificados",
+      "tipo": "error",
+      "dado": [
+        "Que la elección se encuentra escrutada",
+        "Y que el acta electoral está firmada",
+        "Y que los totales de votos aún no han sido verificados"
+      ],
+      "cuando": "El integrante autorizado del comité electoral solicita publicar los resultados",
+      "entonces": [
+        "El sistema rechaza la publicación",
+        "Y se informa que los totales deben estar verificados",
+        "Y los resultados permanecen sin publicar"
+      ]
+    },
+    {
+      "titulo": "Consulta de resultados publicados por estudiantes",
+      "tipo": "exito",
+      "dado": [
+        "Que los resultados de la elección han sido publicados correctamente",
+        "Y que un estudiante desea consultar los resultados"
+      ],
+      "cuando": "El estudiante consulta los resultados de la elección",
+      "entonces": [
+        "El sistema muestra los resultados publicados correspondientes a la elección",
+        "Y la información consultada corresponde a los totales verificados"
+      ]
+    },
+    {
+      "titulo": "Comprobación de resultados publicados por el auditor",
+      "tipo": "exito",
+      "dado": [
+        "Que la elección tiene resultados publicados",
+        "Y que dichos resultados están asociados a un acta electoral firmada",
+        "Y que el auditor accede a los resultados de la elección"
+      ],
+      "cuando": "El auditor consulta los resultados publicados y su acta asociada",
+      "entonces": [
+        "El sistema permite consultar los resultados publicados",
+        "Y permite identificar el acta electoral asociada",
+        "Y el auditor puede contrastar los resultados publicados con los totales verificados del acta"
+      ]
+    },
+    {
+      "titulo": "Publicación con todas las condiciones mínimas cumplidas",
+      "tipo": "borde",
+      "dado": [
+        "Que la elección acaba de completar su escrutinio",
+        "Y que el acta correspondiente ya está firmada",
+        "Y que los totales acaban de ser verificados",
+        "Y que los resultados aún no están publicados"
+      ],
+      "cuando": "El integrante autorizado del comité electoral solicita publicar los resultados",
+      "entonces": [
+        "El sistema permite publicar los resultados",
+        "Y los resultados quedan asociados al acta firmada",
+        "Y los estudiantes y el auditor pueden consultarlos"
+      ]
+    }
+  ]
+}
