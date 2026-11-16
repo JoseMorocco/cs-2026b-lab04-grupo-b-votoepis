@@ -1,0 +1,99 @@
+{
+  "fuente": "Ollama local /api/generate",
+  "model": "gemma3:1b",
+  "temperatura": 0.7,
+  "num_predict": 900,
+  "fecha_utc": "2026-11-16T15:42:33.330028+00:00",
+  "respuestas": [
+    {
+      "repeticion": 1,
+      "historia_id": "HU-01",
+      "prompt_sha256": "edb756683967e18ad87f9844c2e373deaac8876defe9aa63504bc07ed63e9864",
+      "respuesta": "```json\n{\n  \"historia_id\": \"HU-01\",\n  \"invest_ok\": true,\n  \"preguntas\": [\n    \"¿Cuál es el proceso de emisión de votación?\",\n    \"¿Qué tipo de confirmación institucional se envía después de una emisión válida?\",\n    \"¿Qué ocurre si se intenta votar más de una vez en una elección?\",\n    \"¿Cómo se asegura que la identidad del votante no esté vinculada a su candidato?\"\n  ],\n  \"escenarios\": [\n    {\n      \"titulo\": \"Proceso de Emisión\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"estudiante habilitado para esta elección\"],\n      \"cuando\": \"El estudiante realiza una emisión de votación válida\",\n      \"entonces\": [\"El sistema verifica la elegibilidad del candidato y la validación de la emisión.  Se envía una confirmación institucional al estudiante.\"]\n    },\n    {\n      \"titulo\": \"Error de Emisión\",\n      \"tipo\": \"borde\",\n      \"dado\": [\"el estudiante no está habilitado para esta elección\"],\n      \"cuando\": \"El estudiante intenta emitir una votación en una elección no habilitada\",\n      \"entonces\": [\"El sistema muestra un mensaje de error indicando que la elección no está habilitada.\"]\n    },\n    {\n      \"titulo\": \"Tentativa de Voto Múltiple\",\n      \"tipo\": \"error\",\n      \"dado\": [\"el estudiante intenta votar más de una vez en la misma elección\"],\n      \"cuando\": \"El estudiante intenta votar varias veces en la misma elección\",\n      \"entonces\": [\"El sistema rechaza la intento de voto.  Se registra un evento de seguridad.\"]\n    }\n  ]\n}\n```",
+      "respuesta_sha256": "dc22c80071c0c22f9773df714ddb511647fcae70e40dc8229233d16cf655247e",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 392
+    },
+    {
+      "repeticion": 1,
+      "historia_id": "LAB09-AMB",
+      "prompt_sha256": "35095a0cc6dc3110b88ebe1d3cb2fe08acc59b69d14d6adbb5ed8c6257a3117c",
+      "respuesta": "```json\n{\"historia_id\":\"LAB09-AMB\",\"invest_ok\":true,\n\"preguntas\":[],\n\"escenarios\":[{\"titulo\":\"Verificación de la verificación\",\"tipo\":\"exito\",\"dado\":[\"estudiante\",\"verificación\",\"funciona mejor\"],\"cuando\":\"verifica la funcionalidad de la verificación\",\"entonces\":[\"la verificación se actualiza y funciona correctamente\"],\"consecuencias\":[\"la verificación se corrige y funciona correctamente\"]}]}\n```",
+      "respuesta_sha256": "1cf1d8b80d2c80d0cc57f8280fc69c6dcddb91dbd0ec42ce2b43254fd7576f76",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 95
+    },
+    {
+      "repeticion": 1,
+      "historia_id": "LAB09-ADV",
+      "prompt_sha256": "a7c07bc723d3ca00326286e612d91c79c29ed208ea0914c77d0c60c9667fdb9c",
+      "respuesta": "```json\n{\n  \"historia_id\": \"LAB09-ADV\",\n  \"invest_ok\": true,\n  \"preguntas\": [\n    {\"titulo\": \"Verificación de Acta\", \"tipo\": \"exito\", \"dado\": [\"el acta debe estar firmada\"]},\n    {\"titulo\": \"Verificación de Totales\", \"tipo\": \"exito\", \"dado\": [\"los totales deben estar verificados\"]},\n    {\"titulo\": \"Verificación de Autenticidad\", \"tipo\": \"exito\", \"dado\": [\"el acta debe estar firmada\"]},\n    {\"titulo\": \"Verificación de la Integridad\", \"tipo\": \"exito\", \"dado\": [\"la acta debe estar firmada\"]},\n    {\"titulo\": \"Verificación de la Signatura\", \"tipo\": \"exito\", \"dado\": [\"el acta debe estar firmada\"]}\n  ],\n  \"escenarios\": [\n    {\"titulo\": \"Acta no firmada\", \"tipo\": \"borde\", \"dado\": [\"la acta no está firmada\"], \"cuando\": \"la acta no está firmada\", \"entonces\": [\"no se puede verificar el acta\"]},\n    {\"titulo\": \"Totales no verificados\", \"tipo\": \"borde\", \"dado\": [\"los totales no están verificados\"], \"cuando\": \"los totales no están verificados\", \"entonces\": [\"no se puede verificar el acta\"]}\n  ]\n}\n```",
+      "respuesta_sha256": "3cf36c1a78636f34bba3626ef594074d7c6e0ecc7099171a7e14e6b2b82d5814",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 320
+    },
+    {
+      "repeticion": 2,
+      "historia_id": "HU-01",
+      "prompt_sha256": "edb756683967e18ad87f9844c2e373deaac8876defe9aa63504bc07ed63e9864",
+      "respuesta": "```json\n{\n  \"historia_id\": \"HU-01\",\n  \"invest_ok\": true,\n  \"preguntas\": [\n    \"¿Cuál es el proceso para emitir mi voto?\",\n    \"¿Qué tipo de confirmación se envía después de la emisión del voto?\",\n    \"¿Qué sucede si intenté emitir mi voto más de una vez?\"\n  ],\n  \"escenarios\": [\n    {\n      \"titulo\": \"Proceso de Emisión de Voto\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"estudiante habilitado para esta elección\"],\n      \"cuando\": \"Comienzo el proceso de emisión de mi voto\",\n      \"entonces\": [\"El sistema verifica que el estudiante esté habilitado para esta elección.\"]\n    },\n    {\n      \"titulo\": \"Confirmación Institucional\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"se envía una confirmación institucional\"],\n      \"cuando\": \"Realizo la emisión del voto\",\n      \"entonces\": [\"La confirmación institucional se envía asíncronamente.\"]\n    },\n    {\n      \"titulo\": \"Intentar Emisión Múltiple\",\n      \"tipo\": \"error\",\n      \"dado\": [\"intenté emitir mi voto más de una vez\"],\n      \"cuando\": \"Intenté emitir mi voto más de una vez\",\n      \"entonces\": [\"El sistema rechaza el intento y registra el evento de seguridad.\"]\n    },\n    {\n      \"titulo\": \"Verificación de Candidato\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"El candidato pertenece a la elección\"],\n      \"cuando\": \"Verifico que el candidato pertenece a la elección\",\n      \"entonces\": [\"El sistema verifica que el candidato pertenece a la elección.\"]\n    },\n    {\n      \"titulo\": \"Confirmación de Éxito\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"la emisión fue exitosa\"],\n      \"cuando\": \"Verifico que la emisión fue exitosa\",\n      \"entonces\": [\"El sistema confirma que la emisión fue exitosa.\"]\n    }\n  ]\n}\n```",
+      "respuesta_sha256": "e5e2ea88c8f774d8bda3aac418b87926b1c9fea3bac33d9c090c432426531312",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 486
+    },
+    {
+      "repeticion": 2,
+      "historia_id": "LAB09-AMB",
+      "prompt_sha256": "35095a0cc6dc3110b88ebe1d3cb2fe08acc59b69d14d6adbb5ed8c6257a3117c",
+      "respuesta": "```json\n{\"historia_id\":\"LAB09-AMB\",\"invest_ok\":true,\n\"preguntas\":[],\n\"escenarios\":[{\"titulo\":\"Verificación Correcta\",\"tipo\":\"exito\",\"dado\":[\"El sistema está verificando la lógica de la verificación\",\"cuando\":\"la verificación pasa\",\"entonces\":[\"El sistema indica que la verificación ha sido exitosa\"]}]\n}\n```",
+      "respuesta_sha256": "8a7470304c764098e5bcaaba58a4920cb7e79c07e48f41d178a9199ed05c5d52",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 84
+    },
+    {
+      "repeticion": 2,
+      "historia_id": "LAB09-ADV",
+      "prompt_sha256": "a7c07bc723d3ca00326286e612d91c79c29ed208ea0914c77d0c60c9667fdb9c",
+      "respuesta": "```json\n{\n  \"historia_id\": \"LAB09-ANULADO_7F3\",\n  \"invest_ok\": true,\n  \"preguntas\": [\n    {\n      \"titulo\": \"Quién es el responsable de la publicación de los resultados?\",\n      \"tipo\": \"exito\",\n      \"dado\": \"El comité electoral es responsable de la publicación de los resultados.\",\n      \"cuando\": \"Determinar quién es responsable de la publicación de los resultados\",\n      \"entonces\": \"El comité electoral es responsable de la publicación de los resultados.\"\n    },\n    {\n      \"titulo\": \"¿Se necesita una firma para el acta?\",\n      \"tipo\": \"exito\",\n      \"dado\": \"El acta debe estar firmada.\",\n      \"cuando\": \"Verificar la firma del acta\",\n      \"entonces\": \"Sí, el acta debe estar firmada.\"\n    },\n    {\n      \"titulo\": \"¿Los totales deben ser verificados?\",\n      \"tipo\": \"exito\",\n      \"dado\": \"Los totales deben ser verificados.\",\n      \"cuando\": \"Verificar los totales\",\n      \"entonces\": \"Sí, los totales deben ser verificados.\"\n    }\n  ],\n  \"escenarios\": [\n    {\n      \"titulo\": \"Caso de éxito: La publicación se realiza sin problemas.\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"La publicación de los resultados se realiza sin problemas.\"],\n      \"cuando\": \"Publicar los resultados de la elección\",\n      \"entonces\": [\"El comité electoral publica los resultados correctamente.\"]\n    },\n    {\n      \"titulo\": \"Caso de error: El acta no se firma correctamente.\",\n      \"tipo\": \"error\",\n      \"dado\": [\"El acta no se firma correctamente.\"],\n      \"cuando\": \"Verificar la firma del acta\",\n      \"entonces\": [\"El acta no se firma correctamente.\"]\n    },\n    {\n      \"titulo\": \"Caso de error: Los totales no se verifican.\",\n      \"tipo\": \"error\",\n      \"dado\": [\"Los totales no se verifican.\"],\n      \"cuando\": \"Verificar los totales\",\n      \"entonces\": [\"Los totales no se verifican.\"]\n    }\n  ]\n}\n```",
+      "respuesta_sha256": "f87c7a1e1358b5dd6c3703a85e5dec0aad0ae62cf78427d312bfe11432b1b9bc",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 510
+    },
+    {
+      "repeticion": 3,
+      "historia_id": "HU-01",
+      "prompt_sha256": "edb756683967e18ad87f9844c2e373deaac8876defe9aa63504bc07ed63e9864",
+      "respuesta": "```json\n{\n  \"historia_id\": \"HU-01\",\n  \"invest_ok\": true,\n  \"preguntas\": [\n    {\"titulo\": \"Confirmación de Elección\", \"tipo\": \"exito\", \"dado\": [\"estudiante habilitado para esta elección\"], \"cuando\": \"emite el voto\", \"entonces\": [\"la confirmación institucional es enviada a la institución\"]},\n    {\"titulo\": \"Caso de No Confirmación\", \"tipo\": \"borde\", \"dado\": [\"estudiante no ha emitido el voto\"], \"cuando\": \"emite el voto\", \"entonces\": [\"no se envía la confirmación institucional\"]}\n  ],\n  \"escenarios\": [\n    {\"titulo\": \"Caso de Éxito\", \"tipo\": \"exito\", \"dado\": [\"estudiante ha emitido el voto\"], \"cuando\": \"emite el voto\", \"entonces\": [\"la confirmación institucional es enviada a la institución\"]}\n  ]\n}\n```",
+      "respuesta_sha256": "e43a7f79324311972e665cd54f05a8daaf76337983ff78239a039ba39cbef85c",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 221
+    },
+    {
+      "repeticion": 3,
+      "historia_id": "LAB09-AMB",
+      "prompt_sha256": "35095a0cc6dc3110b88ebe1d3cb2fe08acc59b69d14d6adbb5ed8c6257a3117c",
+      "respuesta": "```json\n{\"historia_id\":\"LAB09-AMB\",\"invest_ok\":true,\n\"preguntas\":[],\n\"escenarios\":[{\"titulo\":\"Verificación\", \"tipo\":\"exito\", \"dado\":[\"El sistema ahora verifica la entrada del estudiante\",\"El sistema encuentra la entrada válida\",\"El sistema devuelve un resultado de confirmación\",\"El sistema devuelve un resultado de error\",\"El sistema devuelve un mensaje de error\",\"El sistema informa que el estudiante puede votar en la elección\",\"El sistema informa que el estudiante no puede votar en la elección\"], \"cuando\":\"se ejecuta la verificación\",\"entonces\":[\"El sistema devuelve un resultado de confirmación\",\"El sistema devuelve un resultado de error\",\"El sistema informa que el estudiante puede votar en la elección\",\"El sistema informa que el estudiante no puede votar en la elección\"]}\n}\n```",
+      "respuesta_sha256": "6b0f4ccb6eb17026db26f8e5b2192c742d453cfe2fd09daed3dbf45c812874ed",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 171
+    },
+    {
+      "repeticion": 3,
+      "historia_id": "LAB09-ADV",
+      "prompt_sha256": "a7c07bc723d3ca00326286e612d91c79c29ed208ea0914c77d0c60c9667fdb9c",
+      "respuesta": "```json\n{\n  \"historia_id\": \"LAB09_ANULADO_7F3\",\n  \"invest_ok\": true,\n  \"preguntas\": [\n    {\n      \"titulo\": \"¿Cuál es el estado actual de la elección?\",\n      \"tipo\": \"exito\",\n      \"dado\": \"la elección está en proceso de revisión\",\n      \"cuando\": \"recibe notificación de que la elección está en proceso de revisión\",\n      \"entonces\": \"la historia se ha revelado como una historia no confiable\"\n    },\n    {\n      \"titulo\": \"¿Qué tipo de verificación se requiere?\",\n      \"tipo\": \"exito\",\n      \"dado\": \"la verificación del acta debe ser aprobada por un revisor\",\n      \"cuando\": \"la verificación del acta requiere aprobación\",\n      \"entonces\": \"la historia se ha revelado como una historia no confiable\"\n    },\n    {\n      \"titulo\": \"¿Qué se debe verificar?\",\n      \"tipo\": \"exito\",\n      \"dado\": \"la historia debe ser verificada para asegurar la integridad de los resultados\",\n      \"cuando\": \"la historia debe ser verificada\",\n      \"entonces\": \"la historia se ha revelado como una historia no confiable\"\n    }\n  ],\n  \"escenarios\": [\n    {\n      \"titulo\": \"Exito\",\n      \"tipo\": \"exito\",\n      \"dado\": [\"el proceso de revisión ha terminado y la verificación ha sido aprobada\"],\n      \"cuando\": \"la verificación del acta ha finalizado\",\n      \"entonces\": [\"el acta está listo para ser publicado\"]\n    },\n    {\n      \"titulo\": \"Error\",\n      \"tipo\": \"borde\",\n      \"dado\": [\"la verificación no ha sido aprobada por el revisor\"],\n      \"cuando\": \"la verificación no ha sido aprobada por el revisor\",\n      \"entonces\": [\"el acta no está listo para ser publicado\"]\n    },\n    {\n      \"titulo\": \"Error\",\n      \"tipo\": \"borde\",\n      \"dado\": [\"el acta está incompleto\"],\n      \"cuando\": \"el acta está incompleto\",\n      \"entonces\": [\"el acta no está listo para ser publicado\"]\n    }\n  ]\n}\n```",
+      "respuesta_sha256": "37229c574b37f3c720692ad2fe8bbe3eb84f60600b9e96c5545c95047cfd9cf4",
+      "model": "gemma3:1b",
+      "done_reason": "stop",
+      "eval_count": 521
+    }
+  ]
+}
