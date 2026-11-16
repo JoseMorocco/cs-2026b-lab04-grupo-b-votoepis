@@ -1,0 +1,1 @@
+{"historia_id": "SEC-07", "revision_completa": true, "hallazgos": [{"linea": 3, "regla": "PRIV", "severidad": "alta", "descripcion": "El log de seguridad vincula al estudiante con el candidato elegido, exponiendo la preferencia.", "recomendacion": "Evitar registrar identidad y candidato juntos; proteger el secreto del voto."}]}

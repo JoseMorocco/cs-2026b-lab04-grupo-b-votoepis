@@ -1,0 +1,1 @@
+{"historia_id": "SEC-02", "revision_completa": true, "hallazgos": [{"linea": 2, "regla": "PRIV", "severidad": "alta", "descripcion": "El log vincula directamente al estudiante con el candidato elegido, rompiendo el secreto del voto.", "recomendacion": "No registrar identidad y preferencia en el mismo evento; separar o anonimizar el registro."}]}

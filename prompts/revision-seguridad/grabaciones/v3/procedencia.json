@@ -1,0 +1,50 @@
+{
+  "SEC-01": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "d6764202571b6c6e59ee197554e3102e2c0daf5de418d8731e2553d298c4c67c",
+    "respuesta_sha256": "821af65f3824f08bc0cd511b6d253399ae27c69db3b7f5e12436871834002151"
+  },
+  "SEC-02": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "dc2053df48bad22c2808e41f13ab671963ad88163a0524c3481da50d2743eb16",
+    "respuesta_sha256": "49a4ae0c0aed1aec510a9066362a0529f8ea24e6d852dca7c81cbadf8c93b40c"
+  },
+  "SEC-03": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "e0e865fdb3b6db6de74dc2649041d54e3726822d976ecd36abd1fd982049b55b",
+    "respuesta_sha256": "4e56a656ecc3073bdac030d37e1149e2ad76f39391952a4fc321e5db7915ea53"
+  },
+  "SEC-04": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "746d22efcc914d1dce70ce16f0761f1bfdd5e5a994a304825946a8765dfdc179",
+    "respuesta_sha256": "a99675d06f836ebdbb185a8532b46054ec8ac4ce97b3e4d01b502fe766bd47a3"
+  },
+  "SEC-05": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "44565634fcacaf68ee82205b01e25cecaf3587c8e1f8e320eda3d857a04e5978",
+    "respuesta_sha256": "d19907f3612cbc37dff2d7ee934425abb028e533fa28e622aca59547e9b2429c"
+  },
+  "SEC-06": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "410f3a220ce97bf02462766bf48b04639ff6157e12a5756afa81d75891c88155",
+    "respuesta_sha256": "9449b59d975d1c7330abe07c4efcab73f4e1d631d2a92fc5030cbc9aa84cc154"
+  },
+  "SEC-07": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "0fce3302a62c47eb4a328850e8984b047236390e040f4278fc3f9f6b0d6b6a46",
+    "respuesta_sha256": "0f3ff74385c7e7e62d68efab85a59973133705addf267b4e4146acaf9546eb1b"
+  },
+  "SEC-08": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "3e16685ad1ee0c48332d466a70e83e5f15b494e346ef10f6c37b9fba805ee5ed",
+    "respuesta_sha256": "0e70098be4c06b7772570917ee0b29a0bf1b91acbae49bba8529236f464d5315"
+  }
+}
