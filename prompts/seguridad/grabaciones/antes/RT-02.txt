@@ -1,0 +1,1 @@
+{"historia_id": "SEC-01", "revision_completa": true, "hallazgos": [{"linea": 3, "regla": "PRIV", "severidad": "alta", "descripcion": "El log concatena identidad del estudiante con candidato elegido.", "recomendacion": "Registrar eventos sin vincular estudiante y preferencia."}]}

@@ -1,0 +1,1 @@
+{"historia_id": "RT-04", "invest_ok": true, "preguntas": [], "escenarios": [{"titulo": "Consulta exitosa", "tipo": "exito", "dado": ["estudiante registrado"], "cuando": "consulta habilitación", "entonces": ["recibe resultado"]}, {"titulo": "Sin permisos", "tipo": "error", "dado": ["usuario sin sesión"], "cuando": "consulta habilitación", "entonces": ["se rechaza la consulta"]}]}
