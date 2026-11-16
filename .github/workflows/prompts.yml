@@ -1,0 +1,35 @@
+name: prompts-lab09
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evaluar:
+    name: Prompts v3 grabados
+    runs-on: ubuntu-latest
+    env:
+      PROMPTFOO_DISABLE_TELEMETRY: '1'
+      PROMPTFOO_DISABLE_UPDATE: '1'
+      PROMPTFOO_DISABLE_SHARING: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar dependencias de los evaluadores
+        run: python -m pip install -r prompts/criterios/requirements.txt
+      - name: Seleccionar el intérprete del runner
+        run: echo "PROMPTFOO_PYTHON=$(command -v python)" >> "$GITHUB_ENV"
+      - name: Evaluar criterios v3 sin caché
+        run: npx --yes promptfoo@0.125.1 eval --config prompts/criterios/promptfooconfig-v3.yaml --no-cache --no-share
+      - name: Evaluar revisión de seguridad v3 sin caché
+        run: npx --yes promptfoo@0.125.1 eval --config prompts/revision-seguridad/promptfooconfig-v3.yaml --no-cache --no-share
+      - name: Comparar tres repeticiones de tres casos grabados
+        run: python -B -m prompts.criterios.repetir_grabaciones

@@ -213,6 +213,40 @@ En el Laboratorio 08 se evolucionó la arquitectura de **VotoEPIS** para soporta
 * [Vista de Contenedores C4 Actualizada con Trazabilidad (PNG)](docs/architecture/c4/img/structurizr-Contenedores.png)
 * [Bitácora de Uso de IA Actualizada (`bitacora-ia.md`)](docs/architecture/bitacora-ia.md)
 
-## Prompts como código (Lab 09)
+## Prompt engineering (Lab 09)
 
-La línea base v1 obtuvo **88,89 %** con promptfoo 0.125.1 (8 casos aprobados, 1 fallido y 0 errores). [Evaluación y reproducción](prompts/criterios/README.md) · [Resultado JSON](prompts/criterios/resultado-v1.json)
+### Versiones y resultados
+
+Tasas por caso con proveedor grabado y evaluadores deterministas de promptfoo 0.125.1; no son tasas de generaciones nuevas ni evidencia de CI remoto.
+
+| Versión | Criterios de aceptación | Revisión de seguridad | Cambio documentado |
+|---|---|---|---|
+| v1 | 8/9 — 88,89 % | 8/8 — 100 % | Línea base; falla A2 en HU-L09-06 por desacuerdo INVEST |
+| v2 | 9/9 — 100 % | 8/8 — 100 % | INVEST y cobertura explícitos; checklist y formato de seguridad |
+| v3 | 9/9 — 100 % | 8/8 — 100 % | Few-shot en criterios, delimitación y defensas contra inyección |
+
+Fuentes: resultados de criterios [v1](prompts/criterios/resultado-v1.json), [v2](prompts/criterios/resultado-v2.json), [v3](prompts/criterios/resultado-v3.json); iteraciones de [criterios](prompts/criterios/iteraciones.md) y [revisión de seguridad](prompts/revision-seguridad/iteraciones.md). Seguridad se documenta según sus iteraciones; la [verificación local E7](prompts/bitacora-ia.md#verificación-local-de-e7) confirmó v3: 9/9 y 8/8, respectivamente.
+
+```text
+Aprobación por caso (barra completa = 100 %)
+Versión   Criterios                  Revisión de seguridad
+v1        ##################-- 88,89 % #################### 100 %
+v2        #################### 100 %   #################### 100 %
+v3        #################### 100 %   #################### 100 %
+```
+
+### Lecciones aprendidas
+
+* Explicitar INVEST y cobertura resolvió el fallo registrado de v1; no se deben relajar aserciones para maquillar tasas. v3 empata con v2, no demuestra una mejora porcentual adicional.
+* El replay 3×3 es idéntico por construcción y sirve para regresiones, no para medir no determinismo. En Ollama local `gemma3:1b` (temperatura 0.7), tres generaciones por cada uno de HU-01, LAB09-AMB y LAB09-ADV dieron tres respuestas distintas por caso: **9/9 rechazadas** por bloques Markdown en lugar de JSON estricto y una filtró el marcador adversario. Es otro modelo y una muestra limitada; no sustituye los fixtures ni generaliza a otros modelos. Véanse la [comparación y sus límites](prompts/criterios/comparacion-repeticiones.md) y las [nueve capturas crudas](prompts/criterios/variacion-v3-ollama.json).
+* Conservar bytes y procedencia permite reproducir fallos; pasar un caso adversario no garantiza seguridad general. La [bitácora de IA](prompts/bitacora-ia.md) distingue evidencia conservada, nuevas mediciones y una sugerencia no adoptada.
+
+### Revisión y entrega E8
+
+Referencia: **Paso 9 de la guía del laboratorio**. Lista operativa para el compañero revisor (no registra una aprobación):
+
+* [ ] Cada integrante enlaza su PR con la versión de prompt aportada; otro integrante revisa y deja su decisión explícita.
+* [ ] Contrastar prompt, dataset, esquema, aserciones y respuestas: pertinencia de criterios, INVEST, privacidad e inyección; justificar fallos y posibles regresiones sin cambiar expectativas para ocultarlos.
+* [ ] Comprobar procedencia, tasas de la tabla y límites del 3×3 con las fuentes enlazadas; reproducir según la [guía de evaluación](prompts/criterios/README.md).
+* [ ] Revisar el [workflow de prompts](.github/workflows/prompts.yml) y su ejecución real en el PR. Los resultados locales no acreditan CI verde; la ejecución remota queda pendiente de comprobar.
+* [ ] Tras aceptar el PR, crear `v0.9-prompts` y entregar el enlace del repositorio en el Aula Virtual. **Etiqueta diferida hasta la aceptación del PR**; esta documentación no acredita PR creado, revisión del equipo, merge ni entrega. No modificar `main` directamente.
