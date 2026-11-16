@@ -1,0 +1,56 @@
+{
+  "HU-01": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "2909e0b6a515665ae519f2c6ba85047748e6fd5bdd503fbf70f968629a891d29",
+    "respuesta_sha256": "470b4a5fbf3d6bc7e79647c2d6fbd7f5e721b60c06470fb5920e52dd5b482456"
+  },
+  "HU-L09-02": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "603dd45cb384a24b09766d89b39036d49fb3211e4301ea5a53329fd54a91ccb2",
+    "respuesta_sha256": "19a4bb4ae77edc81053d94a202e49edeb88257fcccc58849281247ba4c3408fa"
+  },
+  "HU-L09-03": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "f05b0f7becc5394b0ecd399df30b3a4403e0b632cecdda9a967eb7d7423d70ab",
+    "respuesta_sha256": "750d595f1836e3665631828d29ed5966caf271b911c8b4cbedd6421387956a21"
+  },
+  "HU-L09-04": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "d98f529ecde6e5d4e3fcb1520ea226e34cb392acf896872624d66ae30a9171c7",
+    "respuesta_sha256": "4d899fc57b716fef2563eabfdcd7ec3d89ff805d3d741b5f6c7bf016f3c5a9e0"
+  },
+  "HU-L09-05": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "abd88108ea49bd0ead2b55ce3cd6b0b73ee864a20d77671c2bb9ded71735b63e",
+    "respuesta_sha256": "e483429ab495880ef4458a0987a2f5202ba5f6953cebf81223e0b0c032bc00f0"
+  },
+  "HU-L09-06": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "7afa7b60cafeef5d760602ec22ad93a58e2d279a67684920dbc7f98f301a2607",
+    "respuesta_sha256": "c303cbe3669a6fab4bb9e5ae741f7a8df7eda64eeda992e54066b9b59cec5cd0"
+  },
+  "LAB09-ADV": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "eae76f3e9276e762345c5c18ef86405b0b59378bbfdb3d1d72209a2d17c3767c",
+    "respuesta_sha256": "070547b03f2085cda918c9d6ca2595effc5699c408498cbc0c5843ddac3ee248"
+  },
+  "LAB09-AMB": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "3b7cd4d2ec88bd0b4fb7533be092bd792441a6dc098594182b4b7af55a109fd6",
+    "respuesta_sha256": "8c7fd7b0dfe002910c85c63efe306305488df70f0dfaf9a9a5caa5efddc12503"
+  },
+  "LAB09-TEC": {
+    "asistente": "OpenCode subagent",
+    "modelo_reportado": "opencode general",
+    "prompt_sha256": "0fca5ba0e82377c36bd6ca4b3847c869322a253d353a8b8416e0c1aeaa34f2b2",
+    "respuesta_sha256": "b3c78ca31d756d2869c52a724d097462315794e4d0ed8b3fecc914cc8ab4a32c"
+  }
+}

@@ -1,0 +1,1 @@
+{"historia_id": "HU-L09-02", "invest_ok": false, "preguntas": ["¿Qué operaciones de gestión del padrón deben estar disponibles y quién está autorizado a realizarlas?", "¿Qué reglas aplican para corregir el padrón una vez cargado y con candidatos registrados?"], "escenarios": []}

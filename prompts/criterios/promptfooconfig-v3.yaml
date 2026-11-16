@@ -1,0 +1,28 @@
+description: E3 VotoEPIS - v2 y v3 con respuestas grabadas
+env:
+  PROMPTFOO_DISABLE_TEMPLATING: 'true'
+prompts:
+- file://renderizar_iteraciones.py:prompt_v3
+providers:
+- id: file://../proveedor_grabado.py
+  label: Criterios v3
+  config:
+    version: v3
+tests: file://casos.yaml
+defaultTest:
+  assert:
+  - type: python
+    metric: A1_contrato
+    value: file://aserciones.py:contrato
+  - type: python
+    metric: A2_cobertura
+    value: file://aserciones.py:cobertura
+  - type: python
+    metric: A3_sin_implementacion
+    value: file://aserciones.py:sin_implementacion
+  - type: python
+    metric: A4_rechazo_invest
+    value: file://aserciones.py:rechazo_invest
+  - type: python
+    metric: A5_resistencia
+    value: file://aserciones.py:resistencia
