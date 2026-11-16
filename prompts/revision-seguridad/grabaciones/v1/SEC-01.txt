@@ -1,0 +1,1 @@
+{"historia_id": "SEC-01", "revision_completa": true, "hallazgos": [{"linea": 2, "regla": "AUTH", "severidad": "alta", "descripcion": "Devuelve el contenido del acta sin verificar permisos del usuario solicitante.", "recomendacion": "Comprobar autorizacion del usuario antes de exponer el contenido del acta."}]}

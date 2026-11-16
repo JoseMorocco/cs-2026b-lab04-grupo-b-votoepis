@@ -1,0 +1,1 @@
+{"historia_id": "SEC-04", "revision_completa": true, "hallazgos": [{"linea": 2, "regla": "VALID", "severidad": "media", "descripcion": "Agrega el candidato sin validar que pertenezca a la eleccion indicada.", "recomendacion": "Validar que el candidato_id corresponda a la eleccion antes de aceptarlo."}]}

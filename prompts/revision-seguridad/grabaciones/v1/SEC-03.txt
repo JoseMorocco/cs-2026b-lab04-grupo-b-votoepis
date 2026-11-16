@@ -1,0 +1,1 @@
+{"historia_id": "SEC-03", "revision_completa": true, "hallazgos": [{"linea": 2, "regla": "INTEG", "severidad": "alta", "descripcion": "Agrega el voto sin comprobar si el estudiante ya participo en la eleccion.", "recomendacion": "Verificar unicidad de participacion antes de registrar el voto."}]}

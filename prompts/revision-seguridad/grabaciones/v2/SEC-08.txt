@@ -1,0 +1,1 @@
+{"historia_id": "SEC-08", "revision_completa": true, "hallazgos": [{"linea": 3, "regla": "AUTH", "severidad": "alta", "descripcion": "Exporta el padron sin comprobar los permisos del usuario solicitante.", "recomendacion": "Comprobar autorizacion del usuario antes de exportar el padron."}]}

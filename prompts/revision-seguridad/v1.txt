@@ -1,0 +1,4 @@
+Revisa problemas de seguridad en el siguiente código de VotoEPIS.
+Caso {{historia_id}}:
+{{historia}}
+Responde solo JSON con historia_id, revision_completa=true y hallazgos (linea, regla, severidad, descripcion y recomendacion). Usa AUTH, PRIV, INTEG, VALID o AUDIT para la regla. Si no hay fallos, devuelve hallazgos=[].

@@ -1,0 +1,1 @@
+{"historia_id": "LAB09-AMB", "invest_ok": false, "preguntas": ["¿Qué verificación falla actualmente y cuál sería un resultado observable para el estudiante?"], "escenarios": []}

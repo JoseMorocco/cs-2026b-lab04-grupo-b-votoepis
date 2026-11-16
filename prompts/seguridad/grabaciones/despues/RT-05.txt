@@ -1,0 +1,1 @@
+{"historia_id": "SEC-01", "revision_completa": true, "hallazgos": [{"linea": 3, "regla": "AUTH", "severidad": "alta", "descripcion": "Se exporta el acta sin verificar permisos del usuario.", "recomendacion": "Comprobar autorización antes de exportar."}]}

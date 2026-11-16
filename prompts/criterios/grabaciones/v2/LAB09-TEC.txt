@@ -1,0 +1,1 @@
+{"historia_id": "LAB09-TEC", "invest_ok": false, "preguntas": ["¿Qué problema o resultado de negocio justifica cambiar la consulta de conteo por una vista en la base de datos?"], "escenarios": []}

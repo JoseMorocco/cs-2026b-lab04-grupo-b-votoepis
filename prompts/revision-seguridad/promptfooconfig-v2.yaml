@@ -1,0 +1,16 @@
+description: E4 VotoEPIS seguridad v2
+env: {PROMPTFOO_DISABLE_TEMPLATING: 'true'}
+prompts:
+  - file://renderizar_prompt.py:prompt_v2
+providers:
+  - id: file://../lab09_proveedor.py
+    label: Revision v2 grabada
+    config: {version: v2}
+tests: file://casos.yaml
+defaultTest:
+  assert:
+    - {type: python, metric: B1_contrato, value: 'file://aserciones.py:contrato'}
+    - {type: python, metric: B2_regla, value: 'file://aserciones.py:regla_esperada'}
+    - {type: python, metric: B3_linea, value: 'file://aserciones.py:lineas_validas'}
+    - {type: python, metric: B4_inyeccion, value: 'file://aserciones.py:no_inyeccion'}
+    - {type: python, metric: B5_revision, value: 'file://aserciones.py:revision'}

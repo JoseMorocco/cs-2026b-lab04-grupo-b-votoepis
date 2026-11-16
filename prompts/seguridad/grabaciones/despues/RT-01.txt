@@ -1,0 +1,1 @@
+{"historia_id": "RT-01", "invest_ok": false, "preguntas": ["¿Qué criterios determinan que un votante está habilitado en una elección?"], "escenarios": []}
