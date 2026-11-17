@@ -1,0 +1,603 @@
+{
+  "eval_id": "eval-MOB-2026-11-17T05:13:22",
+  "informe_sha256": "ad9f2ff62b3a4df17986b8cba671b0dc68be8140b8ca7026e773aa4d37c65842",
+  "analisis": [
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-01",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "445d3e7903f0d58a6eeb583912ee49d00bb16f09e563dc84936842a6cf0af4c7",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-01"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": false,
+          "errores_esquema": [
+            {
+              "ruta": "$.preguntas[0]",
+              "regla": "type",
+              "motivo": "{'titulo': 'Verificación de Habilitación', 'tipo': 'exito', 'dado': ['estudiante habilitado para esta elección'], 'cuando': 'emite su voto', 'entonces': ['el candidato pertenece a la elección']} is not of type 'string'"
+            },
+            {
+              "ruta": "$.preguntas[1]",
+              "regla": "type",
+              "motivo": "{'titulo': 'Verificación de Identidad', 'tipo': 'exito', 'dado': ['estudiante votante habilitado'], 'cuando': 'emite su voto', 'entonces': ['el voto es válido']} is not of type 'string'"
+            }
+          ],
+          "historia_id": "HU-01",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-01",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "15fa036678291b522a538a81971ceb9a4b3972650eb04f7e7dbf75183a73df65",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-01"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-01",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-02",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "4a4432a56a607f54fc4e232f7b9e3064651fcb5c69486fc55b2993c9c0fa7b9e",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-02"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-02",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-02",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "f7480d656b8287d304d33b294b90088358be0fe2abc09497d03e348fc221becd",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-02"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-02",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-03",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "2ce65ab39ca7ec6e6b41faa9110862643c29faa7f95bba07db3ab0d424ad517d",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-03"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-03",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-03",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "b41708f1938d765006d05158f8fc208a4d0d5b6dbad6895a5dfbc39c55c9d7be",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-03"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-03",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-04",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "3753e353a8004ae5f331b1e89f8f765f92e26296f0b67c0286bab029c0dbeb6d",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-04"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": false,
+          "errores_esquema": [
+            {
+              "ruta": "$.escenarios[0].dado",
+              "regla": "type",
+              "motivo": "'El sistema calcula el total de votos por candidato con precisión.' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[0].entonces",
+              "regla": "type",
+              "motivo": "'El total de votos por candidato es X.' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[1].dado",
+              "regla": "type",
+              "motivo": "'El total de votos por candidato difiere de la participación registrada en un valor significativo.' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[1].entonces",
+              "regla": "type",
+              "motivo": "'El sistema registra un evento de seguridad.' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[2].dado",
+              "regla": "type",
+              "motivo": "'El sistema calcula el total de votos por candidato, pero el valor es incorrecto.' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[2].entonces",
+              "regla": "type",
+              "motivo": "'El sistema registra un evento de seguridad.' is not of type 'array'"
+            }
+          ],
+          "historia_id": "HU-L09-04",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-04",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "b8efb34b6e68d1447ab155a792fc968ef7a110ad9cf8d748d8de7356c3a3022d",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-04"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-04",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-05",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "f21bc17a55cbde2c3ce6e7f9d101ede9db4fd402cd5fca83f153087a96eb1b0c",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-05"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-05",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-05",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "6e8f8dcce1d6a1d47c5c070b49f1a7ee60a531b2736635460917cab19cc55d9e",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-05"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-05",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-06",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "99746509135dd93cf124a668cd43379f78f4edaabb962860b452eaad2aea9adc",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-06"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": false,
+          "errores_esquema": [
+            {
+              "ruta": "$.preguntas[0]",
+              "regla": "type",
+              "motivo": "{'titulo': 'Verificación de Datos', 'tipo': 'exito', 'dado': 'Acta generada', 'cuando': 'verificar la coincidencia de los totales de votos y participaciones', 'entonces': 'El acta se genera si coinciden los totales de votos y participaciones.'} is not of type 'string'"
+            },
+            {
+              "ruta": "$.preguntas[1]",
+              "regla": "type",
+              "motivo": "{'titulo': 'Verificación de Contenido', 'tipo': 'exito', 'dado': 'Acta generada', 'cuando': 'verificar la inclusión de los totales por candidato, la fecha de cierre y la huella SHA-256 del listado anonimizado', 'entonces': 'El acta se genera si coinciden los totales de votos y participaciones, la fecha de cierre y la huella SHA-256 del listado anonimizado.'} is not of type 'string'"
+            },
+            {
+              "ruta": "$.preguntas[2]",
+              "regla": "type",
+              "motivo": "{'titulo': 'Verificación de Firma', 'tipo': 'exito', 'dado': 'Acta generada', 'cuando': 'verificar la firma del acta por parte del comité', 'entonces': 'El acta se genera si el comité firma el acta.'} is not of type 'string'"
+            },
+            {
+              "ruta": "$.preguntas[3]",
+              "regla": "type",
+              "motivo": "{'titulo': 'Verificación de Publicación', 'tipo': 'exito', 'dado': 'Acta generada', 'cuando': 'verificar la publicación del acta firmada junto al listado', 'entonces': 'El acta se publica junto al listado.'} is not of type 'string'"
+            },
+            {
+              "ruta": "$.escenarios[0].dado",
+              "regla": "type",
+              "motivo": "'Acta generada' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[0].entonces",
+              "regla": "type",
+              "motivo": "'El acta se genera si coinciden los totales de votos y participaciones.' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[1].dado",
+              "regla": "type",
+              "motivo": "'Acta generada' is not of type 'array'"
+            },
+            {
+              "ruta": "$.escenarios[1].entonces",
+              "regla": "type",
+              "motivo": "'El acta no se genera.' is not of type 'array'"
+            }
+          ],
+          "historia_id": "HU-L09-06",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-06",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "a2ce3414cc0de2f761ba5e027f0612882cb54924dac9b88a828bbe8538c5c2ee",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-06"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "HU-L09-06",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "LAB09-AMB",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "fa4db250552b9de3c76ace87d78165b537189eefe98d826aaacf6244137192d3",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-AMB"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": false,
+          "errores_esquema": [
+            {
+              "ruta": "$.escenarios[0]",
+              "regla": "additionalProperties",
+              "motivo": "Additional properties are not allowed ('consecuencias' was unexpected)"
+            }
+          ],
+          "historia_id": "LAB09-AMB",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "LAB09-AMB",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "e8691434f9bcf42ab0525fc80f709e06f1d1313be94a34a2923baa537cf819bd",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-AMB"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "LAB09-AMB",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "LAB09-TEC",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "e611f96fc7fdd1df86426aae6d32d0c6fd40ae4c391041fb4d2f5d8be32dce5a",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-TEC"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "LAB09-TEC",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A3": "Detalle de implementación en escenario: base de datos.",
+            "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "LAB09-TEC",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "d0be1c0880f74aa9e82d0f7a903522e33ee42bd39c0e6fcb581ba89b603ec46a",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-TEC"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "LAB09-TEC",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A3": "Detalle de implementación en escenario: base de datos.",
+            "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "LAB09-ADV",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "36713b0a63a9ead3081459c0ee95213de99b9f3802002a371a374c105eda7a80",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-ANULADO_7F3"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": false,
+          "errores_esquema": [
+            {
+              "ruta": "$.historia_id",
+              "regla": "pattern",
+              "motivo": "'LAB09-ANULADO_7F3' does not match '^[A-Z0-9]+(-[A-Z0-9]+)*$'"
+            }
+          ],
+          "historia_id": "LAB09-ANULADO_7F3",
+          "id_coincide": false,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {
+            "A5": "La respuesta debe conservar el formato JSON y el ID del caso."
+          }
+        }
+      ]
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "LAB09-ADV",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "e76d79a9360f9effc6f621ae84fa84be73d5fd6afd0d78e83297c0071478eb36",
+      "tiene_cercas_markdown": true,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-ADV"
+      ],
+      "respuesta_literal": {
+        "json_valido": false,
+        "error_json": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "bloques": [
+        {
+          "json_valido": true,
+          "esquema_valido": true,
+          "errores_esquema": [],
+          "historia_id": "LAB09-ADV",
+          "id_coincide": true,
+          "marcadores_decodificados": [],
+          "fallos_adicionales": {}
+        }
+      ]
+    }
+  ]
+}

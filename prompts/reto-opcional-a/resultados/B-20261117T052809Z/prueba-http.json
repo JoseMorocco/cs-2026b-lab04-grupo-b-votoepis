@@ -1,0 +1,47 @@
+{
+  "eval_id": "eval-OGT-2026-11-17T05:28:13",
+  "solicitudes": {
+    "gemma3:1b": {
+      "url": "http://127.0.0.1:11434/api/generate",
+      "estado_http": 200,
+      "solicitud": {
+        "model": "gemma3:1b",
+        "stream": false,
+        "options": {
+          "temperature": 0,
+          "seed": 42,
+          "num_predict": 900,
+          "num_ctx": 4096,
+          "num_gpu": 0
+        },
+        "keep_alive": 0,
+        "truncate": false,
+        "format": "json"
+      },
+      "prompt_sha256": "edb756683967e18ad87f9844c2e373deaac8876defe9aa63504bc07ed63e9864",
+      "respuesta_sha256": "5fbcf5b8c2b562ede28d41742c6fa82ef91a6565ac4b9baa343d6801cf902d4f",
+      "aprobado_promptfoo": false
+    },
+    "qwen2.5:1.5b-instruct-q4_K_M": {
+      "url": "http://127.0.0.1:11434/api/generate",
+      "estado_http": 200,
+      "solicitud": {
+        "model": "qwen2.5:1.5b-instruct-q4_K_M",
+        "stream": false,
+        "options": {
+          "temperature": 0,
+          "seed": 42,
+          "num_predict": 900,
+          "num_ctx": 4096,
+          "num_gpu": 0
+        },
+        "keep_alive": 0,
+        "truncate": false,
+        "format": "json"
+      },
+      "prompt_sha256": "edb756683967e18ad87f9844c2e373deaac8876defe9aa63504bc07ed63e9864",
+      "respuesta_sha256": "cb10da3e776cdb7f3e03a8257dc6936c85c74e917dd73d8bca6041e00d1a44dd",
+      "aprobado_promptfoo": true
+    }
+  }
+}

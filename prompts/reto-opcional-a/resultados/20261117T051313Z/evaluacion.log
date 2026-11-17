@@ -1,0 +1,22 @@
+Cache is disabled.
+Starting evaluation eval-MOB-2026-11-17T05:13:22
+Running 18 test cases (up to 1 at a time)...
+✓ Eval complete (ID: eval-MOB-2026-11-17T05:13:22)
+
+» View results: promptfoo view
+» Feedback: https://promptfoo.dev/feedback
+
+Total Tokens: 16,782
+  Provider: 16,782 (11,354 prompt, 5,428 completion)
+
+Providers:
+  ollama:completion:qwen2.5:1.5b-instruct-q4_K_M: 8,672 (9 requests; 6,072 prompt, 2,600 completion)
+  ollama:completion:gemma3:1b: 8,110 (9 requests; 5,282 prompt, 2,828 completion)
+
+Results:
+  0 passed (0%)
+  ✗ 18 failed (100%)
+  0 errors (0%)
+Duration: 5m 0s (concurrency: 1)
+
+Writing output to prompts/reto-opcional-a/resultados/20261117T051313Z/promptfoo.json

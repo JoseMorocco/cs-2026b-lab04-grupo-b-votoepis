@@ -1,0 +1,6 @@
+# Mantener scripts de Linux con saltos de línea LF.
+*.sh text eol=lf
+
+# Preservar los bytes originales de los resultados.
+# Los registros generados pueden contener espacios finales.
+resultados/** -text whitespace=-blank-at-eol

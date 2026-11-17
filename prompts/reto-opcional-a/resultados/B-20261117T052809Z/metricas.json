@@ -1,0 +1,236 @@
+{
+  "eval_id": "eval-vnh-2026-11-17T05:31:16",
+  "costo_reportado_por_ollama_usd": null,
+  "costos_operativos_medidos": false,
+  "modelos": {
+    "ollama:completion:gemma3:1b": {
+      "casos": [
+        {
+          "caso": "HU-01",
+          "estado": "fallidos",
+          "latencia_ms": 22097,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "$.escenarios[0]: Additional properties are not allowed ('consecuencias' was unexpected)",
+          "fin": "stop",
+          "respuesta_sha256": "5fbcf5b8c2b562ede28d41742c6fa82ef91a6565ac4b9baa343d6801cf902d4f"
+        },
+        {
+          "caso": "HU-L09-02",
+          "estado": "fallidos",
+          "latencia_ms": 20899,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A4_rechazo_invest"
+          ],
+          "motivo": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios.",
+          "fin": "stop",
+          "respuesta_sha256": "7e6f0da8d1c24472ae144e6e33f048a10f861a0b5521509ecfc85239b9804585"
+        },
+        {
+          "caso": "HU-L09-03",
+          "estado": "fallidos",
+          "latencia_ms": 14456,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A2_cobertura"
+          ],
+          "motivo": "Se requiere un éxito y al menos un error o borde.",
+          "fin": "stop",
+          "respuesta_sha256": "50b0ff22bc711d95240a34bdb19b36ce6837202a7358028986fa4cefb1fb14b9"
+        },
+        {
+          "caso": "HU-L09-04",
+          "estado": "aprobados",
+          "latencia_ms": 9854,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [],
+          "motivo": null,
+          "fin": "stop",
+          "respuesta_sha256": "f85aee493b8b21172ccb773f93081a9ad52a09cd63abadc96360eede601fa8d3"
+        },
+        {
+          "caso": "HU-L09-05",
+          "estado": "fallidos",
+          "latencia_ms": 7634,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "$.escenarios[0]: Additional properties are not allowed ('consecuencias' was unexpected)",
+          "fin": "stop",
+          "respuesta_sha256": "2c2a9b96d296cc3e4ea726122a9258d40eec0a802bf037b7f33742a34db810d2"
+        },
+        {
+          "caso": "HU-L09-06",
+          "estado": "fallidos",
+          "latencia_ms": 8401,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A2_cobertura"
+          ],
+          "motivo": "Se requiere un éxito y al menos un error o borde.",
+          "fin": "stop",
+          "respuesta_sha256": "b717f20d6d5981e1df8bc120446e47f4cf5c2a88cbd78b9582656b1e39f8e62c"
+        },
+        {
+          "caso": "LAB09-AMB",
+          "estado": "fallidos",
+          "latencia_ms": 6632,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato",
+            "A4_rechazo_invest"
+          ],
+          "motivo": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios.",
+          "fin": "stop",
+          "respuesta_sha256": "33f915006d78552aec1a7b373d14b2e9484a74f7f8df66e4305cea534584d524"
+        },
+        {
+          "caso": "LAB09-TEC",
+          "estado": "fallidos",
+          "latencia_ms": 6748,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A3_sin_implementacion",
+            "A4_rechazo_invest"
+          ],
+          "motivo": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios.",
+          "fin": "stop",
+          "respuesta_sha256": "baa09f5a73d5b29f989e8e24cac4009d7ed8e53e500c03dcc5e738dddc2825f2"
+        },
+        {
+          "caso": "LAB09-ADV",
+          "estado": "fallidos",
+          "latencia_ms": 10101,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "$.escenarios[0]: Additional properties are not allowed ('consecuencias' was unexpected)",
+          "fin": "stop",
+          "respuesta_sha256": "ff78d97defd14232bcd40ca6bfa191f39e1cd69af834a4a9755f6b435a131ca4"
+        }
+      ],
+      "aprobados": 1,
+      "fallidos": 8,
+      "errores": 0,
+      "aprobacion_pct": 11.11111111111111,
+      "latencia_promedio_ms": 11869.111111111111,
+      "casos_con_latencia_en_promedio": 9,
+      "costo_facturado_api_usd": 0
+    },
+    "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M": {
+      "casos": [
+        {
+          "caso": "HU-01",
+          "estado": "aprobados",
+          "latencia_ms": 38487,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [],
+          "motivo": null,
+          "fin": "stop",
+          "respuesta_sha256": "cb10da3e776cdb7f3e03a8257dc6936c85c74e917dd73d8bca6041e00d1a44dd"
+        },
+        {
+          "caso": "HU-L09-02",
+          "estado": "fallidos",
+          "latencia_ms": 21388,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A4_rechazo_invest"
+          ],
+          "motivo": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios.",
+          "fin": "stop",
+          "respuesta_sha256": "23a5e5d1a42ac290ed0944ee0aac4d395f32051c4c3f3629a00766735ef0d6e7"
+        },
+        {
+          "caso": "HU-L09-03",
+          "estado": "aprobados",
+          "latencia_ms": 12161,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [],
+          "motivo": null,
+          "fin": "stop",
+          "respuesta_sha256": "84be29e3c76172f2d6ef399551ead19f71bffebcbe396f99f81625135bd38241"
+        },
+        {
+          "caso": "HU-L09-04",
+          "estado": "aprobados",
+          "latencia_ms": 18535,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [],
+          "motivo": null,
+          "fin": "stop",
+          "respuesta_sha256": "49954ee68ec278b1dedf4b91bb66f32788829661b33c8d074c9c1a10ca2df587"
+        },
+        {
+          "caso": "HU-L09-05",
+          "estado": "aprobados",
+          "latencia_ms": 25071,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [],
+          "motivo": null,
+          "fin": "stop",
+          "respuesta_sha256": "8adc80e6dac8f864d132d398f411b81f0443eeddb44f7f2ad223638b4ce1ae2e"
+        },
+        {
+          "caso": "HU-L09-06",
+          "estado": "aprobados",
+          "latencia_ms": 35649,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [],
+          "motivo": null,
+          "fin": "stop",
+          "respuesta_sha256": "59a21023484e1f90078d0c4b565e821a08c2f5f6666e577953e4071ccd80f317"
+        },
+        {
+          "caso": "LAB09-AMB",
+          "estado": "fallidos",
+          "latencia_ms": 17051,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A4_rechazo_invest"
+          ],
+          "motivo": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios.",
+          "fin": "stop",
+          "respuesta_sha256": "b4718ef852b41fc397a6290410d4c2ccceae9592855a4b42a409f28c57261b57"
+        },
+        {
+          "caso": "LAB09-TEC",
+          "estado": "fallidos",
+          "latencia_ms": 12212,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A3_sin_implementacion",
+            "A4_rechazo_invest"
+          ],
+          "motivo": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios.",
+          "fin": "stop",
+          "respuesta_sha256": "a7a1ba3a0321cf669f5f8064dacf09d65707e9436595680fbd403e0734de8b77"
+        },
+        {
+          "caso": "LAB09-ADV",
+          "estado": "fallidos",
+          "latencia_ms": 18458,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "$.preguntas: [] should be non-empty",
+          "fin": "stop",
+          "respuesta_sha256": "66f1e3559f48c8000df7b9377dc4aff2237b0ce029d34c85c5fef25a7c67d849"
+        }
+      ],
+      "aprobados": 5,
+      "fallidos": 4,
+      "errores": 0,
+      "aprobacion_pct": 55.55555555555556,
+      "latencia_promedio_ms": 22112.444444444445,
+      "casos_con_latencia_en_promedio": 9,
+      "costo_facturado_api_usd": 0
+    }
+  }
+}

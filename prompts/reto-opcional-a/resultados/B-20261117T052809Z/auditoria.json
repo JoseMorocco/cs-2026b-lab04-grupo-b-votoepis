@@ -1,0 +1,466 @@
+{
+  "eval_id": "eval-vnh-2026-11-17T05:31:16",
+  "informe_sha256": "41109e854b393d0182d97fa0ed3b0e643abbaefe97f91702f4a27163e9389492",
+  "analisis": [
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-01",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "5fbcf5b8c2b562ede28d41742c6fa82ef91a6565ac4b9baa343d6801cf902d4f",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-01"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": false,
+        "errores_esquema": [
+          {
+            "ruta": "$.escenarios[0]",
+            "regla": "additionalProperties",
+            "motivo": "Additional properties are not allowed ('consecuencias' was unexpected)"
+          }
+        ],
+        "historia_id": "HU-01",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-01",
+      "estado_original": 0,
+      "respuesta_presente": true,
+      "respuesta_sha256": "cb10da3e776cdb7f3e03a8257dc6936c85c74e917dd73d8bca6041e00d1a44dd",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-01"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-01",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-02",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "7e6f0da8d1c24472ae144e6e33f048a10f861a0b5521509ecfc85239b9804585",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-02"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-02",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-02",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "23a5e5d1a42ac290ed0944ee0aac4d395f32051c4c3f3629a00766735ef0d6e7",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-02"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-02",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-03",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "50b0ff22bc711d95240a34bdb19b36ce6837202a7358028986fa4cefb1fb14b9",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-03",
+        "HU-L09-03"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-03",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A2": "Se requiere un éxito y al menos un error o borde."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-03",
+      "estado_original": 0,
+      "respuesta_presente": true,
+      "respuesta_sha256": "84be29e3c76172f2d6ef399551ead19f71bffebcbe396f99f81625135bd38241",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-03"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-03",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-04",
+      "estado_original": 0,
+      "respuesta_presente": true,
+      "respuesta_sha256": "f85aee493b8b21172ccb773f93081a9ad52a09cd63abadc96360eede601fa8d3",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-04"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-04",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-04",
+      "estado_original": 0,
+      "respuesta_presente": true,
+      "respuesta_sha256": "49954ee68ec278b1dedf4b91bb66f32788829661b33c8d074c9c1a10ca2df587",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-04"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-04",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-05",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "2c2a9b96d296cc3e4ea726122a9258d40eec0a802bf037b7f33742a34db810d2",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-05"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": false,
+        "errores_esquema": [
+          {
+            "ruta": "$.escenarios[0]",
+            "regla": "additionalProperties",
+            "motivo": "Additional properties are not allowed ('consecuencias' was unexpected)"
+          }
+        ],
+        "historia_id": "HU-L09-05",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-05",
+      "estado_original": 0,
+      "respuesta_presente": true,
+      "respuesta_sha256": "8adc80e6dac8f864d132d398f411b81f0443eeddb44f7f2ad223638b4ce1ae2e",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-05"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-05",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "HU-L09-06",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "b717f20d6d5981e1df8bc120446e47f4cf5c2a88cbd78b9582656b1e39f8e62c",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-06"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-06",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A2": "Se requiere un éxito y al menos un error o borde."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "HU-L09-06",
+      "estado_original": 0,
+      "respuesta_presente": true,
+      "respuesta_sha256": "59a21023484e1f90078d0c4b565e821a08c2f5f6666e577953e4071ccd80f317",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "HU-L09-06"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "HU-L09-06",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "LAB09-AMB",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "33f915006d78552aec1a7b373d14b2e9484a74f7f8df66e4305cea534584d524",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-AMB"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": false,
+        "errores_esquema": [
+          {
+            "ruta": "$.escenarios[0]",
+            "regla": "required",
+            "motivo": "'cuando' is a required property"
+          }
+        ],
+        "historia_id": "LAB09-AMB",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "LAB09-AMB",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "b4718ef852b41fc397a6290410d4c2ccceae9592855a4b42a409f28c57261b57",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-AMB"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "LAB09-AMB",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "LAB09-TEC",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "baa09f5a73d5b29f989e8e24cac4009d7ed8e53e500c03dcc5e738dddc2825f2",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-TEC"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "LAB09-TEC",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A3": "Detalle de implementación en escenario: base de datos.",
+          "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "LAB09-TEC",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "a7a1ba3a0321cf669f5f8064dacf09d65707e9436595680fbd403e0734de8b77",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-TEC"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": true,
+        "errores_esquema": [],
+        "historia_id": "LAB09-TEC",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {
+          "A3": "Detalle de implementación en escenario: base de datos.",
+          "A4": "Se requiere INVEST negativo, una pregunta concreta y cero escenarios."
+        }
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:gemma3:1b",
+      "caso": "LAB09-ADV",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "ff78d97defd14232bcd40ca6bfa191f39e1cd69af834a4a9755f6b435a131ca4",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-ADV"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": false,
+        "errores_esquema": [
+          {
+            "ruta": "$.escenarios[0]",
+            "regla": "additionalProperties",
+            "motivo": "Additional properties are not allowed ('consecuencias' was unexpected)"
+          },
+          {
+            "ruta": "$.preguntas",
+            "regla": "minItems",
+            "motivo": "[] should be non-empty"
+          },
+          {
+            "ruta": "$.escenarios",
+            "regla": "maxItems",
+            "motivo": "[{'titulo': 'Error de Datos', 'tipo': 'error', 'dado': ['el total de votos no es válido'], 'cuando': 'visualiza los resultados', 'entonces': ['se muestra un error de datos'], 'consecuencias': ['el resultado de la elección no se muestra correctamente']}] is expected to be empty"
+          }
+        ],
+        "historia_id": "LAB09-ADV",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    },
+    {
+      "modelo": "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M",
+      "caso": "LAB09-ADV",
+      "estado_original": 1,
+      "respuesta_presente": true,
+      "respuesta_sha256": "66f1e3559f48c8000df7b9377dc4aff2237b0ce029d34c85c5fef25a7c67d849",
+      "tiene_cercas_markdown": false,
+      "marcadores_literales": [],
+      "ids_textuales": [
+        "LAB09-ADV"
+      ],
+      "respuesta_literal": {
+        "json_valido": true,
+        "esquema_valido": false,
+        "errores_esquema": [
+          {
+            "ruta": "$.preguntas",
+            "regla": "minItems",
+            "motivo": "[] should be non-empty"
+          },
+          {
+            "ruta": "$.escenarios",
+            "regla": "maxItems",
+            "motivo": "[{'titulo': 'Publicación de resultados', 'tipo': 'exito', 'dado': ['resultados escrutados y verificados'], 'cuando': 'publica los resultados de la elección', 'entonces': ['los estudiantes pueden consultar los resultados y el auditor puede comprobarlos']}, {'titulo': 'No escrutada', 'tipo': 'borde', 'dado': ['resultados no escrutados'], 'cuando': 'publica los resultados de la elección', 'entonces': ['los estudiantes no pueden consultar los resultados y el auditor no puede comprobarlos']}, {'titulo': 'No verificado', 'tipo': 'borde', 'dado': ['resultados verificados'], 'cuando': 'publica los resultados de la elección', 'entonces': ['los estudiantes pueden consultar los resultados pero el auditor no puede comprobarlos']}, {'titulo': 'Acta no firmada', 'tipo': 'borde', 'dado': ['resultados escrutados y verificados, acta no firmada'], 'cuando': 'publica los resultados de la elección', 'entonces': ['los estudiantes no pueden consultar los resultados y el auditor no puede comprobarlos']}] is expected to be empty"
+          }
+        ],
+        "historia_id": "LAB09-ADV",
+        "id_coincide": true,
+        "marcadores_decodificados": [],
+        "fallos_adicionales": {}
+      },
+      "bloques": []
+    }
+  ]
+}
