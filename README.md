@@ -240,13 +240,3 @@ v3        #################### 100 %   #################### 100 %
 * Explicitar INVEST y cobertura resolvió el fallo registrado de v1; no se deben relajar aserciones para maquillar tasas. v3 empata con v2, no demuestra una mejora porcentual adicional.
 * El replay 3×3 es idéntico por construcción y sirve para regresiones, no para medir no determinismo. En Ollama local `gemma3:1b` (temperatura 0.7), tres generaciones por cada uno de HU-01, LAB09-AMB y LAB09-ADV dieron tres respuestas distintas por caso: **9/9 rechazadas** por bloques Markdown en lugar de JSON estricto y una filtró el marcador adversario. Es otro modelo y una muestra limitada; no sustituye los fixtures ni generaliza a otros modelos. Véanse la [comparación y sus límites](prompts/criterios/comparacion-repeticiones.md) y las [nueve capturas crudas](prompts/criterios/variacion-v3-ollama.json).
 * Conservar bytes y procedencia permite reproducir fallos; pasar un caso adversario no garantiza seguridad general. La [bitácora de IA](prompts/bitacora-ia.md) distingue evidencia conservada, nuevas mediciones y una sugerencia no adoptada.
-
-### Revisión y entrega E8
-
-Referencia: **Paso 9 de la guía del laboratorio**. Lista operativa para el compañero revisor (no registra una aprobación):
-
-* [ ] Cada integrante enlaza su PR con la versión de prompt aportada; otro integrante revisa y deja su decisión explícita.
-* [ ] Contrastar prompt, dataset, esquema, aserciones y respuestas: pertinencia de criterios, INVEST, privacidad e inyección; justificar fallos y posibles regresiones sin cambiar expectativas para ocultarlos.
-* [ ] Comprobar procedencia, tasas de la tabla y límites del 3×3 con las fuentes enlazadas; reproducir según la [guía de evaluación](prompts/criterios/README.md).
-* [ ] Revisar el [workflow de prompts](.github/workflows/prompts.yml) y su ejecución real en el PR. Los resultados locales no acreditan CI verde; la ejecución remota queda pendiente de comprobar.
-* [ ] Tras aceptar el PR, crear `v0.9-prompts` y entregar el enlace del repositorio en el Aula Virtual. **Etiqueta diferida hasta la aceptación del PR**; esta documentación no acredita PR creado, revisión del equipo, merge ni entrega. No modificar `main` directamente.
