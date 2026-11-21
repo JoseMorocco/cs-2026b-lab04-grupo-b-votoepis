@@ -1,5 +1,5 @@
-"""ISSUE-03 sembrado. El horario pertenece solo al contrato de demostración."""
+"""ISSUE-03 corregido: comparación de instantes con zona horaria."""
 
 
 def puede_cerrar(ahora, cierre_programado):
-    return ahora.date() >= cierre_programado.date()
+    return ahora >= cierre_programado

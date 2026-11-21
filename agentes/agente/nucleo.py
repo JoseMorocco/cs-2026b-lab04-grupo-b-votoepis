@@ -31,7 +31,7 @@ def ejecutar(modelo, sandbox, sesion, max_pasos=12):
         raise ValueError("El máximo de pasos debe estar entre 1 y 12.")
     sesion.mkdir(parents=True, exist_ok=False)
     eventos = []
-    historial = [{"rol": "objetivo", "texto": sandbox.leer_archivo("issues/ISSUE-01.md")}]
+    historial = [{"rol": "objetivo", "texto": sandbox.leer_archivo(sandbox.issue_file)}]
     with (sesion / "traza.jsonl").open("x", encoding="utf-8", newline="\n") as traza:
         registrar(traza, eventos, "objetivo", "INICIO", texto=historial[0]["texto"])
         try:
