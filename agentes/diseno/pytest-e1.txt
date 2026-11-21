@@ -1,0 +1,6 @@
+Comando: python -m pytest -q tests
+.......................................................xxx.............. [ 96%]
+...                                                                      [100%]
+72 passed, 3 xfailed in 4.58s
+
+Codigo de salida: 0
