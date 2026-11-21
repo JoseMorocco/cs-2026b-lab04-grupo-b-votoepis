@@ -1,0 +1,19 @@
+20cf67316c3430da9a98b306bc9ffa0fe2ece9eb
+Linux 6.6.87.2-microsoft-standard-WSL2
+Architecture:                         x86_64
+CPU(s):                               16
+Model name:                           AMD Ryzen 7 7730U with Radeon Graphics
+               total        used        free      shared  buff/cache   available
+Mem:           6.7Gi       1.1Gi       3.6Gi       4.0Mi       2.2Gi       5.6Gi
+Swap:          2.0Gi       2.8Mi       2.0Gi
+ollama version is 0.40.16
+NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL 
+v26.8.1
+Python 3.12.3
+0.125.1
+c87cd4e8012a24c609ef4c3acfa10b75c684ea3dcee3936f7c65b6aa1dcb159f  prompts/reto-opcional-a/promptfooconfig-b.yaml
+1a76fa4f3f757dc5c9b5340efe46ba677161661cb14d835fdf7a86077a29e1d8  prompts/criterios/v3.txt
+262674e9c7e49778971dd98a36a4223e4f589812d787b0937ac006e00f7008d9  prompts/criterios/casos.yaml
+e7da4769add3c31ed88dbbc9f9361749cc6bfb344a679abb3fcbda36796a6b2f  prompts/criterios/esquema.json
+cc3197ca070ddebf9540c0af5943b49b82cf6c3aa91d5ba2db9e237e431bc8fe  prompts/criterios/aserciones.py
+96d9ca32893095b98ea5c9e298ac8d2fbc5813c05f6a6dfe44ec7b4ad71f3119  prompts/criterios/renderizar_iteraciones.py

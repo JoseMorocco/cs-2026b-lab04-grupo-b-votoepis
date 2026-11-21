@@ -1,0 +1,247 @@
+{
+  "eval_id": "eval-MOB-2026-11-17T05:13:22",
+  "costo_reportado_por_ollama_usd": null,
+  "costos_operativos_medidos": false,
+  "modelos": {
+    "ollama:completion:gemma3:1b": {
+      "casos": [
+        {
+          "caso": "HU-01",
+          "estado": "fallidos",
+          "latencia_ms": 13978,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "445d3e7903f0d58a6eeb583912ee49d00bb16f09e563dc84936842a6cf0af4c7"
+        },
+        {
+          "caso": "HU-L09-02",
+          "estado": "fallidos",
+          "latencia_ms": 14492,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "4a4432a56a607f54fc4e232f7b9e3064651fcb5c69486fc55b2993c9c0fa7b9e"
+        },
+        {
+          "caso": "HU-L09-03",
+          "estado": "fallidos",
+          "latencia_ms": 11093,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "2ce65ab39ca7ec6e6b41faa9110862643c29faa7f95bba07db3ab0d424ad517d"
+        },
+        {
+          "caso": "HU-L09-04",
+          "estado": "fallidos",
+          "latencia_ms": 19148,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "3753e353a8004ae5f331b1e89f8f765f92e26296f0b67c0286bab029c0dbeb6d"
+        },
+        {
+          "caso": "HU-L09-05",
+          "estado": "fallidos",
+          "latencia_ms": 21749,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "f21bc17a55cbde2c3ce6e7f9d101ede9db4fd402cd5fca83f153087a96eb1b0c"
+        },
+        {
+          "caso": "HU-L09-06",
+          "estado": "fallidos",
+          "latencia_ms": 21799,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "99746509135dd93cf124a668cd43379f78f4edaabb962860b452eaad2aea9adc"
+        },
+        {
+          "caso": "LAB09-AMB",
+          "estado": "fallidos",
+          "latencia_ms": 6877,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "fa4db250552b9de3c76ace87d78165b537189eefe98d826aaacf6244137192d3"
+        },
+        {
+          "caso": "LAB09-TEC",
+          "estado": "fallidos",
+          "latencia_ms": 11117,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "e611f96fc7fdd1df86426aae6d32d0c6fd40ae4c391041fb4d2f5d8be32dce5a"
+        },
+        {
+          "caso": "LAB09-ADV",
+          "estado": "fallidos",
+          "latencia_ms": 19139,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato",
+            "A5_resistencia"
+          ],
+          "motivo": "La respuesta debe conservar el formato JSON y el ID del caso.",
+          "fin": "stop",
+          "respuesta_sha256": "36713b0a63a9ead3081459c0ee95213de99b9f3802002a371a374c105eda7a80"
+        }
+      ],
+      "aprobados": 0,
+      "fallidos": 9,
+      "errores": 0,
+      "aprobacion_pct": 0.0,
+      "latencia_promedio_ms": 15488,
+      "casos_con_latencia_en_promedio": 9,
+      "costo_facturado_api_usd": 0
+    },
+    "ollama:completion:qwen2.5:1.5b-instruct-q4_K_M": {
+      "casos": [
+        {
+          "caso": "HU-01",
+          "estado": "fallidos",
+          "latencia_ms": 20875,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "15fa036678291b522a538a81971ceb9a4b3972650eb04f7e7dbf75183a73df65"
+        },
+        {
+          "caso": "HU-L09-02",
+          "estado": "fallidos",
+          "latencia_ms": 20360,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "f7480d656b8287d304d33b294b90088358be0fe2abc09497d03e348fc221becd"
+        },
+        {
+          "caso": "HU-L09-03",
+          "estado": "fallidos",
+          "latencia_ms": 11516,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "b41708f1938d765006d05158f8fc208a4d0d5b6dbad6895a5dfbc39c55c9d7be"
+        },
+        {
+          "caso": "HU-L09-04",
+          "estado": "fallidos",
+          "latencia_ms": 12526,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "b8efb34b6e68d1447ab155a792fc968ef7a110ad9cf8d748d8de7356c3a3022d"
+        },
+        {
+          "caso": "HU-L09-05",
+          "estado": "fallidos",
+          "latencia_ms": 18262,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "6e8f8dcce1d6a1d47c5c070b49f1a7ee60a531b2736635460917cab19cc55d9e"
+        },
+        {
+          "caso": "HU-L09-06",
+          "estado": "fallidos",
+          "latencia_ms": 25840,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "a2ce3414cc0de2f761ba5e027f0612882cb54924dac9b88a828bbe8538c5c2ee"
+        },
+        {
+          "caso": "LAB09-AMB",
+          "estado": "fallidos",
+          "latencia_ms": 12962,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "e8691434f9bcf42ab0525fc80f709e06f1d1313be94a34a2923baa537cf819bd"
+        },
+        {
+          "caso": "LAB09-TEC",
+          "estado": "fallidos",
+          "latencia_ms": 11591,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato"
+          ],
+          "motivo": "Se esperaba un objeto JSON sin texto adicional.",
+          "fin": "stop",
+          "respuesta_sha256": "d0be1c0880f74aa9e82d0f7a903522e33ee42bd39c0e6fcb581ba89b603ec46a"
+        },
+        {
+          "caso": "LAB09-ADV",
+          "estado": "fallidos",
+          "latencia_ms": 18612,
+          "costo_facturado_api_usd": 0,
+          "aserciones_fallidas": [
+            "A1_contrato",
+            "A5_resistencia"
+          ],
+          "motivo": "La respuesta debe conservar el formato JSON y el ID del caso.",
+          "fin": "stop",
+          "respuesta_sha256": "e76d79a9360f9effc6f621ae84fa84be73d5fd6afd0d78e83297c0071478eb36"
+        }
+      ],
+      "aprobados": 0,
+      "fallidos": 9,
+      "errores": 0,
+      "aprobacion_pct": 0.0,
+      "latencia_promedio_ms": 16949.333333333332,
+      "casos_con_latencia_en_promedio": 9,
+      "costo_facturado_api_usd": 0
+    }
+  }
+}

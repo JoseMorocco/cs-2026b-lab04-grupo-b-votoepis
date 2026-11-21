@@ -1,0 +1,22 @@
+Cache is disabled.
+Starting evaluation eval-vnh-2026-11-17T05:31:16
+Running 18 test cases (up to 1 at a time)...
+✓ Eval complete (ID: eval-vnh-2026-11-17T05:31:16)
+
+» View results: promptfoo view
+» Feedback: https://promptfoo.dev/feedback
+
+Total Tokens: 15,304
+  Provider: 15,304 (11,354 prompt, 3,950 completion)
+
+Providers:
+  ollama:completion:qwen2.5:1.5b-instruct-q4_K_M: 9,009 (9 requests; 6,072 prompt, 2,937 completion)
+  ollama:completion:gemma3:1b: 6,295 (9 requests; 5,282 prompt, 1,013 completion)
+
+Results:
+  ✓ 6 passed (33.33%)
+  ✗ 12 failed (66.67%)
+  0 errors (0%)
+Duration: 5m 16s (concurrency: 1)
+
+Writing output to prompts/reto-opcional-a/resultados/B-20261117T052809Z/promptfoo.json
