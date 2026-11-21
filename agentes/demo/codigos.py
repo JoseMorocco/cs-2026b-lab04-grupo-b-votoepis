@@ -6,7 +6,7 @@ class RegistroPorCodigo:
         self.participaciones = set()
 
     def emitir(self, eleccion, codigo):
-        clave = (eleccion, codigo)
+        clave = (eleccion, codigo.casefold())
         if clave in self.participaciones:
             return False
         self.participaciones.add(clave)

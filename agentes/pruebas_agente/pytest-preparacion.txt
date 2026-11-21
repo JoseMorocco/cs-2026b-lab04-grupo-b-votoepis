@@ -1,0 +1,6 @@
+Comando: python -m pytest -q tests agentes/pruebas_agente
+.......................................................xxx.............. [ 81%]
+.............s..                                                         [100%]
+84 passed, 1 skipped, 3 xfailed in 8.99s
+
+Codigo de salida: 0

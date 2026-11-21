@@ -1,0 +1,30 @@
+Comando: python scripts/validar_complejidad.py agentes/agente
+__main__.py:11 main -> CC=4
+contrato.py:19 objeto_sin_duplicados -> CC=3
+contrato.py:28 validar -> CC=6
+herramientas.py:15 Sandbox.__init__ -> CC=3
+herramientas.py:31 Sandbox.cerrar -> CC=1
+herramientas.py:34 Sandbox.leer_archivo -> CC=1
+herramientas.py:37 Sandbox.editar_archivo -> CC=4
+herramientas.py:51 Sandbox.ejecutar_pruebas -> CC=2
+herramientas.py:66 Sandbox.ver_cambios -> CC=1
+herramientas.py:73 Sandbox.ejecutar -> CC=1
+modelo.py:7 contexto -> CC=1
+modelo.py:34 ModeloInteractivo.decidir -> CC=3
+nucleo.py:15 registrar -> CC=1
+nucleo.py:22 observar -> CC=2
+nucleo.py:29 ejecutar -> CC=3
+nucleo.py:48 iterar -> CC=4
+nucleo.py:71 procesar_decision -> CC=6
+politica.py:15 ruta_segura -> CC=6
+politica.py:28 validar_codigo -> CC=8
+politica.py:41 validar_llamada -> CC=3
+traza.py:8 a_mermaid -> CC=4
+traza.py:20 main -> CC=2
+
+Elementos analizados: 22
+Límite permitido: 10
+
+OK: ninguna función o método supera el límite.
+
+Codigo de salida: 0

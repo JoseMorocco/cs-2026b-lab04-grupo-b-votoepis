@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["motivo", "accion", "args", "respuesta"],
+  "properties": {
+    "motivo": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "accion": {"enum": ["leer_archivo", "editar_archivo", "ejecutar_pruebas", "ver_cambios", "final"]},
+    "args": {"type": "object", "additionalProperties": false,
+      "properties": {
+        "ruta": {"type": "string", "maxLength": 200},
+        "anterior": {"type": "string", "minLength": 1, "maxLength": 8000},
+        "nuevo": {"type": "string", "maxLength": 8000}
+      }
+    },
+    "respuesta": {"type": "string", "maxLength": 2000}
+  }
+}
