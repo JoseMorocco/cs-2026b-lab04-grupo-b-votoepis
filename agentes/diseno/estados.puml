@@ -1,0 +1,45 @@
+@startuml
+title Máquina de estados del agente VotoEPIS (máximo 12 pasos)
+
+[*] --> INICIO : sesión creada
+INICIO --> SOLICITUD : leer objetivo y archivos permitidos
+SOLICITUD --> DECISION : contexto <= 100000 caracteres
+SOLICITUD --> LIMITE_CONTEXTO : contexto > 100000 caracteres
+LIMITE_CONTEXTO --> [*] : DETENIDO
+
+DECISION --> VALIDACION_CONTRATO : respuesta del modelo (<= 16000 bytes)
+VALIDACION_CONTRATO --> RECHAZO_CONTRATO : JSON inválido, campos extra,\nargs incorrectos o respuesta indebida
+RECHAZO_CONTRATO --> OBSERVACION : consumir un paso y registrar rechazo
+RECHAZO_CONTRATO --> [*] : si se alcanza el límite de 12
+
+VALIDACION_CONTRATO --> FINAL : accion == "final" y respuesta no vacía
+FINAL --> [*] : FIN
+
+VALIDACION_CONTRATO --> POLITICA : accion en herramientas
+POLITICA --> BLOQUEO_POLITICA : ruta, enlace, prueba o código no permitido
+BLOQUEO_POLITICA --> OBSERVACION : registrar bloqueo
+BLOQUEO_POLITICA --> [*] : si se alcanza el límite de 12
+
+POLITICA --> EJECUCION : contrato y política válidos
+EJECUCION --> OBSERVACION_OK : herramienta devuelve resultado
+EJECUCION --> ERROR_HERRAMIENTA : ValueError, OSError o SubprocessError
+ERROR_HERRAMIENTA --> OBSERVACION : {"error": ...}
+OBSERVACION_OK --> OBSERVACION : adjuntar resultado al historial
+OBSERVACION --> SOLICITUD : paso < 12
+OBSERVACION --> LIMITE_PASOS : paso == 12
+LIMITE_PASOS --> [*] : DETENIDO
+
+DECISION --> INTERRUPCION : EOF o KeyboardInterrupt
+INTERRUPCION --> [*] : DETENIDO
+
+note right of SOLICITUD
+  Guardia: 1 <= paso <= 12
+  Máximo 12 decisiones, incluidos rechazos
+end note
+
+note right of VALIDACION_CONTRATO
+  Campos obligatorios: motivo, accion, args, respuesta
+  additionalProperties = false
+end note
+
+@enduml

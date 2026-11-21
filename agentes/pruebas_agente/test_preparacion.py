@@ -132,5 +132,6 @@ def test_contexto_incluye_protocolo():
     datos = json.loads(contexto([{"rol": "objetivo", "texto": "ISSUE-01"}]))
     assert datos["contrato"]["required"] == ["motivo", "accion", "args", "respuesta"]
     assert set(datos["herramientas"]) == {
-        "leer_archivo", "editar_archivo", "ejecutar_pruebas", "ver_cambios", "final",
+        "leer_archivo", "editar_archivo", "ejecutar_pruebas", "ver_cambios",
+        "mapa_repo", "anotar", "leer_notas", "final",
     }
