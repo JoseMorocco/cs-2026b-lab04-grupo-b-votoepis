@@ -1,0 +1,46 @@
+Comando: python -m pytest --runxfail -q tests/test_issue_01.py tests/test_issue_02.py tests/test_issue_03.py
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+__________ test_issue_01_impide_doble_voto_por_cambio_de_mayusculas ___________
+
+    @pytest.mark.xfail(strict=True, reason="ISSUE-01 sembrado: c�digo sensible a may�sculas")
+    def test_issue_01_impide_doble_voto_por_cambio_de_mayusculas():
+        registro = RegistroPorCodigo()
+        assert registro.emitir("eleccion-A", "epis42") is True
+>       assert registro.emitir("eleccion-A", "EPIS42") is False
+E       AssertionError: assert True is False
+E        +  where True = emitir('eleccion-A', 'EPIS42')
+E        +    where emitir = <agentes.demo.codigos.RegistroPorCodigo object at 0x000001AE97FF3A70>.emitir
+
+tests\test_issue_01.py:10: AssertionError
+___________________ test_issue_02_separa_blancos_de_validos ___________________
+
+    @pytest.mark.xfail(strict=True, reason="ISSUE-02 sembrado: blancos incluidos como v�lidos")
+    def test_issue_02_separa_blancos_de_validos():
+>       assert contar(["candidato-A", None, "candidato-B"]) == {"validos": 2, "blancos": 1}
+E       AssertionError: assert {'validos': 3, 'blancos': 1} == {'validos': 2, 'blancos': 1}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'validos': 3} != {'validos': 2}
+E         Use -v to get more diff
+
+tests\test_issue_02.py:8: AssertionError
+__________________ test_issue_03_respeta_instante_de_cierre ___________________
+
+    @pytest.mark.xfail(strict=True, reason="ISSUE-03 sembrado: solo se compara el d�a")
+    def test_issue_03_respeta_instante_de_cierre():
+        cierre = datetime(2026, 11, 21, 18, 0, tzinfo=timezone(timedelta(hours=-5)))
+>       assert puede_cerrar(cierre - timedelta(seconds=1), cierre) is False
+E       assert True is False
+E        +  where True = puede_cerrar((datetime.datetime(2026, 11, 21, 18, 0, tzinfo=datetime.timezone(datetime.timedelta(days=-1, seconds=68400))) - datetime.timedelta(seconds=1)), datetime.datetime(2026, 11, 21, 18, 0, tzinfo=datetime.timezone(datetime.timedelta(days=-1, seconds=68400))))
+E        +    where datetime.timedelta(seconds=1) = timedelta(seconds=1)
+
+tests\test_issue_03.py:11: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_issue_01.py::test_issue_01_impide_doble_voto_por_cambio_de_mayusculas
+FAILED tests/test_issue_02.py::test_issue_02_separa_blancos_de_validos - Asse...
+FAILED tests/test_issue_03.py::test_issue_03_respeta_instante_de_cierre - ass...
+3 failed in 0.52s
+
+Codigo de salida: 1
