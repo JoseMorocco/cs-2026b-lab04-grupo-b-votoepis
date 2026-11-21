@@ -1,0 +1,1 @@
+{'comando': 'python -m pytest --runxfail -q tests/test_issue_02.py', 'codigo': 0, 'salida': '.                                                                        [100%]\n1 passed in 0.00s\n'}

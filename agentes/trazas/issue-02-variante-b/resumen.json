@@ -1,0 +1,14 @@
+{
+  "issue": "ISSUE-02",
+  "rondas": 1,
+  "veredicto": "APROBADO",
+  "motivos": [],
+  "historial": [
+    {
+      "ronda": 1,
+      "veredicto": "APROBADO",
+      "motivos": [],
+      "codigo_pruebas": 0
+    }
+  ]
+}

@@ -1,5 +1,12 @@
-"""ISSUE-02 sembrado. None representa un voto en blanco en esta demostración."""
+"""ISSUE-02 corregido: None es voto en blanco, no válido."""
 
 
 def contar(votos):
-    return {"validos": len(votos), "blancos": votos.count(None)}
+    validos = 0
+    blancos = 0
+    for voto in votos:
+        if voto is None:
+            blancos += 1
+        else:
+            validos += 1
+    return {"validos": validos, "blancos": blancos}

@@ -1,0 +1,9 @@
+--- original/agentes/demo/conteo.py
++++ sandbox/agentes/demo/conteo.py
+@@ -1,6 +1,3 @@
+-"""ISSUE-02 corregido: None es voto en blanco, no válido."""
+-
+-
+ def contar(votos):
+     validos = 0
+     blancos = 0

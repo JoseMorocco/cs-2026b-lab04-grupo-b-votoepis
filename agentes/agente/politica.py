@@ -33,6 +33,7 @@ NODOS = (
     ast.Tuple, ast.Call, ast.If, ast.For, ast.Compare, ast.In, ast.Is, ast.Return,
     ast.Dict,
     ast.Eq, ast.NotEq, ast.Gt, ast.GtE, ast.Lt, ast.LtE, ast.IsNot,
+    ast.Add, ast.Sub,
 )
 
 
