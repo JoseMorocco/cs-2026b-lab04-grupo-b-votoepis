@@ -1,19 +1,45 @@
-"""Política local de ISSUE-01, rutas exactas y Python de demostración acotado."""
+"""Política local de issues de demostración, rutas exactas y Python acotado."""
 
 import ast
 
 
-EDITABLE = "agentes/demo/codigos.py"
-LECTURAS = {EDITABLE, "issues/ISSUE-01.md", "tests/test_issue_01.py"}
+ISSUE_CONFIG = {
+    "ISSUE-01": {
+        "editable": "agentes/demo/codigos.py",
+        "lecturas": {"agentes/demo/codigos.py", "issues/ISSUE-01.md", "tests/test_issue_01.py"},
+        "prueba": "tests/test_issue_01.py",
+        "issue": "issues/ISSUE-01.md",
+    },
+    "ISSUE-02": {
+        "editable": "agentes/demo/conteo.py",
+        "lecturas": {"agentes/demo/conteo.py", "issues/ISSUE-02.md", "tests/test_issue_02.py"},
+        "prueba": "tests/test_issue_02.py",
+        "issue": "issues/ISSUE-02.md",
+    },
+    "ISSUE-03": {
+        "editable": "agentes/demo/cierre.py",
+        "lecturas": {"agentes/demo/cierre.py", "issues/ISSUE-03.md", "tests/test_issue_03.py"},
+        "prueba": "tests/test_issue_03.py",
+        "issue": "issues/ISSUE-03.md",
+    },
+}
+
+# Compatibilidad con el prototipo original de ISSUE-01.
+EDITABLE = ISSUE_CONFIG["ISSUE-01"]["editable"]
+LECTURAS = set(ISSUE_CONFIG["ISSUE-01"]["lecturas"])
 NODOS = (
     ast.Module, ast.ClassDef, ast.FunctionDef, ast.arguments, ast.arg, ast.Assign,
-    ast.Expr, ast.Constant, ast.Name, ast.Load, ast.Store, ast.Attribute,
-    ast.Tuple, ast.Call, ast.If, ast.Compare, ast.In, ast.Return,
+    ast.AugAssign, ast.Expr, ast.Constant, ast.Name, ast.Load, ast.Store, ast.Attribute,
+    ast.Tuple, ast.Call, ast.If, ast.For, ast.Compare, ast.In, ast.Is, ast.Return,
+    ast.Dict,
+    ast.Eq, ast.NotEq, ast.Gt, ast.GtE, ast.Lt, ast.LtE, ast.IsNot,
 )
 
 
-def ruta_segura(raiz, ruta):
-    if ruta not in LECTURAS:
+def ruta_segura(raiz, ruta, permitidos=None):
+    if permitidos is None:
+        permitidos = LECTURAS
+    if ruta not in permitidos:
         raise ValueError("Ruta fuera de los archivos permitidos.")
     destino = raiz / ruta
     for padre in (destino, *destino.parents):

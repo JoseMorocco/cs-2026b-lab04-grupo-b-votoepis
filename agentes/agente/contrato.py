@@ -12,6 +12,9 @@ ARGUMENTOS = {
     "editar_archivo": {"ruta", "anterior", "nuevo"},
     "ejecutar_pruebas": set(),
     "ver_cambios": set(),
+    "mapa_repo": set(),
+    "anotar": {"texto"},
+    "leer_notas": set(),
     "final": set(),
 }
 

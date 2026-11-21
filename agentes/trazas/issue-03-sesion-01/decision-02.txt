@@ -1,0 +1,1 @@
+{"motivo":"leer codigo","accion":"leer_archivo","args":{"ruta":"agentes/demo/cierre.py"},"respuesta":""}

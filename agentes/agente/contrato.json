@@ -5,12 +5,13 @@
   "required": ["motivo", "accion", "args", "respuesta"],
   "properties": {
     "motivo": {"type": "string", "minLength": 1, "maxLength": 1000},
-    "accion": {"enum": ["leer_archivo", "editar_archivo", "ejecutar_pruebas", "ver_cambios", "final"]},
+    "accion": {"enum": ["leer_archivo", "editar_archivo", "ejecutar_pruebas", "ver_cambios", "mapa_repo", "anotar", "leer_notas", "final"]},
     "args": {"type": "object", "additionalProperties": false,
       "properties": {
         "ruta": {"type": "string", "maxLength": 200},
         "anterior": {"type": "string", "minLength": 1, "maxLength": 8000},
-        "nuevo": {"type": "string", "maxLength": 8000}
+        "nuevo": {"type": "string", "maxLength": 8000},
+        "texto": {"type": "string", "minLength": 1, "maxLength": 2000}
       }
     },
     "respuesta": {"type": "string", "maxLength": 2000}

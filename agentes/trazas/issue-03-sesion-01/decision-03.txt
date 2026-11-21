@@ -1,0 +1,1 @@
+{"motivo":"corregir","accion":"editar_archivo","args":{"ruta":"agentes/demo/cierre.py","anterior":"def puede_cerrar(ahora, cierre_programado):\n    return ahora.date() >= cierre_programado.date()","nuevo":"def puede_cerrar(ahora, cierre_programado):\n    return ahora >= cierre_programado"},"respuesta":""}
