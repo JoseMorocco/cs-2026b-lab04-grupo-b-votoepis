@@ -11,15 +11,24 @@ import sys
 import tempfile
 
 from agentes.agente.politica import (
-    ISSUE_CONFIG, EDITABLE, LECTURAS, ruta_segura, validar_codigo,
+    ISSUE_CONFIG, EDITABLE, LECTURAS, aprobar_edicion as aprobar_edicion_consola,
+    ruta_segura, validar_codigo,
 )
 
 
+class AprobacionRechazada(PermissionError):
+    """La persona revisora rechazó la edición propuesta por el agente."""
+
+
 class Sandbox:
-    def __init__(self, origen, issue="ISSUE-01", editable=None, lecturas=None, prueba=None):
+    def __init__(
+        self, origen, issue="ISSUE-01", editable=None, lecturas=None, prueba=None,
+        aprobar_edicion=None,
+    ):
         self.origen = origen.resolve()
         config = ISSUE_CONFIG.get(issue, ISSUE_CONFIG["ISSUE-01"])
         self.issue = issue
+        self.aprobar_edicion = aprobar_edicion or aprobar_edicion_consola
         self.editable = editable or config["editable"]
         self.lecturas = set(lecturas) if lecturas else set(config["lecturas"])
         self.prueba = prueba or config["prueba"]
@@ -58,6 +67,8 @@ class Sandbox:
         if len(texto) > 12000:
             raise ValueError("El archivo excede el tamaño permitido.")
         validar_codigo(texto)
+        if not self.aprobar_edicion(ruta, anterior, nuevo):
+            raise AprobacionRechazada("Edición rechazada por el integrante.")
         archivo.write_text(texto, encoding="utf-8", newline="\n")
         return "Edición aplicada a la copia temporal."
 

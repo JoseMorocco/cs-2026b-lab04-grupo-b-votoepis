@@ -53,13 +53,18 @@ class Critico:
 
 
 class Orquestador:
-    def __init__(self, origen, issue="ISSUE-02", max_rondas=2):
+    def __init__(self, origen, issue="ISSUE-02", max_rondas=2, aprobar_edicion=None):
         self.origen = Path(origen).resolve()
         self.issue = issue
         self.max_rondas = max(1, min(2, max_rondas))
+        self.aprobar_edicion = aprobar_edicion
 
     def ejecutar_variante_b(self, defecto, correccion):
-        sandbox = Sandbox(self.origen, issue=self.issue)
+        sandbox = Sandbox(
+            self.origen,
+            issue=self.issue,
+            aprobar_edicion=self.aprobar_edicion,
+        )
         # sembrar defecto en la copia
         (sandbox.raiz / sandbox.editable).write_text(defecto, encoding="utf-8")
         planificador = Planificador()
