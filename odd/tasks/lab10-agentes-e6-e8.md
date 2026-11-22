@@ -63,7 +63,7 @@ Checks: verify the tag points to the intended completed commit and confirm the f
 ## Tasks
 
 - T1 — S1–S2; route: inline; status: verified and pushed; commit: `be34c5873b8ef088bd18884e0aba70e880f457f6`; Risk: item 2 (human approval guard controls permission to edit the sandbox).
-- T2 — S3–S4; route: inline; status: verified, commit pending; Risk: none (documentation and passive trace evidence only).
+- T2 — S3–S4; route: inline; status: verified; commit: `9045035`; Risk: none (documentation and passive trace evidence only).
 - T3 — S5–S7; route: inline; status: pending explicit user confirmation after E7; commit: pending.
 
 ## Log
@@ -129,3 +129,7 @@ User confirmation (2026-11-21): “continua con el 7”. T2 is now in progress; 
 ### L9 — E7 evidence and documentation verified
 
 Added `agentes/observacion.md` and `agentes/bitacora-ia.md`. The repository had no ISSUE-01 session trace, so a new operator-guided `ModeloInteractivo` diagnostic session was captured without editing the sandbox; its test returned code 0 and the current source already uses `casefold`, despite the issue description claiming the defect remains. Recomputed all three primary-session metrics directly from JSONL: ISSUE-01 4 steps/3 tool actions/6543 context characters; ISSUE-02 A 6/5/6796; ISSUE-03 9/8/8199. Each has 0 contract rejections and 0 blocked tools; rounds are marked not applicable for single-agent sessions, with ISSUE-02 B's separate one-round summary called out. The six-entry interaction log cites the E6 review's EOFError blocker and its regression/fix. `git diff --check`, artifact-link checks, and metric recomputation passed. E8 remains gated on user confirmation after E7.
+
+### L10 — E7 work-unit commit
+
+Committed T2 as `9045035` (`docs(agents): add E7 trace and interaction evidence`). The candidate assessment against the previous boundary was `medium`, `review_due=false`, reason `under_budget`; no native review was due for this slice. The assessment records an empty `cambios.diff` as evidence that the ISSUE-01 diagnostic required no edit. Push remains part of the requested staged delivery.
