@@ -20,7 +20,10 @@ POLITICA --> BLOQUEO_POLITICA : ruta, enlace, prueba o código no permitido
 BLOQUEO_POLITICA --> OBSERVACION : registrar bloqueo
 BLOQUEO_POLITICA --> [*] : si se alcanza el límite de 12
 
-POLITICA --> EJECUCION : contrato y política válidos
+POLITICA --> APROBACION_HUMANA : edición permitida propuesta
+APROBACION_HUMANA --> EJECUCION : respuesta exacta "s"
+APROBACION_HUMANA --> OBSERVACION : "n" o EOF; rechazar sin escribir
+POLITICA --> EJECUCION : contrato y política válidos (otra herramienta)
 EJECUCION --> OBSERVACION_OK : herramienta devuelve resultado
 EJECUCION --> ERROR_HERRAMIENTA : ValueError, OSError o SubprocessError
 ERROR_HERRAMIENTA --> OBSERVACION : {"error": ...}
@@ -40,6 +43,12 @@ end note
 note right of VALIDACION_CONTRATO
   Campos obligatorios: motivo, accion, args, respuesta
   additionalProperties = false
+end note
+
+note right of APROBACION_HUMANA
+  Cada edición requiere aprobación
+  exacta "s" o "n" desde consola
+  Rechazo/EOF: no se escribe
 end note
 
 @enduml

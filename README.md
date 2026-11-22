@@ -240,3 +240,63 @@ v3        #################### 100 %   #################### 100 %
 * Explicitar INVEST y cobertura resolvió el fallo registrado de v1; no se deben relajar aserciones para maquillar tasas. v3 empata con v2, no demuestra una mejora porcentual adicional.
 * El replay 3×3 es idéntico por construcción y sirve para regresiones, no para medir no determinismo. En Ollama local `gemma3:1b` (temperatura 0.7), tres generaciones por cada uno de HU-01, LAB09-AMB y LAB09-ADV dieron tres respuestas distintas por caso: **9/9 rechazadas** por bloques Markdown en lugar de JSON estricto y una filtró el marcador adversario. Es otro modelo y una muestra limitada; no sustituye los fixtures ni generaliza a otros modelos. Véanse la [comparación y sus límites](prompts/criterios/comparacion-repeticiones.md) y las [nueve capturas crudas](prompts/criterios/variacion-v3-ollama.json).
 * Conservar bytes y procedencia permite reproducir fallos; pasar un caso adversario no garantiza seguridad general. La [bitácora de IA](prompts/bitacora-ia.md) distingue evidencia conservada, nuevas mediciones y una sugerencia no adoptada.
+
+## Sistemas agénticos (Lab 10)
+
+El sistema ejecuta agentes con contrato JSON, herramientas acotadas al sandbox y aprobación humana antes de cada edición. La coordinación es ReAct para tareas de un solo agente y actor-crítico para el caso que requiere planificación y revisión; los límites y alternativas están desarrollados en [ADR-010](docs/architecture/adr/010-arquitectura-sistema-agentico.md).
+
+### Máquina de estados
+
+```mermaid
+stateDiagram-v2
+    [*] --> INICIO
+    INICIO --> SOLICITUD: sesión creada
+    SOLICITUD --> DECISION: contexto <= 100000 caracteres
+    SOLICITUD --> DETENIDO: contexto excedido
+    DECISION --> VALIDACION: respuesta JSON <= 16000 bytes
+    VALIDACION --> RECHAZO: contrato inválido
+    RECHAZO --> SOLICITUD: registrar rechazo / consumir paso
+    VALIDACION --> FINAL: acción final válida
+    FINAL --> [*]
+    VALIDACION --> POLITICA: llamada a herramienta válida
+    POLITICA --> BLOQUEO: ruta o acción no permitida
+    BLOQUEO --> SOLICITUD: registrar bloqueo
+    POLITICA --> APROBACION: editar_archivo permitido
+    APROBACION --> EJECUCION: consola responde exactamente "s"
+    APROBACION --> OBSERVACION: "n" o EOF; no escribir
+    POLITICA --> EJECUCION: otra herramienta permitida
+    EJECUCION --> OBSERVACION: resultado o error registrado
+    OBSERVACION --> SOLICITUD: paso < 12
+    OBSERVACION --> DETENIDO: paso = 12
+    DETENIDO --> [*]
+```
+
+La fuente PlantUML del diagrama es [`agentes/diseno/estados.puml`](agentes/diseno/estados.puml). Cada respuesta pasa por el contrato; las llamadas a herramientas también pasan por la política. `editar_archivo` solo escribe tras el consentimiento `s`; una respuesta `n` o EOF se registra sin modificar el sandbox.
+
+### Trayectoria observada: diagnóstico de ISSUE-01
+
+La sesión usó dos lecturas, ejecutó las pruebas del issue y terminó sin editar archivos. La traza completa está en [`traza.jsonl`](agentes/trazas/issue-01-sesion-01/traza.jsonl).
+
+```mermaid
+flowchart TD
+    A[Inicio: objetivo] --> B[Decisión: inspeccionar issue]
+    B --> C[Leer archivo permitido]
+    C --> D[Decisión: revisar implementación]
+    D --> E[Leer archivo permitido]
+    E --> F[Decisión: verificar hipótesis]
+    F --> G[Ejecutar pruebas del issue]
+    G --> H[Decisión final]
+    H --> I[Final: diagnóstico, sin edición]
+```
+
+### Métricas E7
+
+Las métricas se calcularon desde eventos JSONL: pasos incluyen la decisión final; herramientas cuenta eventos de herramienta; contexto final es el campo `caracteres` de la última solicitud. Las rondas no aplican a las tres sesiones de agente único. La variante B de ISSUE-02 es una ejecución distinta y registra una ronda en su [resumen](agentes/trazas/issue-02-variante-b/resumen.json).
+
+| Issue y evidencia | Pasos | Rondas | Herramientas usadas (acciones) | Rechazos por contrato | Acciones bloqueadas | Contexto final |
+|---|---:|---|---|---:|---:|---:|
+| ISSUE-01 — [sesión diagnóstica](agentes/trazas/issue-01-sesion-01/traza.jsonl) | 4 | No aplica: agente único | `leer_archivo` ×2; `ejecutar_pruebas` ×1 (3) | 0 | 0 | 6543 caracteres |
+| ISSUE-02 — [variante A](agentes/trazas/issue-02-variante-a/traza.jsonl) | 6 | No aplica: agente único | `leer_archivo` ×2; `editar_archivo` ×1; `ejecutar_pruebas` ×1; `ver_cambios` ×1 (5) | 0 | 0 | 6796 caracteres |
+| ISSUE-03 — [sesión 01](agentes/trazas/issue-03-sesion-01/traza.jsonl) | 9 | No aplica: agente único | `leer_archivo` ×2; `editar_archivo` ×1; `ejecutar_pruebas` ×1; `mapa_repo` ×1; `anotar` ×1; `leer_notas` ×1; `ver_cambios` ×1 (8) | 0 | 0 | 8199 caracteres |
+
+La [observación E7](agentes/observacion.md) documenta el método de conteo y la discrepancia de línea base de ISSUE-01; la [bitácora de IA](agentes/bitacora-ia.md) registra seis interacciones, incluido el EOFError detectado durante revisión y su regresión corregida.
