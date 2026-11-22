@@ -64,7 +64,7 @@ Checks: verify the tag points to the intended completed commit and confirm the f
 
 - T1 — S1–S2; route: inline; status: verified and pushed; commit: `be34c5873b8ef088bd18884e0aba70e880f457f6`; Risk: item 2 (human approval guard controls permission to edit the sandbox).
 - T2 — S3–S4; route: inline; status: verified and pushed; commit: `9045035`; Risk: none (documentation and passive trace evidence only).
-- T3 — S5–S7; route: inline; status: in progress after explicit user confirmation; commit: pending.
+- T3 — S5–S7; route: inline; status: ADR/README/diagrams verified and pushed; tag `v1.0-agentes` pushed; Aula Virtual link submission pending an explicitly authorized account/session; commit: `4d2186f` plus preserved remote diagram merge `364b98f`.
 
 ## Log
 
@@ -141,3 +141,7 @@ Pushed E7 to `origin/lab10-e6-e7-r8`; remote HEAD matched `aa113c0d1ae95fe3b335b
 ### L12 — E8 authorized
 
 User confirmation (2026-11-21): “bien continua”. T3 is now in progress; the Aula Virtual submission still requires an explicitly authorized account/session for that destination.
+
+### L13 — E8 artifacts, tag, and remaining delivery gate
+
+Added ADR-010, the exact README section with the state machine, ISSUE-01 trajectory and E7 metrics table, and the human-approval transition to the PlantUML source. Structural checks passed for changed-document whitespace, E8 relative links, required ADR dimensions, issue coverage, and exact E7 table parity; `git diff --check` passed with the repository's existing CRLF line endings accounted for. No application tests were run because this work changes documentation and diagrams only. Commit `4d2186f` was assessed as medium / `review_due=false` (`under_budget`). A concurrent remote diagram-only update (`12ba46c`) was preserved by merge commit `364b98f`; assessment of the final candidate remained `review_due=false` (`under_budget`). Pushed branch HEAD `364b98f797c58e8f822284a7cba5a61e08e5709c` and annotated tag `v1.0-agentes`, which points to that commit. The repository link is `https://github.com/JoseMorocco/cs-2026b-lab04-grupo-b-votoepis`. Aula Virtual submission remains pending because no destination account/session was explicitly authorized.
