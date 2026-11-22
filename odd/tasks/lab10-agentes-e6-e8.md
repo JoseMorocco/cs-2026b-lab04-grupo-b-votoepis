@@ -63,7 +63,7 @@ Checks: verify the tag points to the intended completed commit and confirm the f
 ## Tasks
 
 - T1 — S1–S2; route: inline; status: verified and pushed; commit: `be34c5873b8ef088bd18884e0aba70e880f457f6`; Risk: item 2 (human approval guard controls permission to edit the sandbox).
-- T2 — S3–S4; route: inline; status: pending explicit user confirmation after E6; commit: pending.
+- T2 — S3–S4; route: inline; status: verified, commit pending; Risk: none (documentation and passive trace evidence only).
 - T3 — S5–S7; route: inline; status: pending explicit user confirmation after E7; commit: pending.
 
 ## Log
@@ -121,3 +121,11 @@ An independent verifier found two E6 blockers: `.strip()` accepted whitespace-pa
 ### L7 — E6 correction, review, and delivery
 
 The native review found a deterministic blocker: EOF at the approval prompt raised `EOFError` before the trace could record the edit as rejected and blocked. Added a regression test, observed the expected failure, then made EOF fail closed as a rejection. The focused E6 file passed (12 tests), the full suite passed (147 tests), `lint-imports` kept both contracts, and `git diff --check` was clean. Native targeted validation approved the corrected candidate; the exact acknowledgement was consumed. Commit `be34c5873b8ef088bd18884e0aba70e880f457f6` was pushed to `origin/lab10-e6-e7-r8` and the remote SHA matched. E7 and E8 remain gated on explicit user confirmation. The review also noted that the verbatim original request in this task log contains a local filesystem path; that advisory was not blocking and the path is present in the pushed history.
+
+### L8 — E7 authorized
+
+User confirmation (2026-11-21): “continua con el 7”. T2 is now in progress; E8 remains gated until E7 is complete and the user confirms.
+
+### L9 — E7 evidence and documentation verified
+
+Added `agentes/observacion.md` and `agentes/bitacora-ia.md`. The repository had no ISSUE-01 session trace, so a new operator-guided `ModeloInteractivo` diagnostic session was captured without editing the sandbox; its test returned code 0 and the current source already uses `casefold`, despite the issue description claiming the defect remains. Recomputed all three primary-session metrics directly from JSONL: ISSUE-01 4 steps/3 tool actions/6543 context characters; ISSUE-02 A 6/5/6796; ISSUE-03 9/8/8199. Each has 0 contract rejections and 0 blocked tools; rounds are marked not applicable for single-agent sessions, with ISSUE-02 B's separate one-round summary called out. The six-entry interaction log cites the E6 review's EOFError blocker and its regression/fix. `git diff --check`, artifact-link checks, and metric recomputation passed. E8 remains gated on user confirmation after E7.
