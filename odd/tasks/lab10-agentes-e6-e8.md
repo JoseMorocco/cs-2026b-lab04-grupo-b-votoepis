@@ -63,7 +63,7 @@ Checks: verify the tag points to the intended completed commit and confirm the f
 ## Tasks
 
 - T1 — S1–S2; route: inline; status: verified and pushed; commit: `be34c5873b8ef088bd18884e0aba70e880f457f6`; Risk: item 2 (human approval guard controls permission to edit the sandbox).
-- T2 — S3–S4; route: inline; status: verified; commit: `9045035`; Risk: none (documentation and passive trace evidence only).
+- T2 — S3–S4; route: inline; status: verified and pushed; commit: `9045035`; Risk: none (documentation and passive trace evidence only).
 - T3 — S5–S7; route: inline; status: pending explicit user confirmation after E7; commit: pending.
 
 ## Log
@@ -133,3 +133,7 @@ Added `agentes/observacion.md` and `agentes/bitacora-ia.md`. The repository had 
 ### L10 — E7 work-unit commit
 
 Committed T2 as `9045035` (`docs(agents): add E7 trace and interaction evidence`). The candidate assessment against the previous boundary was `medium`, `review_due=false`, reason `under_budget`; no native review was due for this slice. The assessment records an empty `cambios.diff` as evidence that the ISSUE-01 diagnostic required no edit. Push remains part of the requested staged delivery.
+
+### L11 — E7 pushed
+
+Pushed E7 to `origin/lab10-e6-e7-r8`; remote HEAD matched `aa113c0d1ae95fe3b335b560d05e839629954426`. The remote's concurrent architecture-diagram update (`640ad72`) was preserved in merge commit `aa113c0`. The E7 candidate assessment remained `review_due=false` (`under_budget`). T3/E8 is still pending explicit user confirmation.
