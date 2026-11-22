@@ -62,7 +62,7 @@ Checks: verify the tag points to the intended completed commit and confirm the f
 
 ## Tasks
 
-- T1 — S1–S2; route: inline; status: verified, awaiting user push confirmation; commit: pending; Risk: item 2 (human approval guard controls permission to edit the sandbox).
+- T1 — S1–S2; route: inline; status: verified and pushed; commit: `be34c5873b8ef088bd18884e0aba70e880f457f6`; Risk: item 2 (human approval guard controls permission to edit the sandbox).
 - T2 — S3–S4; route: inline; status: pending explicit user confirmation after E6; commit: pending.
 - T3 — S5–S7; route: inline; status: pending explicit user confirmation after E7; commit: pending.
 
@@ -117,3 +117,7 @@ The focused RED test could not run: `python` is not installed; `python3 -m pytes
 ### L6 — Independent E6 audit and correction
 
 An independent verifier found two E6 blockers: `.strip()` accepted whitespace-padded approval tokens despite the exact `s`/`n` requirement, and the delegation table ambiguously assigned `resultado.codigo` to `ver_cambios` even though that tool returns a diff string. Added a parametrized regression test; observed RED with exactly two whitespace cases failing, then removed normalization and clarified the table. Fresh checks: focused E6 tests 11 passed; full suite 146 passed; `lint-imports` 2 kept/0 broken; CI fitness tests 5 passed; `git diff --check` clean. Independent recheck passed: exact invalid tokens reprompt, rejection leaves data unchanged, approval/rejection events and tool outcomes are distinct across all three issues, and E6.2 evidence matches trace types. E7/E8 remain gated. No commit or push has been made; awaiting user's push confirmation.
+
+### L7 — E6 correction, review, and delivery
+
+The native review found a deterministic blocker: EOF at the approval prompt raised `EOFError` before the trace could record the edit as rejected and blocked. Added a regression test, observed the expected failure, then made EOF fail closed as a rejection. The focused E6 file passed (12 tests), the full suite passed (147 tests), `lint-imports` kept both contracts, and `git diff --check` was clean. Native targeted validation approved the corrected candidate; the exact acknowledgement was consumed. Commit `be34c5873b8ef088bd18884e0aba70e880f457f6` was pushed to `origin/lab10-e6-e7-r8` and the remote SHA matched. E7 and E8 remain gated on explicit user confirmation. The review also noted that the verbatim original request in this task log contains a local filesystem path; that advisory was not blocking and the path is present in the pushed history.
