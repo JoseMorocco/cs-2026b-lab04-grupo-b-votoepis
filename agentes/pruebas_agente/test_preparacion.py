@@ -21,7 +21,7 @@ REPO = Path(__file__).resolve().parents[2]
 @pytest.fixture
 def sandbox():
     originales = {ruta: (REPO / ruta).read_bytes() for ruta in LECTURAS}
-    copia = Sandbox(REPO)
+    copia = Sandbox(REPO, aprobar_edicion=lambda *_: True)
     try:
         yield copia
     finally:
