@@ -1,0 +1,5 @@
+Comando: python -m pytest -q agentes/reto_democratico/test_democracia.py
+............                                                             [100%]
+12 passed in 2.04s
+
+Codigo de salida: 0
