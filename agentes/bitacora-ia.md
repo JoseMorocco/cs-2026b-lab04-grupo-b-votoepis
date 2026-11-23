@@ -1,0 +1,16 @@
+# Bitácora de interacciones con asistentes (E7)
+
+Los registros siguientes resumen intercambios reales del trabajo del Lab 10. Se preservan las decisiones y resultados verificables; los mensajes se parafrasean cuando no hace falta reproducir el texto literal.
+
+| N.º | Solicitud humana | Respuesta o acción del asistente | Evidencia y resultado |
+|---:|---|---|---|
+| 1 | Revisar el repositorio, sus ramas, el material del Lab 10 y ejecutar E6 antes de E7/E8. | El asistente inspeccionó la estructura y delegó una revisión de solo lectura; contrastó la recomendación de rama con el historial y corrigió una afirmación inicial demasiado amplia sobre las ramas históricas. | `odd/tasks/lab10-agentes-e6-e8.md`, L2; inventario de ramas y corrección auditada antes de implementar. |
+| 2 | Restringir las operaciones de GitHub a la cuenta vinculada indicada por el usuario. | El asistente verificó el estado de autenticación antes de publicar y usó la cuenta activa `Bunuuelo`, sin cambiar de identidad. | `gh auth status` observado antes del push; el push quedó en `origin/lab10-e6-e7-r8`. |
+| 3 | Auditar E6 antes del commit y el push. | La auditoría detectó que `strip()` aceptaba tokens distintos de `s`/`n` y que la tabla de delegación atribuía al diff un campo de código de salida. El asistente agregó regresión, observó los casos inválidos fallar, corrigió y volvió a verificar. | `odd/tasks/lab10-agentes-e6-e8.md`, L6; 11 pruebas E6 y 146 de suite en ese momento; recheck independiente aprobado. |
+| 4 | Autorizar el commit y el push de E6; después, el usuario aceptó la revisión nativa para ese candidato. | El asistente creó el commit funcional y esperó la decisión específica de revisión; tras la respuesta `1`, continuó la revisión del candidato sin tratar ese consentimiento como permiso general para futuros cambios. | Commit funcional `be34c5873b8ef088bd18884e0aba70e880f457f6`; la aprobación nativa se registró antes de publicar. |
+| 5 | Revisar el candidato y publicarlo cuando estuviera listo. | El revisor detectó un error de fiabilidad: EOF en la aprobación lanzaba `EOFError` y evitaba registrar el rechazo y el bloqueo. El asistente reprodujo el fallo con una prueba, hizo que EOF rechazara de forma segura y verificó la traza. | `agentes/pruebas_agente/test_aprobar_edicion.py`; la prueba nueva pasó; suite completa: 147 pasaron; revisión dirigida aprobada y reconocida. |
+| 6 | Confirmar E7 tras la entrega de E6. | El asistente encontró que no había una traza conservada de ISSUE-01, creó una sesión diagnóstica reproducible sin editar archivos y calculó sus métricas junto con ISSUE-02 y ISSUE-03. El run mostró que el código actual ya pasa la prueba, aunque la descripción del issue afirma que el defecto sigue pendiente. | `agentes/trazas/issue-01-sesion-01/`; `observacion.md`; 4 pasos, 3 acciones de herramienta, 0 rechazos, 0 bloqueos y 6543 caracteres de contexto final. |
+
+## Error detectado por revisión y pruebas
+
+En la interacción 5, la revisión encontró que cerrar stdin durante la aprobación abortaba el procesamiento antes de registrar los eventos de trazabilidad. La regresión falló primero con `EOFError`; tras el cambio, la sesión terminó como aprobación rechazada y herramienta bloqueada, sin escribir el archivo. La corrección y su prueba están documentadas en el commit funcional de E6 y en el log L7 del tracker.
