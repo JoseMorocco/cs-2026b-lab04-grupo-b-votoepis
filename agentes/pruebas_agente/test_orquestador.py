@@ -20,7 +20,7 @@ CORRECCION = '''def contar(votos):
 
 
 def test_revisor_no_edita():
-    orch = Orquestador(REPO)
+    orch = Orquestador(REPO, aprobar_edicion=lambda *_: True)
     res = orch.ejecutar_variante_b(DEFECTO, CORRECCION)
     sandbox = res["sandbox"]
     revisor = RevisorSoloLectura(sandbox)
@@ -31,7 +31,7 @@ def test_revisor_no_edita():
 
 
 def test_variante_b_aprueba_en_una_ronda():
-    orch = Orquestador(REPO, max_rondas=2)
+    orch = Orquestador(REPO, max_rondas=2, aprobar_edicion=lambda *_: True)
     res = orch.ejecutar_variante_b(DEFECTO, CORRECCION)
     assert res["veredicto"] == "APROBADO"
     assert res["rondas"] == 1

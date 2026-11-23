@@ -8,6 +8,7 @@ from time import perf_counter
 from jsonschema import ValidationError
 
 from agentes.agente.contrato import validar
+from agentes.agente.herramientas import AprobacionRechazada
 from agentes.agente.modelo import contexto
 from agentes.agente.traza import a_mermaid
 
@@ -22,6 +23,8 @@ def registrar(salida, eventos, tipo, estado, **datos):
 def observar(sandbox, decision):
     try:
         return sandbox.ejecutar(decision["accion"], decision["args"])
+    except AprobacionRechazada as error:
+        return {"error": str(error), "aprobacion": "RECHAZADA"}
     except (ValueError, OSError, SubprocessError) as error:
         return {"error": str(error)}
 
@@ -82,6 +85,14 @@ def procesar_decision(respuesta, sandbox, traza, eventos, paso):
         return {"final": True, "respuesta": decision["respuesta"]}
     inicio = perf_counter()
     resultado = observar(sandbox, decision)
+    if isinstance(resultado, dict) and resultado.get("aprobacion") == "RECHAZADA":
+        registrar(traza, eventos, "aprobacion", "RECHAZADA", paso=paso,
+                  accion=decision["accion"], ruta=decision["args"].get("ruta"))
+    elif decision["accion"] == "editar_archivo" and not (
+        isinstance(resultado, dict) and "error" in resultado
+    ):
+        registrar(traza, eventos, "aprobacion", "APROBADA", paso=paso,
+                  accion=decision["accion"], ruta=decision["args"].get("ruta"))
     estado = "BLOQUEADO" if isinstance(resultado, dict) and "error" in resultado else "OBSERVANDO"
     registrar(traza, eventos, "herramienta", estado, paso=paso,
               accion=decision["accion"], args=decision["args"],

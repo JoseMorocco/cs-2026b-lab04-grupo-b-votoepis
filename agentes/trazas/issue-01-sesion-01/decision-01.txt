@@ -1,0 +1,1 @@
+{"motivo":"Leer los criterios del issue antes de decidir si requiere una edición.","accion":"leer_archivo","args":{"ruta":"issues/ISSUE-01.md"},"respuesta":""}

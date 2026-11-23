@@ -70,3 +70,26 @@ def validar_llamada(nodo):
     permitidas = {"set", "self.participaciones.add", "codigo.lower", "codigo.casefold"}
     if nombre not in permitidas or nodo.keywords:
         raise ValueError(f"Llamada no permitida: {nombre}.")
+
+
+def aprobar_edicion(ruta, anterior, nuevo, input_fn=None):
+    """Solicita aprobación humana antes de aplicar una edición del agente."""
+    if input_fn is None:
+        input_fn = input
+
+    print(f"El agente solicita editar: {ruta}")
+    print("--- ANTES ---")
+    print(anterior)
+    print("--- DESPUÉS ---")
+    print(nuevo)
+
+    while True:
+        try:
+            respuesta = input_fn("¿Apruebas esta edición? [s/n]: ")
+        except EOFError:
+            return False
+        if respuesta == "s":
+            return True
+        if respuesta == "n":
+            return False
+        print("Respuesta inválida. Ingresa 's' o 'n'.")
