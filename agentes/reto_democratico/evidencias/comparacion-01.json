@@ -1,0 +1,153 @@
+{
+  "issue": "ISSUE-02",
+  "metodo": "revisores deterministas locales",
+  "origen_sha256": {
+    "agentes/demo/conteo.py": "c23031dda775f2a05a69f3ea9cbaaacc9bc11797fe4b74366141eb6407553d5f",
+    "issues/ISSUE-02.md": "674b5c11b58a439c1056e408d4ef677bd6e69ae770c2fc345434ee1d351a9386",
+    "tests/test_issue_02.py": "f66335f63e7290bf85cf04dd08efb23610277aa985411c734c724d4b0cc2a5c2"
+  },
+  "originales_intactos": true,
+  "individual": {
+    "modalidad": "individual",
+    "duracion_ms": 995.9555999957956,
+    "operaciones": [
+      "ejecutar_pruebas",
+      "leer_codigo",
+      "ver_diff",
+      "verificar_integridad",
+      "critico_e5"
+    ],
+    "total_operaciones": 5,
+    "pruebas": {
+      "comando": "python -m pytest --runxfail -q tests/test_issue_02.py",
+      "codigo": 0,
+      "salida": ".                                                                        [100%]\r\n1 passed in 0.04s\r\n"
+    },
+    "diff": "--- original/agentes/demo/conteo.py\n+++ sandbox/agentes/demo/conteo.py\n@@ -1,2 +1,9 @@\n def contar(votos):\n-    return {\"validos\": len(votos), \"blancos\": votos.count(None)}\n+    validos = 0\n+    blancos = 0\n+    for voto in votos:\n+        if voto is None:\n+            blancos += 1\n+        else:\n+            validos += 1\n+    return {\"validos\": validos, \"blancos\": blancos}\n",
+    "codigo_propuesto": "def contar(votos):\n    validos = 0\n    blancos = 0\n    for voto in votos:\n        if voto is None:\n            blancos += 1\n        else:\n            validos += 1\n    return {\"validos\": validos, \"blancos\": blancos}\n",
+    "archivos_cambiados": [
+      "agentes/demo/conteo.py"
+    ],
+    "resultado": {
+      "decision": "APROBADO",
+      "motivos": [],
+      "hallazgos": []
+    },
+    "revision_sin_escrituras": true,
+    "tokens_medidos": null,
+    "costo_monetario_medido": null
+  },
+  "democratica": {
+    "modalidad": "democratica",
+    "duracion_ms": 850.1307999977143,
+    "operaciones": [
+      "ejecutar_pruebas",
+      "leer_codigo",
+      "ver_diff",
+      "verificar_integridad",
+      "revisar_correccion",
+      "revisar_diseno",
+      "revisar_seguridad"
+    ],
+    "total_operaciones": 7,
+    "pruebas": {
+      "comando": "python -m pytest --runxfail -q tests/test_issue_02.py",
+      "codigo": 0,
+      "salida": ".                                                                        [100%]\r\n1 passed in 0.03s\r\n"
+    },
+    "diff": "--- original/agentes/demo/conteo.py\n+++ sandbox/agentes/demo/conteo.py\n@@ -1,2 +1,9 @@\n def contar(votos):\n-    return {\"validos\": len(votos), \"blancos\": votos.count(None)}\n+    validos = 0\n+    blancos = 0\n+    for voto in votos:\n+        if voto is None:\n+            blancos += 1\n+        else:\n+            validos += 1\n+    return {\"validos\": validos, \"blancos\": blancos}\n",
+    "codigo_propuesto": "def contar(votos):\n    validos = 0\n    blancos = 0\n    for voto in votos:\n        if voto is None:\n            blancos += 1\n        else:\n            validos += 1\n    return {\"validos\": validos, \"blancos\": blancos}\n",
+    "archivos_cambiados": [
+      "agentes/demo/conteo.py"
+    ],
+    "resultado": {
+      "favorables": 3,
+      "rechazos": 0,
+      "decision": "APROBADO",
+      "votos": [
+        {
+          "revisor": "correccion",
+          "voto": "APROBADO",
+          "motivos": [
+            "Cumple las comprobaciones de este revisor."
+          ],
+          "hallazgos": [
+            "Prueba fija de separación de blancos y válidos: código 0.",
+            "La prueba cubre dos candidatos y un blanco; quedan otros tamaños de entrada sin cubrir."
+          ]
+        },
+        {
+          "revisor": "diseno",
+          "voto": "APROBADO",
+          "motivos": [
+            "Cumple las comprobaciones de este revisor."
+          ],
+          "hallazgos": [
+            "Funciones de nivel superior: 1.",
+            "Líneas de la propuesta: 9.",
+            "La propuesta carece de docstring de módulo."
+          ]
+        },
+        {
+          "revisor": "seguridad",
+          "voto": "APROBADO",
+          "motivos": [
+            "Cumple las comprobaciones de este revisor."
+          ],
+          "hallazgos": [
+            "Archivos modificados: agentes/demo/conteo.py",
+            "Se aplica el filtro AST vigente del agente."
+          ]
+        }
+      ],
+      "revisiones": [
+        {
+          "duracion_ms": 0.05339999916031957,
+          "voto": {
+            "revisor": "correccion",
+            "voto": "APROBADO",
+            "motivos": [
+              "Cumple las comprobaciones de este revisor."
+            ],
+            "hallazgos": [
+              "Prueba fija de separación de blancos y válidos: código 0.",
+              "La prueba cubre dos candidatos y un blanco; quedan otros tamaños de entrada sin cubrir."
+            ]
+          }
+        },
+        {
+          "duracion_ms": 0.19880000036209822,
+          "voto": {
+            "revisor": "diseno",
+            "voto": "APROBADO",
+            "motivos": [
+              "Cumple las comprobaciones de este revisor."
+            ],
+            "hallazgos": [
+              "Funciones de nivel superior: 1.",
+              "Líneas de la propuesta: 9.",
+              "La propuesta carece de docstring de módulo."
+            ]
+          }
+        },
+        {
+          "duracion_ms": 0.13860000763088465,
+          "voto": {
+            "revisor": "seguridad",
+            "voto": "APROBADO",
+            "motivos": [
+              "Cumple las comprobaciones de este revisor."
+            ],
+            "hallazgos": [
+              "Archivos modificados: agentes/demo/conteo.py",
+              "Se aplica el filtro AST vigente del agente."
+            ]
+          }
+        }
+      ]
+    },
+    "revision_sin_escrituras": true,
+    "tokens_medidos": null,
+    "costo_monetario_medido": null
+  }
+}
